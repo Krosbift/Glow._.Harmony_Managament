@@ -3,9 +3,9 @@ package imc.api.routes.example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import imc.api.routes.example.models.ExampleModel;
-
 import java.util.List;
+
+import imc.api.routes.example.models.ExampleModel;
 
 @RestController
 @RequestMapping("/example")
@@ -15,7 +15,7 @@ public class ExampleController {
   private ExampleService exampleService;
 
   @GetMapping
-  public List<ExampleModel> findExample(@RequestParam String idExample) {
+  public List<ExampleModel> findExample(@RequestParam Long idExample) {
     return exampleService.findExample(idExample);
   }
 
@@ -30,7 +30,8 @@ public class ExampleController {
   }
 
   @DeleteMapping("/{id}")
-  public int deleteExample(@PathVariable Long id) {
+  public Long deleteExample(@PathVariable Long id) {
     return exampleService.deleteExample(id);
   }
+  
 }

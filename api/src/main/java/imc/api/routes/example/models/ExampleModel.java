@@ -5,7 +5,6 @@ public class ExampleModel {
   private Long idExample;
   private String name;
   private String description;
-  private boolean active;
 
   public Long getIdExample() {
     return idExample;
@@ -29,13 +28,5 @@ public class ExampleModel {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public boolean getActive() {
-    return active;
-  }
-
-  public void setActive(boolean active) {
-    this.active = active;
   }
 }

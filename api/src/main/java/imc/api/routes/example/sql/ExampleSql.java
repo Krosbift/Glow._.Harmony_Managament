@@ -3,23 +3,10 @@ package imc.api.routes.example.sql;
 public enum ExampleSql {
   
   // Consulta para encontrar un ejemplo por su ID
-  FIND_EXAMPLE(
+  FIND_EXAMPLE_BY_ID(
     "SELECT " +
       "IDEXAMPLE, NAME, DESCRIPTION, ACTIVE " +
     "FROM TB_IMC_EXAMPLES " +
-    "WHERE IDEXAMPLE = ?"
-  ),
-
-  // Consulta para crear un nuevo ejemplo
-  CREATE_EXAMPLE(
-    "INSERT INTO TB_IMC_EXAMPLES (NAME, DESCRIPTION) " +
-    "VALUES (?, ?)"
-  ),
-
-  // Consulta para actualizar un ejemplo existente
-  UPDATE_EXAMPLE(
-    "UPDATE TB_IMC_EXAMPLES " +
-    "SET NAME = ?, DESCRIPTION = ? " +
     "WHERE IDEXAMPLE = ?"
   ),
 

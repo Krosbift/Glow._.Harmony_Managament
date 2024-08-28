@@ -1,70 +1,69 @@
 package imc.api.routes.example;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-
-import imc.api.routes.example.models.ExampleModel;
-import imc.api.routes.example.sql.ExampleSql;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
+import imc.api.routes.example.adapters.ExampleAdapter;
+import imc.api.routes.example.models.ExampleModel;
+import imc.api.routes.example.sql.ExampleSql;
+import imc.api.routes.interfaces.Binds;
+
 @Service
-public class ExampleService {
+public class ExampleService extends ExampleAdapter {
 
-  @Autowired
-  private JdbcTemplate jdbcTemplate;
-
-  private RowMapper<ExampleModel> exampleRowMapper = new RowMapper<ExampleModel>() {
-    @Override
-    public ExampleModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-      ExampleModel example = new ExampleModel();
-      example.setIdExample(rs.getLong("IDEXAMPLE"));
-      example.setName(rs.getString("NAME"));
-      example.setDescription(rs.getString("DESCRIPTION"));
-      example.setActive(rs.getBoolean("ACTIVE"));
-      return example;
-    }
-  };
-
-  public List<ExampleModel> findExample(String idExample) {
-    return jdbcTemplate.query(ExampleSql.FIND_EXAMPLE.getQuery(), exampleRowMapper, idExample);
+  public List<ExampleModel> findExample(Long idExample) {
+    Binds binds = findAdapting(setterExampleModel(idExample));
+    return jdbcTemplate.query(binds.getSql(), exampleRowMapper, binds.getParams());
   }
 
+  /**
+   * Creates a new example using the provided example model.
+   *
+   * @param example The example model to create.
+   * @return The created example model.
+   */
   public ExampleModel createExample(ExampleModel example) {
+    Binds binds = createAdapting(example);
     KeyHolder keyHolder = new GeneratedKeyHolder();
     jdbcTemplate.update(connection -> {
-      PreparedStatement ps = connection.prepareStatement(ExampleSql.CREATE_EXAMPLE.getQuery(), new String[] {"IDEXAMPLE"});
-      ps.setString(1, example.getName());
-      ps.setString(2, example.getDescription());
-      ps.setBoolean(3, example.getActive());
+      PreparedStatement ps = connection.prepareStatement(binds.getSql(), new String[] { "IDEXAMPLE" });
+      final Object[] params = binds.getParams();
+      for (int i = 0; i < params.length; i++) {
+        ps.setObject(i + 1, params[i]);
+      }
       return ps;
     }, keyHolder);
 
-    Long newId = keyHolder.getKey().longValue();
-    example.setIdExample(newId);
-    return example;
+    Long generatedId = keyHolder.getKey().longValue();
+    return findExampleById(generatedId);
   }
 
+  /**
+   * Updates an example with the given ID.
+   *
+   * @param example The updated example model.
+   * @param id The ID of the example to be updated.
+   * @return The updated example model.
+   */
   public ExampleModel updateExample(ExampleModel example, long id) {
-    jdbcTemplate.update(ExampleSql.UPDATE_EXAMPLE.getQuery(),
-      example.getName(),
-      example.getDescription(),
-      example.getActive(),
-      id);
-
-    example.setIdExample(id);
-    return example;
+    Binds binds = updateAdapting(example, id);
+    jdbcTemplate.update(binds.getSql(), binds.getParams());
+    return findExampleById(id);
   }
 
-  public int deleteExample(Long id) {
-    return jdbcTemplate.update(ExampleSql.DELETE_EXAMPLE.getQuery(), id);
+  /**
+   * Deletes an example with the specified ID.
+   *
+   * @param id The ID of the example to delete.
+   * @return The ID of the deleted example.
+   */
+  public Long deleteExample(Long id) {
+    jdbcTemplate.update(ExampleSql.DELETE_EXAMPLE.getQuery(), id);
+    return id;
   }
-  
+
 }

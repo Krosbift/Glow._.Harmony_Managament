@@ -8,15 +8,16 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 /**
- * MicrosoftSqlServerDB class
- * This class is used to create a DataSource and JdbcTemplate beans for Microsoft SQL Server
+ * Configuration class for connecting to the Microsoft SQL Server database.
  */
 @Configuration
 public class MicrosoftSqlServerDB {
 
+
   /**
-   * Create a DataSource bean
-   * @return DataSource
+   * Returns the configured DataSource for connecting to the Microsoft SQL Server database.
+   *
+   * @return the configured DataSource object
    */
   @Bean
   DataSource dataSource() {
@@ -28,10 +29,12 @@ public class MicrosoftSqlServerDB {
     return dataSource;
   }
 
+
   /**
-   * Create a JdbcTemplate bean
-   * @param dataSource DataSource
-   * @return JdbcTemplate
+   * Creates a new JdbcTemplate instance with the given DataSource.
+   *
+   * @param dataSource the DataSource to be used by the JdbcTemplate
+   * @return a new JdbcTemplate instance
    */
   @Bean
   JdbcTemplate jdbcTemplate(DataSource dataSource) {
