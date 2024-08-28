@@ -1,4 +1,4 @@
-package imc.api.core.config;
+package imc.api.core.config.env;
 
 /**
  * Class to extract environment variables

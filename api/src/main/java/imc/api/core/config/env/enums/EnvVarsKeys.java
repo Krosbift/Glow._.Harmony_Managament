@@ -1,4 +1,4 @@
-package imc.api.core.config.enums;
+package imc.api.core.config.env.enums;
 
 /**
  * This enum is used to store the keys of the environment variables
