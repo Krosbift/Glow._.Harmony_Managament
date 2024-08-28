@@ -66,4 +66,5 @@ public class ExampleService {
   public int deleteExample(Long id) {
     return jdbcTemplate.update(ExampleSql.DELETE_EXAMPLE.getQuery(), id);
   }
+  
 }
