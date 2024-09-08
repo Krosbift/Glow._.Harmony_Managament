@@ -15,7 +15,7 @@ import imc.api.routes.interfaces.Binds;
 @Service
 public class ExampleService extends ExampleAdapter {
 
-  public List<ExampleModel> findExample(Long idExample) {
+  public List<ExampleModel> findExample(int idExample) {
     Binds binds = findAdapting(setterExampleModel(idExample));
     return jdbcTemplate.query(binds.getSql(), exampleRowMapper, binds.getParams());
   }
@@ -49,7 +49,7 @@ public class ExampleService extends ExampleAdapter {
    * @param id The ID of the example to be updated.
    * @return The updated example model.
    */
-  public ExampleModel updateExample(ExampleModel example, long id) {
+  public ExampleModel updateExample(ExampleModel example, int id) {
     Binds binds = updateAdapting(example, id);
     jdbcTemplate.update(binds.getSql(), binds.getParams());
     return findExampleById(id);
@@ -61,7 +61,7 @@ public class ExampleService extends ExampleAdapter {
    * @param id The ID of the example to delete.
    * @return The ID of the deleted example.
    */
-  public Long deleteExample(Long id) {
+  public int deleteExample(int id) {
     jdbcTemplate.update(ExampleSql.DELETE_EXAMPLE.getQuery(), id);
     return id;
   }

@@ -19,7 +19,7 @@ public class ExampleController {
 
   @GetMapping
   @Operation(summary = "Find example", description = "Find an example by its ID")
-  public List<ExampleModel> findExample(@RequestParam Long idExample) {
+  public List<ExampleModel> findExample(@RequestParam int idExample) {
     return exampleService.findExample(idExample);
   }
 
@@ -31,13 +31,13 @@ public class ExampleController {
 
   @PatchMapping("/{id}")
   @Operation(summary = "Update example", description = "Update an example by its ID")
-  public ExampleModel updateExample(@RequestBody ExampleModel user, @PathVariable Long id) {
+  public ExampleModel updateExample(@RequestBody ExampleModel user, @PathVariable int id) {
     return exampleService.updateExample(user, id);
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete example", description = "Delete an example by its ID")
-  public Long deleteExample(@PathVariable Long id) {
+  public int deleteExample(@PathVariable int id) {
     return exampleService.deleteExample(id);
   }
   
