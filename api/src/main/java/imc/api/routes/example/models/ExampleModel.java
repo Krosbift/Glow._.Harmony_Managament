@@ -29,4 +29,5 @@ public class ExampleModel {
   public void setDescription(String description) {
     this.description = description;
   }
+
 }
