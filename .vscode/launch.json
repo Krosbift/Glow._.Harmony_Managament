@@ -5,7 +5,7 @@
       "name": "Spring Boot-ApiApplication<api>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "mainClass": "imc.api.ApiApplication",
+      "mainClass": "com.api.ApiApplication",
       "projectName": "api",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
