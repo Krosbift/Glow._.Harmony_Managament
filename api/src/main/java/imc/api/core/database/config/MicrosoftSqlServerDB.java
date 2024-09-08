@@ -1,5 +1,7 @@
 package imc.api.core.database.config;
 
+import imc.api.core.config.env.EnvConfig;
+import imc.api.core.config.env.interfaces.EnvKeys;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,22 +15,27 @@ import javax.sql.DataSource;
 @Configuration
 public class MicrosoftSqlServerDB {
 
+  private final EnvConfig envConfig;
+
+  public MicrosoftSqlServerDB() {
+    this.envConfig = new EnvConfig();
+  }
 
   /**
-   * Returns the configured DataSource for connecting to the Microsoft SQL Server database.
+   * Returns the configured DataSource for connecting to the Microsoft SQL Server
+   * database.
    *
    * @return the configured DataSource object
    */
   @Bean
   DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    dataSource.setUrl("jdbc:sqlserver://javaims-server.database.windows.net:1433;database=cluster_javaIMS");
-    dataSource.setUsername("CloudSAee535d6b");
-    dataSource.setPassword("SAee535d6b");
+    dataSource.setUrl(envConfig.get(EnvKeys.DB_URL));
+    dataSource.setUsername(envConfig.get(EnvKeys.DB_USERNAME));
+    dataSource.setPassword(envConfig.get(EnvKeys.DB_PASSWORD));
+    dataSource.setDriverClassName(envConfig.get(EnvKeys.DB_DRIVER_CLASS_NAME));
     return dataSource;
   }
-
 
   /**
    * Creates a new JdbcTemplate instance with the given DataSource.
@@ -40,5 +47,4 @@ public class MicrosoftSqlServerDB {
   JdbcTemplate jdbcTemplate(DataSource dataSource) {
     return new JdbcTemplate(dataSource);
   }
-
 }
