@@ -1,4 +1,4 @@
-package imc.api.core.config.env.interfaces;
+package imc.api.core.config.env.enums;
 
 public enum EnvKeys {
   DB_URL,

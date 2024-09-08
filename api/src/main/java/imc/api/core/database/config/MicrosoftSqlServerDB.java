@@ -1,7 +1,8 @@
 package imc.api.core.database.config;
 
 import imc.api.core.config.env.EnvConfig;
-import imc.api.core.config.env.interfaces.EnvKeys;
+import imc.api.core.config.env.enums.EnvKeys;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;

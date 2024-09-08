@@ -1,9 +1,10 @@
 package imc.api.core.config.env;
 
-import imc.api.core.config.env.interfaces.EnvKeys;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.File;
+
+import imc.api.core.config.env.enums.EnvKeys;
 
 public class EnvConfig {
 
@@ -20,6 +21,13 @@ public class EnvConfig {
     }
   }
 
+  /**
+   * Retrieves the value associated with the given environment key.
+   *
+   * @param key The environment key to retrieve the value for.
+   * @return The value associated with the given key.
+   * @throws IllegalStateException If the .env file is not found or could not be loaded.
+   */
   public String get(EnvKeys key) {
     if (dotenv == null) {
       throw new IllegalStateException(".env file not found or could not be loaded");
