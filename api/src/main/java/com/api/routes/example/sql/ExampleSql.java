@@ -6,13 +6,13 @@ public enum ExampleSql {
   FIND_EXAMPLE_BY_ID(
     "SELECT " +
       "IDEXAMPLE, NAME, DESCRIPTION, ACTIVE " +
-    "FROM TB_com_EXAMPLES " +
+    "FROM TB_IMC_EXAMPLES " +
     "WHERE IDEXAMPLE = ?"
   ),
 
   // Consulta para desactivar un ejemplo (borrado lógico)
   DELETE_EXAMPLE(
-    "UPDATE TB_com_EXAMPLES " +
+    "UPDATE TB_IMC_EXAMPLES " +
     "SET ACTIVE = 0 " +
     "WHERE IDEXAMPLE = ?"
   );
