@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.api.routes.example.models.ExampleModel;
 import com.api.routes.example.sql.ExampleSql;
-import com.api.routes.interfaces.Binds;
+import com.api.routes.shared.interfaces.Binds;
 
 /**
  * This abstract class represents an ExampleAdapter.

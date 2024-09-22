@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.api.routes.example.adapters.ExampleAdapter;
 import com.api.routes.example.models.ExampleModel;
 import com.api.routes.example.sql.ExampleSql;
-import com.api.routes.interfaces.Binds;
+import com.api.routes.shared.interfaces.Binds;
 
 @Service
 public class ExampleService extends ExampleAdapter {
