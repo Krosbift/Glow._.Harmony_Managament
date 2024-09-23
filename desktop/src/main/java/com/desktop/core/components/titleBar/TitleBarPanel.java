@@ -55,14 +55,12 @@ public class TitleBarPanel extends JPanel {
   
   private AppFrame appFrame;
   private JLabel titleLabel;
-  private ButtonPanel buttonPanel;
+  @SuppressWarnings("unused") private ButtonPanel buttonPanel;
 
   public TitleBarPanel(AppFrame _appFrame) {
     appFrame = _appFrame;
     initConfig();
     _listener();
-    this.add(titleLabel, BorderLayout.CENTER);
-    this.add(buttonPanel, BorderLayout.EAST);
     appFrame.add(this, BorderLayout.NORTH);
   }
 
@@ -85,7 +83,7 @@ public class TitleBarPanel extends JPanel {
    */
   private void initComponents() {
     titleBarLabel();
-    buttonPanel = new ButtonPanel(appFrame);
+    buttonPanel = new ButtonPanel(appFrame, this);
   }
 
   /**
@@ -127,5 +125,6 @@ public class TitleBarPanel extends JPanel {
   private void titleBarLabel() {
     titleLabel = new JLabel("Glow._.Harmony Inventory Management System", SwingConstants.CENTER);
     titleLabel.setForeground(Color.WHITE);
+    this.add(titleLabel, BorderLayout.CENTER);
   }
 }

@@ -1,26 +1,27 @@
 package com.desktop.views.login;
 
-import java.awt.Color;
-
 import javax.swing.JPanel;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+
 import com.desktop.AppFrame;
-import com.desktop.views.login.components.left_panel.LeftPanel;
+import com.desktop.views.login.components.leftPanel.LeftPanel;
 
 public class Login extends JPanel {
-  private AppFrame frame;
-  private LeftPanel leftPanel;
+  private AppFrame appFrame;
+  @SuppressWarnings("unused") private LeftPanel leftPanel;
 
   public Login(AppFrame _frame) {
-    frame = _frame;
-
+    appFrame = _frame;
     initConfig();
+    appFrame.add(this);
   }
 
   private void initConfig() {
-    this.setBackground(Color.decode("#ffffff"));
-    this.setLayout(null);
-    frame.add(this);
+    this.setBackground(Color.decode("#f3f3f3"));
+    this.setLayout(new BorderLayout());
+
     initComponents();
   }
 

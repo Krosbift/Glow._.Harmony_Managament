@@ -1,4 +1,4 @@
-package com.desktop.views.login.components.left_panel;
+package com.desktop.views.login.components.leftPanel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
