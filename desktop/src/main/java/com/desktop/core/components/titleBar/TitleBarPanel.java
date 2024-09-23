@@ -55,13 +55,12 @@ public class TitleBarPanel extends JPanel {
   
   private AppFrame appFrame;
   private JLabel titleLabel;
-  @SuppressWarnings("unused") private ButtonPanel buttonPanel;
+  private ButtonPanel buttonPanel;
 
   public TitleBarPanel(AppFrame _appFrame) {
     appFrame = _appFrame;
     initConfig();
     _listener();
-    appFrame.add(this, BorderLayout.NORTH);
   }
 
   /**
@@ -83,7 +82,8 @@ public class TitleBarPanel extends JPanel {
    */
   private void initComponents() {
     titleBarLabel();
-    buttonPanel = new ButtonPanel(appFrame, this);
+    buttonPanel = new ButtonPanel(appFrame);
+    this.add(buttonPanel, BorderLayout.EAST);
   }
 
   /**

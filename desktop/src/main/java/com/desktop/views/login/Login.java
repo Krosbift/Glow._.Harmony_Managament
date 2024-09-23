@@ -3,7 +3,6 @@ package com.desktop.views.login;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import com.desktop.AppFrame;
 import com.desktop.views.login.components.leftPanel.LeftPanel;

@@ -14,7 +14,7 @@ public class AppFrame extends JFrame {
 
   @SuppressWarnings("unused") private AppController controller;
   @SuppressWarnings("unused") private Login login;
-  @SuppressWarnings("unused") private TitleBarPanel titleBarPanel;
+  private TitleBarPanel titleBarPanel;
 
   public AppFrame(AppController controller) {
     this.controller = controller;
@@ -33,5 +33,7 @@ public class AppFrame extends JFrame {
   private void initComponents() {
     titleBarPanel = new TitleBarPanel(this);
     login = new Login(this);
+    
+    this.add(titleBarPanel, BorderLayout.NORTH);
   }
 }
