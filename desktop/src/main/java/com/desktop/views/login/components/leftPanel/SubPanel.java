@@ -2,11 +2,14 @@ package com.desktop.views.login.components.leftPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.concurrent.ExecutionException;
 
 public class SubPanel extends JPanel {
-  private JPanel leftPanel;
+  private LeftPanel leftPanel;
   private JLabel logoLabel;
   private JLabel emailLabel;
   private JTextField emailField;
@@ -14,11 +17,12 @@ public class SubPanel extends JPanel {
   private JPasswordField passwordField;
   private JButton loginButton;
 
-  public SubPanel(JPanel _leftPanel) {
+  public SubPanel(LeftPanel _leftPanel) {
     this.leftPanel = _leftPanel;
     initConfig();
     _listenerSizing(this);
     _listenerSizing(leftPanel);
+    _listenerTextFields();
   }
 
   private void initConfig() {
@@ -70,5 +74,20 @@ public class SubPanel extends JPanel {
 
     leftPanel.revalidate();
     leftPanel.repaint();
+  }
+
+  private void _listenerTextFields() {
+    loginButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
+        try {
+          leftPanel.passedToLogin(email, password);
+        } catch (ExecutionException e1) {
+          e1.printStackTrace();
+        }
+      }
+    });
   }
 }

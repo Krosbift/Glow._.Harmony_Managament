@@ -4,15 +4,19 @@ import javax.swing.JPanel;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.concurrent.ExecutionException;
 
 import com.desktop.AppFrame;
 import com.desktop.views.login.components.leftPanel.LeftPanel;
 import com.desktop.views.login.components.rightPanel.RightPanel;
+import com.desktop.views.login.services.LoginService;
 
 public class Login extends JPanel {
   private AppFrame appFrame;
   private LeftPanel leftPanel;
   private RightPanel rightPanel;
+
+  private LoginService loginService = new LoginService();
 
   public Login(AppFrame _appFrame) {
     this.appFrame = _appFrame;
@@ -37,7 +41,7 @@ public class Login extends JPanel {
    * This method creates and adds the left and right panels to the view.
    */
   private void initComponents() {
-    leftPanel = new LeftPanel();
+    leftPanel = new LeftPanel(this);
     rightPanel = new RightPanel();
 
     this.add(leftPanel);
@@ -75,5 +79,21 @@ public class Login extends JPanel {
 
     this.revalidate();
     this.repaint();
+  }
+
+  /**
+   * Validates the user data by attempting to log in with the provided email and password.
+   *
+   * @param email the email address of the user
+   * @param password the password of the user
+   * @throws ExecutionException if an error occurs during the login process
+   */
+  public void validateUserData(String email, String password) throws ExecutionException {
+    try {
+      boolean response = loginService.login(email, password);
+      System.out.println(response);
+    } catch (ExecutionException e) {
+      throw e;
+    }
   }
 }

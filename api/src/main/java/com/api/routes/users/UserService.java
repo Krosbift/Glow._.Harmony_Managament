@@ -2,7 +2,6 @@ package com.api.routes.users;
 
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -17,51 +16,53 @@ import com.api.routes.users.sql.UserSql;
 
 @Service
 public class UserService extends UserBuilder {
+
   /**
    * Finds a user by their email address.
    *
-   * @param email the email address of the user to be found.
-   * @return a ResponseEntity containing the user if found, or an appropriate error message if not.
+   * @param email the email address of the user to find
+   * @return the UserModel object representing the found user
+   * @throws RuntimeException if an unexpected error occurs during the query
    */
-  public ResponseEntity<?> findUser(String email) {
+  public UserModel findUser(String email) {
     UserModel user = new UserModel();
     user.setEmail(email);
 
     Binds binds = buildFindUser(user);
     try {
       List<UserModel> userFound = jdbcTemplate.query(binds.getSql(), userRowMapper, binds.getParams());
-
-      if (userFound.isEmpty()) {
-        return ResponseEntity.status(404).body("User not found");
-      }
-
-      return ResponseEntity.ok(userFound);
+      return userFound.get(0);
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Finds all users in the database.
+   * Retrieves a list of all users from the database.
    *
-   * @return a ResponseEntity containing a list of all users if successful,
-   *         or an appropriate error message if an error occurs.
+   * @return a list of UserModel objects representing all users.
+   * @throws RuntimeException if an unexpected error occurs during the database
+   *                          query.
    */
-  public ResponseEntity<?> findAllUsers() {
+  public List<UserModel> findAllUsers() {
     try {
       List<UserModel> users = jdbcTemplate.query(UserSql.FIND_ALL_USERS.getQuery(), userRowMapper);
-      return ResponseEntity.ok(users);
+      return users;
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Finds and authenticates a user based on the provided login data.
+   * Finds and verifies the login credentials of a user.
    *
-   * @param loginData the login data containing the user's email and password.
-   * @return a ResponseEntity containing the authenticated user if successful,
-   *         or an appropriate error message if authentication fails or an error occurs.
+   * @param loginData the login data transfer object containing the user's email
+   *                  and password.
+   * @return true if the user is found and the password matches; false otherwise.
+   * @throws RuntimeException if an unexpected error occurs during the database
+   *                          query.
    */
-  public ResponseEntity<?> findLoginUser(LoginUserDto loginData) {
+  public boolean findLoginUser(LoginUserDto loginData) {
     UserModel user = new UserModel();
     user.setEmail(loginData.getEmail());
 
@@ -70,26 +71,29 @@ public class UserService extends UserBuilder {
       List<UserModel> userFound = jdbcTemplate.query(binds.getSql(), userRowMapper, binds.getParams());
 
       if (userFound.isEmpty()) {
-        return ResponseEntity.status(404).body("User not found");
+        return false;
       }
-      
+
       if (!userFound.get(0).getPassword().equals(loginData.getPassword())) {
-        return ResponseEntity.status(401).body("Invalid credentials");
+        return false;
       }
-      
-      return ResponseEntity.ok(true);
+
+      return true;
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Registers a new user based on the provided registration data.
+   * Registers a new user in the system.
    *
-   * @param registerData the registration data containing the user's details.
-   * @return a ResponseEntity containing the registered user if successful,
-   *         or an appropriate error message if registration fails or an error occurs.
+   * @param registerData the data transfer object containing the user's
+   *                     registration information
+   * @return the registered UserModel with the generated ID
+   * @throws RuntimeException if an unexpected error occurs during the
+   *                          registration process
    */
-  public ResponseEntity<?> registerUser(RegisterUserDto registerData) {
+  public UserModel registerUser(RegisterUserDto registerData) {
     UserModel user = new UserModel();
     user.setNames(registerData.getNames());
     user.setSurNames(registerData.getSurNames());
@@ -114,20 +118,23 @@ public class UserService extends UserBuilder {
       }, keyHolder);
 
       int generatedId = keyHolder.getKey().intValue();
-      return ResponseEntity.ok(findUserById(generatedId));
+      return findUserById(generatedId);
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Updates an existing user based on the provided user ID and updated data.
+   * Updates the user information for the specified user ID.
    *
-   * @param updateData the updated user data.
-   * @param userId the unique identifier of the user to be updated.
-   * @return a ResponseEntity containing the updated user if successful,
-   *         or an appropriate error message if the update fails or an error occurs.
+   * @param updateData the data transfer object containing the updated user
+   *                   information
+   * @param userId     the ID of the user to be updated
+   * @return the updated UserModel object
+   * @throws RuntimeException if an unexpected error occurs during the update
+   *                          process
    */
-  public ResponseEntity<?> updateUser(RegisterUserDto updateData, int userId) {
+  public UserModel updateUser(RegisterUserDto updateData, int userId) {
     UserModel user = new UserModel();
     user.setNames(updateData.getNames());
     user.setSurNames(updateData.getSurNames());
@@ -142,39 +149,42 @@ public class UserService extends UserBuilder {
     Binds binds = buildUpdateUser(user, userId);
     try {
       jdbcTemplate.update(binds.getSql(), binds.getParams());
-      return ResponseEntity.ok(findUserById(userId));
+      return findUserById(userId);
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Activates a user based on the provided user ID.
+   * Activates a user by updating their status in the database.
    *
-   * @param userId the unique identifier of the user to be activated.
-   * @return a ResponseEntity containing the activated user if successful,
-   *         or an appropriate error message if activation fails or an error occurs.
+   * @param userId the ID of the user to be activated
+   * @return the ID of the activated user
+   * @throws RuntimeException if an unexpected error occurs during the update
    */
-  public ResponseEntity<?> activateUser(int userId) {
+  public int activateUser(int userId) {
     try {
       jdbcTemplate.update(UserSql.ACTIVE_USER.getQuery(), userId);
-      return ResponseEntity.ok(findUserById(userId));
+      return userId;
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
+
   /**
-   * Deactivates a user based on the provided user ID.
+   * Deletes a user from the database based on the provided user ID.
    *
-   * @param userId the unique identifier of the user to be deactivated.
-   * @return a ResponseEntity containing the deactivated user if successful,
-   *         or an appropriate error message if deactivation fails or an error occurs.
+   * @param userId the ID of the user to be deleted
+   * @return the ID of the deleted user
+   * @throws RuntimeException if an unexpected error occurs during the deletion
+   *                          process
    */
-  public ResponseEntity<?> deleteUser(int userId) {
+  public int deleteUser(int userId) {
     try {
       jdbcTemplate.update(UserSql.DELETE_USER.getQuery(), userId);
-      return ResponseEntity.ok(userId);
+      return userId;
     } catch (Exception error) {
-      return ResponseEntity.status(500).body("An unexpected error occurred: " + error.getMessage());
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 }
