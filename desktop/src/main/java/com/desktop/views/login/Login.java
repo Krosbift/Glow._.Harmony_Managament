@@ -7,10 +7,12 @@ import java.awt.Color;
 
 import com.desktop.AppFrame;
 import com.desktop.views.login.components.leftPanel.LeftPanel;
+import com.desktop.views.login.components.rightPanel.RightPanel;
 
 public class Login extends JPanel {
   private AppFrame appFrame;
   @SuppressWarnings("unused") private LeftPanel leftPanel;
+  @SuppressWarnings("unused") private RightPanel righPanel;
 
   public Login(AppFrame _frame) {
     appFrame = _frame;
@@ -19,7 +21,6 @@ public class Login extends JPanel {
   }
 
   private void initConfig() {
-    this.setBackground(Color.decode("#f3f3f3"));
     this.setLayout(new BorderLayout());
 
     initComponents();
@@ -27,5 +28,6 @@ public class Login extends JPanel {
 
   private void initComponents() {
     leftPanel = new LeftPanel(this);
+    righPanel = new RightPanel(this);
   }
 }

@@ -25,7 +25,7 @@ public class SubPanel extends JPanel {
   }
 
   private void initConfig() {
-    this.setBackground(Color.decode("#fdddff"));
+    this.setBackground(Color.decode("#ffdffe"));
     this.setLayout(null);
     leftPanel.add(this);
 

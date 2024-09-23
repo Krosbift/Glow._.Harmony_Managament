@@ -27,7 +27,7 @@ import javax.swing.JButton;
  * @see java.awt.event.ActionListener
  */
 public class CloseButton extends JButton {
-  private ButtonPanel buttonPanel;
+  @SuppressWarnings("unused") private ButtonPanel buttonPanel;
 
   public CloseButton(ButtonPanel _buttonPanel) {
     this.buttonPanel = _buttonPanel;
@@ -46,7 +46,6 @@ public class CloseButton extends JButton {
     this.setBackground(java.awt.Color.decode("#121212"));
     this.setBorderPainted(false);
     this.setFocusPainted(false);
-    buttonPanel.add(this, java.awt.BorderLayout.EAST);
   }
 
   /**

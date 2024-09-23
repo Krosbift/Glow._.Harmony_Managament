@@ -49,12 +49,11 @@ public class MinimizeButton extends JButton {
    * Adds the button to the button panel aligned to the east.
    */
   private void initConfig() {
-    this.setText("-");
+    this.setText("_");
     this.setForeground(Color.decode("#FFFFFF"));
     this.setBackground(Color.decode("#121212"));
     this.setBorderPainted(false);
     this.setFocusPainted(false);
-    buttonPanel.add(this, BorderLayout.EAST);
   }
 
   /**

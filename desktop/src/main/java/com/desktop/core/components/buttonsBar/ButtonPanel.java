@@ -11,9 +11,9 @@ import com.desktop.core.components.titleBar.TitleBarPanel;
 public class ButtonPanel extends JPanel {
   private AppFrame appFrame;
   private TitleBarPanel titleBarPanel;
-  @SuppressWarnings("unused")  private MinimizeButton minimizeButton;
-  @SuppressWarnings("unused") private MaximizeButton maximizeButton;
-  @SuppressWarnings("unused") private CloseButton closeButton;
+  private MinimizeButton minimizeButton;
+  private MaximizeButton maximizeButton;
+  private CloseButton closeButton;
 
   public ButtonPanel(AppFrame _appFrame, TitleBarPanel _titleBarPanel) {
     this.appFrame = _appFrame;
@@ -33,5 +33,9 @@ public class ButtonPanel extends JPanel {
     minimizeButton = new MinimizeButton(appFrame, this);
     maximizeButton = new MaximizeButton(appFrame, this);
     closeButton = new CloseButton(this);
+
+    this.add(minimizeButton, BorderLayout.WEST);
+    this.add(maximizeButton, BorderLayout.CENTER);
+    this.add(closeButton, BorderLayout.EAST);
   }
 }

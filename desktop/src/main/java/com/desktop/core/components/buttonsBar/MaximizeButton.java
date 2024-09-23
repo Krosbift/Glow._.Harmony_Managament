@@ -58,7 +58,6 @@ public class MaximizeButton extends JButton {
     this.setBackground(Color.decode("#121212"));
     this.setBorderPainted(false);
     this.setFocusPainted(false);
-    buttonPanel.add(this, BorderLayout.CENTER);
   }
 
   /**
