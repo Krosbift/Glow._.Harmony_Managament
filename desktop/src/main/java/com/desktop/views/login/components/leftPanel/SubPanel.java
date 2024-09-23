@@ -2,14 +2,11 @@ package com.desktop.views.login.components.leftPanel;
 
 import javax.swing.*;
 
-import com.desktop.views.login.Login;
-
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class SubPanel extends JPanel {
-  private Login login;
   private JPanel leftPanel;
   private JTextField usernameField;
   private JPasswordField passwordField;
@@ -18,8 +15,7 @@ public class SubPanel extends JPanel {
   private JLabel passwordLabel;
   private JLabel logoLabel;
 
-  public SubPanel(Login _frame, JPanel _leftPanel) {
-    this.login = _frame;
+  public SubPanel(JPanel _leftPanel) {
     this.leftPanel = _leftPanel;
     initConfig();
   }
@@ -27,7 +23,6 @@ public class SubPanel extends JPanel {
   private void initConfig() {
     this.setBackground(Color.decode("#ffdffe"));
     this.setLayout(null);
-    leftPanel.add(this);
 
     createLogoImage();
     createLoginForm();
