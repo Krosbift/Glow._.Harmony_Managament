@@ -1,15 +1,20 @@
 package com.desktop.views.login.components.leftPanel;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 
+import java.awt.Insets;
+import java.awt.Color;
+import java.awt.Font;
+
 public class LogInButton extends JButton {
-  public LogInButton() {
+  private JLabel errorMessage;
+
+  public LogInButton(JLabel _errorMessage) {
+    this.errorMessage = _errorMessage;
     initConfig();
   }
 
@@ -31,5 +36,21 @@ public class LogInButton extends JButton {
   }
 
   private void initComponents() {
+    errorMessageLabel();
+  }
+
+  private void errorMessageLabel() {
+    errorMessage.setText("Correo o contraseña incorrectos");
+    errorMessage.setForeground(Color.decode("#FF0000"));
+    errorMessage.setFont(new Font("Arial", Font.BOLD, 14));
+    errorMessage.setVisible(false);
+  }
+
+  public void showErrorMessage() {
+    errorMessage.setVisible(true);
+  }
+
+  public void hideErrorMessage() {
+    errorMessage.setVisible(false);
   }
 }

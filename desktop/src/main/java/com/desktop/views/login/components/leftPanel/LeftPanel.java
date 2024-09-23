@@ -47,4 +47,13 @@ public class LeftPanel extends JPanel {
   public void passedToLogin(String email, String password) throws ExecutionException {
     login.validateUserData(email, password);
   }
+
+  /**
+   * Updates the login state of the subPanel.
+   *
+   * @param state the new login state to be set; true if logged in, false otherwise
+   */
+  public void stateLogin(boolean state) {
+    subPanel.stateLogin(state);
+  }
 }

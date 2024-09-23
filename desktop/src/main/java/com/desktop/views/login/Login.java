@@ -91,7 +91,7 @@ public class Login extends JPanel {
   public void validateUserData(String email, String password) throws ExecutionException {
     try {
       boolean response = loginService.login(email, password);
-      System.out.println(response);
+      leftPanel.stateLogin(response);
     } catch (ExecutionException e) {
       throw e;
     }

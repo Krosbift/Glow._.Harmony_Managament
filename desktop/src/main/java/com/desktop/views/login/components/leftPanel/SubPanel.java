@@ -16,6 +16,7 @@ public class SubPanel extends JPanel {
   private JLabel passwordLabel;
   private JPasswordField passwordField;
   private JButton loginButton;
+  private JLabel errorMessage;
 
   public SubPanel(LeftPanel _leftPanel) {
     this.leftPanel = _leftPanel;
@@ -37,7 +38,8 @@ public class SubPanel extends JPanel {
     emailField = new EmailField(emailLabel);
     passwordLabel = new JLabel();
     passwordField = new PasswodField(passwordLabel);
-    loginButton = new LogInButton();
+    errorMessage = new JLabel();
+    loginButton = new LogInButton(errorMessage);
 
     this.add(logoLabel);
     this.add(emailLabel);
@@ -45,6 +47,7 @@ public class SubPanel extends JPanel {
     this.add(passwordLabel);
     this.add(passwordField);
     this.add(loginButton);
+    this.add(errorMessage);
   }
 
   private void _listenerSizing(Component component) {
@@ -71,6 +74,7 @@ public class SubPanel extends JPanel {
     passwordLabel.setBounds(centerX - 100, centerY + 70, 200, 30);
     passwordField.setBounds(centerX - 100, centerY + 100, 200, 30);
     loginButton.setBounds(centerX - 90, centerY + 160, 180, 30);
+    errorMessage.setBounds(centerX - 115, centerY + 200, 300, 30);
 
     leftPanel.revalidate();
     leftPanel.repaint();
@@ -89,5 +93,24 @@ public class SubPanel extends JPanel {
         }
       }
     });
+  }
+
+  public void stateLogin(boolean state) {
+    if (state) {
+      errorMessage.setText("¡Inicio de sesión exitoso!");
+      errorMessage.setForeground(Color.decode("#00ff00"));
+      emailLabel.setForeground(Color.decode("#000000"));
+      emailField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+      passwordLabel.setForeground(Color.decode("#000000"));
+      passwordField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+    } else {
+      errorMessage.setText("Correo o contraseña incorrecta.");
+      errorMessage.setForeground(Color.decode("#ff0000"));
+      errorMessage.setVisible(true);
+      emailLabel.setForeground(Color.decode("#ff0000"));
+      emailField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.decode("#ff0000")));
+      passwordLabel.setForeground(Color.decode("#ff0000"));
+      passwordField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.decode("#ff0000")));
+    }
   }
 }
