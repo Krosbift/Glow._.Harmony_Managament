@@ -1,7 +1,5 @@
 package com.desktop;
 
-import com.desktop.views.AppController;
-
 /**
  * The Main class serves as the entry point for the desktop application.
  * It initializes the application by invoking the AppController's start method

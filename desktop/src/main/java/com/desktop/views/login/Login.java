@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
-import com.desktop.views.AppFrame;
+import com.desktop.AppFrame;
 import com.desktop.views.login.components.left_panel.LeftPanel;
 
 public class Login extends JPanel {

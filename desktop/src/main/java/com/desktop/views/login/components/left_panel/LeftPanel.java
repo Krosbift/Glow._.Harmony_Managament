@@ -3,7 +3,7 @@ package com.desktop.views.login.components.left_panel;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import com.desktop.views.AppFrame;
+import com.desktop.AppFrame;
 import com.desktop.views.login.Login;
 import com.desktop.views.login.components.left_panel.sub_panel.SubPanel;
 
