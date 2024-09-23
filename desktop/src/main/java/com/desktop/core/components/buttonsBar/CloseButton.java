@@ -27,10 +27,8 @@ import javax.swing.JButton;
  * @see java.awt.event.ActionListener
  */
 public class CloseButton extends JButton {
-  @SuppressWarnings("unused") private ButtonPanel buttonPanel;
 
-  public CloseButton(ButtonPanel _buttonPanel) {
-    this.buttonPanel = _buttonPanel;
+  public CloseButton() {
     initConfig();
     _listener();
   }

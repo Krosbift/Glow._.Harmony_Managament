@@ -3,7 +3,6 @@ package com.desktop.core.components.buttonsBar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
@@ -33,11 +32,9 @@ import com.desktop.AppFrame;
  */
 public class MinimizeButton extends JButton {
   private AppFrame appFrame;
-  private ButtonPanel buttonPanel;
 
-  public MinimizeButton(AppFrame _appFrame, ButtonPanel _buttonPanel) {
+  public MinimizeButton(AppFrame _appFrame) {
     this.appFrame = _appFrame;
-    this.buttonPanel = _buttonPanel;
     initConfig();
     _listener();
   }

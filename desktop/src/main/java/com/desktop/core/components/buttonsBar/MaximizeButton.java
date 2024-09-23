@@ -2,7 +2,6 @@ package com.desktop.core.components.buttonsBar;
 
 import javax.swing.JButton;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
@@ -37,11 +36,9 @@ import com.desktop.AppFrame;
  */
 public class MaximizeButton extends JButton {
   private AppFrame appFrame;
-  private ButtonPanel buttonPanel;
 
-  public MaximizeButton(AppFrame _appFrame, ButtonPanel _buttonPanel) {
+  public MaximizeButton(AppFrame _appFrame) {
     appFrame = _appFrame;
-    buttonPanel = _buttonPanel;
     initConfig();
     _listener();
   }

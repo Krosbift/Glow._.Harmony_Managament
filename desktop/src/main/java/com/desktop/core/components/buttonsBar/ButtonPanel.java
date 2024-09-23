@@ -30,9 +30,9 @@ public class ButtonPanel extends JPanel {
   }
 
   private void initComponents() {
-    minimizeButton = new MinimizeButton(appFrame, this);
-    maximizeButton = new MaximizeButton(appFrame, this);
-    closeButton = new CloseButton(this);
+    minimizeButton = new MinimizeButton(appFrame);
+    maximizeButton = new MaximizeButton(appFrame);
+    closeButton = new CloseButton();
 
     this.add(minimizeButton, BorderLayout.WEST);
     this.add(maximizeButton, BorderLayout.CENTER);
