@@ -4,7 +4,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.desktop.views.login.Login;
-import com.desktop.views.login.components.left_panel.sub_panel.SubPanel;
 
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
@@ -23,7 +22,6 @@ public class LeftPanel extends JPanel {
     this.setBackground(Color.decode("#fff0d8"));
     this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
     this.setLayout(null);
-    login.add(this);
     listenerSizing();
     initComponents();
   }

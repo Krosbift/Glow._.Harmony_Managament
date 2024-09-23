@@ -13,7 +13,7 @@ public class AppFrame extends JFrame {
   private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
   @SuppressWarnings("unused") private AppController controller;
-  @SuppressWarnings("unused") private Login login;
+  private Login login;
   private TitleBarPanel titleBarPanel;
 
   public AppFrame(AppController controller) {
@@ -32,8 +32,9 @@ public class AppFrame extends JFrame {
 
   private void initComponents() {
     titleBarPanel = new TitleBarPanel(this);
-    login = new Login(this);
+    login = new Login();
     
     this.add(titleBarPanel, BorderLayout.NORTH);
+    this.add(login, BorderLayout.CENTER);
   }
 }
