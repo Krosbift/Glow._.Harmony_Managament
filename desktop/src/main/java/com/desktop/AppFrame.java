@@ -32,7 +32,7 @@ public class AppFrame extends JFrame {
 
   private void initComponents() {
     titleBarPanel = new TitleBarPanel(this);
-    login = new Login();
+    login = new Login(this);
     
     this.add(titleBarPanel, BorderLayout.NORTH);
     this.add(login, BorderLayout.CENTER);

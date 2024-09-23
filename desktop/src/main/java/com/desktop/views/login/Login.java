@@ -2,56 +2,78 @@ package com.desktop.views.login;
 
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
+import com.desktop.AppFrame;
 import com.desktop.views.login.components.leftPanel.LeftPanel;
 import com.desktop.views.login.components.rightPanel.RightPanel;
 
-/**
- * The Login class represents a JPanel that contains the login view.
- * It consists of a left panel and a right panel, which are initialized
- * and added to the layout in the initComponents method.
- * 
- * <p>This class is responsible for setting up the layout and initializing
- * the components required for the login view.</p>
- * 
- * <p>Usage example:</p>
- * <pre>
- * {@code
- * Login loginPanel = new Login();
- * }
- * </pre>
- * 
- * @see LeftPanel
- * @see RightPanel
- */
 public class Login extends JPanel {
+  private AppFrame appFrame;
   private LeftPanel leftPanel;
-  private RightPanel righPanel;
+  private RightPanel rightPanel;
 
-  public Login() {
+  public Login(AppFrame _appFrame) {
+    this.appFrame = _appFrame;
     initConfig();
   }
 
   /**
    * Initializes the configuration for the login view.
-   * Sets the layout to BorderLayout and initializes the components.
+   * This method sets the layout to null, adjusts the bounds of the component
+   * to match the dimensions of the application frame, initializes the components,
+   * and sets up the listener for resizing.
    */
   private void initConfig() {
-    this.setLayout(new BorderLayout());
+    this.setLayout(null);
+    this.setBounds(0, 0, appFrame.getWidth(), appFrame.getHeight());
     initComponents();
+    _listernerSizing();
   }
 
   /**
    * Initializes the components for the login view.
-   * This method creates instances of LeftPanel and RightPanel,
-   * and adds them to the current container.
+   * This method creates and adds the left and right panels to the view.
    */
   private void initComponents() {
-    leftPanel = new LeftPanel(this);
-    righPanel = new RightPanel(this);
+    leftPanel = new LeftPanel();
+    rightPanel = new RightPanel();
 
     this.add(leftPanel);
-    this.add(righPanel);
+    this.add(rightPanel);
+  }
+
+  /**
+   * Adds a component listener to the current component to handle resizing events.
+   * When the component is resized, the {@code resizeComponents()} method is called
+   * to adjust the size of the components accordingly.
+   */
+  private void _listernerSizing() {
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent e) {
+        resizeComponents();
+      }
+    });
+    resizeComponents();
+  }
+
+  /**
+   * Resizes and repositions the left and right panels based on the current width and height of the container.
+   * The left panel is set to one-third of the container's width or a minimum of 300 pixels, whichever is greater.
+   * The right panel occupies the remaining width of the container.
+   * Both panels are set to the full height of the container.
+   * After resizing, the container is revalidated and repainted to reflect the changes.
+   */
+  private void resizeComponents() {
+    int leftPanelWidth = Math.max(this.getWidth() / 3, 300);
+    int rightPanelWidth = this.getWidth() - leftPanelWidth;
+
+    leftPanel.setBounds(0, 0, leftPanelWidth, this.getHeight());
+    rightPanel.setBounds(leftPanelWidth, 0, rightPanelWidth, this.getHeight());
+
+    this.revalidate();
+    this.repaint();
   }
 }
