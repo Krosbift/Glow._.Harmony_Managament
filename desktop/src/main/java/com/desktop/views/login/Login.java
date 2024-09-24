@@ -2,6 +2,7 @@ package com.desktop.views.login;
 
 import javax.swing.JPanel;
 
+import java.awt.Component;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.concurrent.ExecutionException;
@@ -50,7 +51,8 @@ public class Login extends JPanel {
 
   /**
    * Adds a component listener to the current component to handle resizing events.
-   * When the component is resized, the {@code resizeComponents()} method is called
+   * When the component is resized, the {@code resizeComponents()} method is
+   * called
    * to adjust the size of the components accordingly.
    */
   private void _listernerSizing() {
@@ -64,11 +66,14 @@ public class Login extends JPanel {
   }
 
   /**
-   * Resizes and repositions the left and right panels based on the current width and height of the container.
-   * The left panel is set to one-third of the container's width or a minimum of 300 pixels, whichever is greater.
+   * Resizes and repositions the left and right panels based on the current width
+   * and height of the container.
+   * The left panel is set to one-third of the container's width or a minimum of
+   * 300 pixels, whichever is greater.
    * The right panel occupies the remaining width of the container.
    * Both panels are set to the full height of the container.
-   * After resizing, the container is revalidated and repainted to reflect the changes.
+   * After resizing, the container is revalidated and repainted to reflect the
+   * changes.
    */
   private void resizeComponents() {
     int leftPanelWidth = Math.max(this.getWidth() / 3, 300);
@@ -82,9 +87,10 @@ public class Login extends JPanel {
   }
 
   /**
-   * Validates the user data by attempting to log in with the provided email and password.
+   * Validates the user data by attempting to log in with the provided email and
+   * password.
    *
-   * @param email the email address of the user
+   * @param email    the email address of the user
    * @param password the password of the user
    * @throws ExecutionException if an error occurs during the login process
    */
@@ -92,8 +98,22 @@ public class Login extends JPanel {
     try {
       boolean response = loginService.login(email, password);
       leftPanel.stateLogin(response);
+      if (response) {
+        rightPanel.freeAllComponents();
+        freeComponent(rightPanel);
+        freeComponent(leftPanel);
+        appFrame.showHome();
+      }
     } catch (ExecutionException e) {
       throw e;
     }
+  }
+
+  public void freeComponent(Component component) {
+    component.setVisible(false);
+    this.remove(component);
+    this.revalidate();
+    this.repaint();
+    component = null;
   }
 }

@@ -103,6 +103,14 @@ public class SubPanel extends JPanel {
       emailField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
       passwordLabel.setForeground(Color.decode("#000000"));
       passwordField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
+      freeComponent(logoLabel);
+      freeComponent(emailLabel);
+      freeComponent(emailField);
+      freeComponent(passwordLabel);
+      freeComponent(passwordField);
+      freeComponent(loginButton);
+      freeComponent(errorMessage);
     } else {
       errorMessage.setText("Correo o contraseña incorrecta.");
       errorMessage.setForeground(Color.decode("#ff0000"));
@@ -112,5 +120,13 @@ public class SubPanel extends JPanel {
       passwordLabel.setForeground(Color.decode("#ff0000"));
       passwordField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.decode("#ff0000")));
     }
+  }
+
+  public void freeComponent(Component component) {
+    component.setVisible(false);
+    this.remove(component);
+    this.revalidate();
+    this.repaint();
+    component = null;
   }
 }

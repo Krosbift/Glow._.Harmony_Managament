@@ -5,15 +5,18 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import com.desktop.core.components.titleBar.TitleBarPanel;
 import com.desktop.views.login.Login;
+import com.desktop.views.home.Home;
 
 public class AppFrame extends JFrame {
   private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
   @SuppressWarnings("unused") private AppController controller;
   private Login login;
+  private Home home;
   private TitleBarPanel titleBarPanel;
 
   public AppFrame(AppController controller) {
@@ -36,5 +39,21 @@ public class AppFrame extends JFrame {
     
     this.add(titleBarPanel, BorderLayout.NORTH);
     this.add(login, BorderLayout.CENTER);
+  }
+
+  public void showHome() {
+    freeComponent(login);
+    home = new Home(this);
+    this.add(home, BorderLayout.CENTER);
+    this.revalidate();
+    this.repaint();
+  }
+
+  public void freeComponent(Component component) {
+    component.setVisible(false);
+    this.remove(component);
+    this.revalidate();
+    this.repaint();
+    component = null;
   }
 }

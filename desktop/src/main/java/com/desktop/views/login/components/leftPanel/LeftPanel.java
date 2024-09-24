@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import com.desktop.views.login.Login;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.concurrent.ExecutionException;
 
 public class LeftPanel extends JPanel {
@@ -55,5 +56,16 @@ public class LeftPanel extends JPanel {
    */
   public void stateLogin(boolean state) {
     subPanel.stateLogin(state);
+    if (state) {
+      this.freeComponent(subPanel);
+    }
+  }
+
+  public void freeComponent(Component component) {
+    component.setVisible(false);
+    this.remove(component);
+    this.revalidate();
+    this.repaint();
+    component = null;
   }
 }

@@ -3,6 +3,7 @@ package com.desktop.views.login.components.rightPanel;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 public class RightPanel extends JPanel {
   private ImageLabel imageLabel;
@@ -28,5 +29,21 @@ public class RightPanel extends JPanel {
   private void initComponents() {
     imageLabel = new ImageLabel(this);
     this.add(imageLabel);
+  }
+
+  /**
+   * Frees all components within the current container by setting their visibility to false,
+   * removing them from the container, and then revalidating and repainting the container.
+   * This method iterates through all components, making them invisible and removing them
+   * from the container to ensure that the container is updated accordingly.
+   */
+  public void freeAllComponents() {
+    for (Component component : this.getComponents()) {
+      component.setVisible(false);
+      this.remove(component);
+      this.revalidate();
+      this.repaint();
+      component = null;
+    }
   }
 }
