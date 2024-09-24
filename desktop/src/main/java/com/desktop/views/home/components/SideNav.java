@@ -9,7 +9,7 @@ import com.desktop.views.home.Home;
 
 public class SideNav extends JPanel {
   private AppFrame appFrame;
-  private Home home;
+  @SuppressWarnings("unused") private Home home;
 
   public SideNav(Home _home, AppFrame _appFrame) {
     appFrame = _appFrame;
