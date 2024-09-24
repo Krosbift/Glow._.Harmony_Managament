@@ -14,7 +14,7 @@ import com.api.routes.shared.interfaces.Binds;
 import com.api.routes.users.model.UserModel;
 import com.api.routes.users.sql.UserSql;
 
-public abstract class UserBuilder {
+public class UserBuilder {
   @Autowired
   protected JdbcTemplate jdbcTemplate;
   /**

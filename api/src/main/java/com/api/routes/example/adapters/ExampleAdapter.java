@@ -13,11 +13,7 @@ import com.api.routes.example.models.ExampleModel;
 import com.api.routes.example.sql.ExampleSql;
 import com.api.routes.shared.interfaces.Binds;
 
-/**
- * This abstract class represents an ExampleAdapter.
- * It provides methods for finding and adapting ExampleModel objects.
- */
-public abstract class ExampleAdapter {
+public class ExampleAdapter {
 
   @Autowired
   protected JdbcTemplate jdbcTemplate;
