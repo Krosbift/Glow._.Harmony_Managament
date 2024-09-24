@@ -36,8 +36,8 @@ public class ToolBar extends JPanel {
 
   private void initComponents() {
     welcomeLabel = new JLabel("Bienvenido Usuario", JLabel.CENTER);
-    welcomeLabel.setForeground(Color.decode("#ffffff"));
-    welcomeLabel.setAlignmentX(RIGHT_ALIGNMENT);
+    welcomeLabel.setForeground(Color.decode("#000000"));
+    welcomeLabel.setAlignmentX(CENTER_ALIGNMENT);
 
     logoutButton = new JButton("Cerrar Sesión");
     logoutButton.setPreferredSize(new Dimension(150, 40));

@@ -37,7 +37,6 @@ public class Home extends JPanel {
     this.setBounds(0, 0, appFrame.getWidth(), appFrame.getHeight());
 
     initComponents();
-    resizeComponents();
   }
 
   private void initComponents() throws ExecutionException {
@@ -61,6 +60,7 @@ public class Home extends JPanel {
         resizeComponents();
       }
     });
+    resizeComponents();
   }
 
   private void resizeComponents() {
