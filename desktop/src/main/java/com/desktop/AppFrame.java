@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.concurrent.ExecutionException;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
@@ -41,10 +42,18 @@ public class AppFrame extends JFrame {
     this.add(login, BorderLayout.CENTER);
   }
 
-  public void showHome() {
+  public void showHome(String email) throws ExecutionException {
     freeComponent(login);
-    home = new Home(this);
+    home = new Home(this, email);
     this.add(home, BorderLayout.CENTER);
+    this.revalidate();
+    this.repaint();
+  }
+
+  public void showLogin() {
+    freeComponent(home);
+    login = new Login(this);
+    this.add(login, BorderLayout.CENTER);
     this.revalidate();
     this.repaint();
   }

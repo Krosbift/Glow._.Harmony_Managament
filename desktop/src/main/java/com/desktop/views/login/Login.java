@@ -102,7 +102,7 @@ public class Login extends JPanel {
         rightPanel.freeAllComponents();
         freeComponent(rightPanel);
         freeComponent(leftPanel);
-        appFrame.showHome();
+        appFrame.showHome(email);
       }
     } catch (ExecutionException e) {
       throw e;

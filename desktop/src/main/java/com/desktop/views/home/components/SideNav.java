@@ -18,8 +18,9 @@ public class SideNav extends JPanel {
   }
 
   private void initConfig() {
+    this.setVisible(true);
     this.setBounds(0, 0, 200, appFrame.getHeight());
-    this.setBackground(Color.decode("#0000ff"));
+    this.setBackground(Color.decode("#ffdffe"));
 
     initComponents();
   }

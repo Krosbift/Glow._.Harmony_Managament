@@ -18,8 +18,9 @@ public class Content extends JPanel {
   }
 
   private void initConfig() {
+    this.setVisible(true);
     this.setBounds(200, 60, appFrame.getWidth() - 200, appFrame.getHeight() - 60);
-    this.setBackground(Color.decode("#00ff00"));
+    this.setBackground(Color.decode("#f3f3f3"));
 
     initComponents();
   }
