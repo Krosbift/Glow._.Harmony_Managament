@@ -38,7 +38,7 @@ public class ExampleService extends ExampleAdapter {
       return ps;
     }, keyHolder);
 
-    Long generatedId = keyHolder.getKey().longValue();
+    @SuppressWarnings("null") Long generatedId = keyHolder.getKey().longValue();
     return findExampleById(generatedId);
   }
 

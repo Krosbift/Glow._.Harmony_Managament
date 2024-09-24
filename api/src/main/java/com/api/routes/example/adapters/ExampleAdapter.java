@@ -28,7 +28,7 @@ public class ExampleAdapter {
    */
   protected RowMapper<ExampleModel> exampleRowMapper = new RowMapper<ExampleModel>() {
     @Override
-    public ExampleModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public ExampleModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
       ExampleModel example = new ExampleModel();
       example.setIdExample(rs.getLong("IDEXAMPLE"));
       example.setName(rs.getString("NAME"));

@@ -25,7 +25,7 @@ public class UserBuilder {
    */
   protected RowMapper<UserModel> userRowMapper = new RowMapper<UserModel>() {
     @Override
-    public UserModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public UserModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
       UserModel user = new UserModel();
       if (hasColumn(rs, "USERID")) user.setUserId(rs.getInt("USERID"));
       if (hasColumn(rs, "NAMES")) user.setNames(rs.getString("NAMES"));
