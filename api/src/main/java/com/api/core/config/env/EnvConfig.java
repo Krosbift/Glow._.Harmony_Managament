@@ -1,51 +1,64 @@
 package com.api.core.config.env;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.io.File;
 import com.api.core.config.env.enums.EnvKeys;
+
 /**
- * EnvConfig is responsible for loading environment variables from a .env file.
- * If the .env file is found in the current directory, it loads the environment
- * variables using Dotenv.
- * If the .env file is not found, it throws an IllegalStateException.
- *
- * <p>
- * This class provides a method to retrieve the value associated with a given
+ * The EnvConfig class is responsible for loading and providing access to
+ * environment variables
+ * defined in a .env file. It uses the Dotenv library to load the environment
+ * variables and
+ * provides a method to retrieve the value associated with a specified
  * environment key.
- * It ensures that the .env file is loaded before attempting to retrieve any
- * values.
+ * 
+ * <p>
+ * This class will log an error and throw an IllegalStateException if the .env
+ * file is not found
+ * or could not be loaded.
  * </p>
- *
+ * 
  * <p>
  * Usage example:
  * </p>
  * 
- * <pre>{@code
+ * <pre>
+ * {@code
  * EnvConfig config = new EnvConfig();
  * String value = config.get(EnvKeys.SOME_KEY);
- * }</pre>
- *
- * @throws IllegalStateException if the .env file is not found in the current
- *                               directory or could not be loaded.
+ * }
+ * </pre>
+ * 
+ * <p>
+ * Note: Ensure that the .env file is present in the root directory of the
+ * project.
+ * </p>
  */
 public class EnvConfig {
+  private static final Logger logger = LoggerFactory.getLogger(EnvConfig.class);
   private final Dotenv dotenv;
+
   public EnvConfig() {
     File envFile = new File(".env");
-    if (envFile.exists()) {
-      System.out.println(".env file found");
-      dotenv = Dotenv.load();
-    } else {
-      System.out.println(".env file not found");
+
+    if (envFile.exists() == false) {
+      logger.error(".env file not found");
       throw new IllegalStateException(".env file not found");
     }
+
+    logger.info(".env file found");
+    dotenv = Dotenv.load();
   }
+
   /**
-   * Retrieves the value associated with the given environment key.
+   * Retrieves the value associated with the specified environment key.
    *
-   * @param key The environment key to retrieve the value for.
-   * @return The value associated with the given key.
-   * @throws IllegalStateException If the .env file is not found or could not be
-   *                               loaded.
+   * @param key the environment key whose value is to be retrieved
+   * @return the value associated with the specified environment key
+   * @throws IllegalStateException if the .env file is not found or could not be
+   *                               loaded
    */
   public String get(EnvKeys key) {
     if (dotenv == null) {

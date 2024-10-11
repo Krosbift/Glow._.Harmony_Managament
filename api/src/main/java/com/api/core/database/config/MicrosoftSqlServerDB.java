@@ -1,52 +1,57 @@
 package com.api.core.database.config;
-import com.api.core.config.env.EnvConfig;
-import com.api.core.config.env.enums.EnvKeys;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
+import com.api.core.config.env.EnvConfig;
+import com.api.core.config.env.enums.EnvKeys;
+
 /**
- * Configuration class for setting up a Microsoft SQL Server database connection.
- * This class provides beans for DataSource and JdbcTemplate.
+ * Configuration class for setting up the Microsoft SQL Server database
+ * connection.
+ * This class uses environment configuration to set up the DataSource and
+ * JdbcTemplate beans.
  * 
- * <p>It uses {@link EnvConfig} to retrieve the necessary environment variables
- * for configuring the database connection.</p>
+ * <p>
+ * It retrieves the database connection details such as URL, username, password,
+ * and driver class name from the environment configuration.
+ * </p>
  * 
- * <p>Beans provided:</p>
+ * <p>
+ * Beans provided:
+ * </p>
  * <ul>
- *   <li>{@link DataSource} - Configured with the necessary connection properties.</li>
- *   <li>{@link JdbcTemplate} - Configured with the provided {@link DataSource}.</li>
+ * <li>{@link DataSource} - Configured with the database connection
+ * details.</li>
+ * <li>{@link JdbcTemplate} - Configured with the DataSource bean.</li>
  * </ul>
  * 
- * <p>Example usage:</p>
+ * <p>
+ * Example usage:
+ * </p>
+ * 
  * <pre>
  * {@code
  * @Autowired
  * private JdbcTemplate jdbcTemplate;
  * 
  * public void someMethod() {
- *     String sql = "SELECT * FROM some_table";
- *     List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
- *     // process results
- * }
+ *   jdbcTemplate.query("SELECT * FROM some_table", new RowMapper<SomeEntity>() {
+ *     // RowMapper implementation
+ *   });
  * }
  * </pre>
- * 
- * @see EnvConfig
- * @see DataSource
- * @see JdbcTemplate
  */
 @Configuration
 public class MicrosoftSqlServerDB {
-  private final EnvConfig envConfig;
-  public MicrosoftSqlServerDB() {
-    this.envConfig = new EnvConfig();
-  }
+  private final EnvConfig envConfig = new EnvConfig();
+
   /**
-   * Configures and returns a DataSource bean for connecting to a Microsoft SQL Server database.
+   * Configures and provides a DataSource bean for connecting to a Microsoft SQL Server database.
    * 
-   * @return DataSource configured with the necessary connection properties.
+   * @return a configured DataSource instance
    */
   @Bean
   DataSource dataSource() {
@@ -57,8 +62,9 @@ public class MicrosoftSqlServerDB {
     dataSource.setDriverClassName(envConfig.get(EnvKeys.DB_DRIVER_CLASS_NAME));
     return dataSource;
   }
+
   /**
-   * Creates a {@link JdbcTemplate} bean configured with the provided {@link DataSource}.
+   * Creates and configures a {@link JdbcTemplate} bean using the provided {@link DataSource}.
    *
    * @param dataSource the {@link DataSource} to be used by the {@link JdbcTemplate}
    * @return a configured {@link JdbcTemplate} instance

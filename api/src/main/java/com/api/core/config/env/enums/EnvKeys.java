@@ -1,7 +1,9 @@
 package com.api.core.config.env.enums;
+
 /**
- * Enum representing the keys for environment variables used in the application.
- * These keys are used to retrieve configuration values for the database connection.
+ * Enum representing the keys used for environment configuration.
+ * These keys are used to retrieve corresponding values from the environment
+ * or configuration files.
  */
 public enum EnvKeys {
   DB_URL,

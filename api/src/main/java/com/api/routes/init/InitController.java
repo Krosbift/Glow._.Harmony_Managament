@@ -1,8 +1,8 @@
 package com.api.routes.init;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("activate")
 public class InitController {
   @Autowired
-  protected JdbcTemplate jdbcTemplate;
+  private JdbcTemplate jdbcTemplate;
 
   @GetMapping
   public String activate() {
