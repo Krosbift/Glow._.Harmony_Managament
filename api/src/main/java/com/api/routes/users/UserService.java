@@ -1,32 +1,25 @@
 package com.api.routes.users;
 
+import java.util.List;
+import java.sql.PreparedStatement;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-
-import java.sql.PreparedStatement;
-import java.util.List;
-
-import com.api.routes.shared.interfaces.Binds;
 import com.api.routes.users.builder.UserBuilder;
 import com.api.routes.users.dto.LoginUserDto;
 import com.api.routes.users.dto.RegisterUserDto;
 import com.api.routes.users.model.UserModel;
 import com.api.routes.users.sql.UserSql;
+import com.api.routes.utils.interfaces.Binds;
 
 @Service
 public class UserService extends UserBuilder {
 
-  /**
-   * Finds a user by their email address.
-   *
-   * @param email the email address of the user to find
-   * @return the UserModel object representing the found user
-   * @throws RuntimeException if an unexpected error occurs during the query
-   */
+
   public UserModel findUser(String email) {
-    UserModel user = new UserModel();
-    user.setEmail(email);
+    UserModel user = new UserModel()
+        .setEmail(email)
+        .build();
 
     Binds binds = buildFindUser(user);
     try {
@@ -117,7 +110,8 @@ public class UserService extends UserBuilder {
         return ps;
       }, keyHolder);
 
-      @SuppressWarnings("null") int generatedId = keyHolder.getKey().intValue();
+      @SuppressWarnings("null")
+      int generatedId = keyHolder.getKey().intValue();
       return findUserById(generatedId);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());

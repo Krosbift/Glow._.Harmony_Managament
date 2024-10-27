@@ -1,14 +1,17 @@
-package com.api.routes.shared.interfaces;
+package com.api.routes.utils.interfaces;
+
 /**
  * Represents a container for SQL query and its parameters.
  */
 public class Binds {
   private String sql;
   private Object[] params;
+
   public Binds(String sql, Object[] params) {
     this.sql = sql;
     this.params = params;
   }
+
   /**
    * Retrieves the SQL query string.
    *
@@ -17,6 +20,7 @@ public class Binds {
   public String getSql() {
     return sql;
   }
+
   /**
    * Retrieves the parameters associated with this instance.
    *

@@ -92,10 +92,12 @@ public enum UserSql {
     "SET ACTIVE = 0 " +
     "WHERE USERID = ?"
   );
+
   /**
    * The SQL query string used for user-related database operations.
    */
   private final String query;
+
   /**
    * Constructs a new UserSql instance with the specified SQL query.
    *
@@ -104,6 +106,7 @@ public enum UserSql {
   UserSql(String query) {
     this.query = query;
   }
+  
   /**
    * Retrieves the SQL query string.
    *

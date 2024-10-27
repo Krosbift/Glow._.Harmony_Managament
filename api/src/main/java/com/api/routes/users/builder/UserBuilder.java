@@ -10,39 +10,45 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.api.routes.shared.interfaces.Binds;
 import com.api.routes.users.model.UserModel;
 import com.api.routes.users.sql.UserSql;
+import com.api.routes.utils.interfaces.Binds;
 
 public class UserBuilder {
   @Autowired
   protected JdbcTemplate jdbcTemplate;
+
   /**
-   * RowMapper implementation for mapping rows of a ResultSet to UserModel instances.
-   * This mapper checks for the presence of each column before attempting to map it to the UserModel.
+   * RowMapper implementation to map a ResultSet to a UserModel object.
+   * This mapper extracts the following fields from the ResultSet:
    * 
-   * @throws SQLException if an SQL error occurs while accessing the ResultSet
+   * Each field is set in the UserModel object only if the corresponding column exists in the ResultSet.
+   * 
+   * @throws SQLException if a database access error occurs or this method is called on a closed result set
    */
   protected RowMapper<UserModel> userRowMapper = new RowMapper<UserModel>() {
     @Override
     public UserModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
-      UserModel user = new UserModel();
-      if (hasColumn(rs, "USERID")) user.setUserId(rs.getInt("USERID"));
-      if (hasColumn(rs, "NAMES")) user.setNames(rs.getString("NAMES"));
-      if (hasColumn(rs, "SURNAMES")) user.setSurNames(rs.getString("SURNAMES"));
-      if (hasColumn(rs, "DOCUMENTTYPEID")) user.setDocumentTypeId(rs.getInt("DOCUMENTTYPEID"));
-      if (hasColumn(rs, "DOCUMENTTYPE")) user.setDocumentType(rs.getString("DOCUMENTTYPE"));
-      if (hasColumn(rs, "DOCUMENTNUMBER")) user.setDocumentNumber(rs.getString("DOCUMENTNUMBER"));
-      if (hasColumn(rs, "EMAIL")) user.setEmail(rs.getString("EMAIL"));
-      if (hasColumn(rs, "PASSWORD")) user.setPassword(rs.getString("PASSWORD"));
-      if (hasColumn(rs, "PHONENUMBER")) user.setPhone(rs.getString("PHONENUMBER"));
-      if (hasColumn(rs, "ROLETYPEID")) user.setRoleTypeId(rs.getInt("ROLETYPEID"));
-      if (hasColumn(rs, "ROLETYPE")) user.setRoleType(rs.getString("ROLETYPE"));
-      if (hasColumn(rs, "ADDRESS")) user.setAddress(rs.getString("ADDRESS"));
-      if (hasColumn(rs, "ACTIVE")) user.setActive(rs.getBoolean("ACTIVE"));
-      return user; 
+      UserModel user = new UserModel()
+          .setUserId(rs.getInt("USERID"), hasColumn(rs, "USERID"))
+          .setNames(rs.getString("NAMES"), hasColumn(rs, "NAMES"))
+          .setSurNames(rs.getString("SURNAMES"), hasColumn(rs, "SURNAMES"))
+          .setDocumentTypeId(rs.getInt("DOCUMENTTYPEID"), hasColumn(rs, "DOCUMENTTYPEID"))
+          .setDocumentType(rs.getString("DOCUMENTTYPE"), hasColumn(rs, "DOCUMENTTYPE"))
+          .setDocumentNumber(rs.getString("DOCUMENTNUMBER"), hasColumn(rs, "DOCUMENTNUMBER"))
+          .setEmail(rs.getString("EMAIL"), hasColumn(rs, "EMAIL"))
+          .setPassword(rs.getString("PASSWORD"), hasColumn(rs, "PASSWORD"))
+          .setPhone(rs.getString("PHONENUMBER"), hasColumn(rs, "PHONENUMBER"))
+          .setRoleTypeId(rs.getInt("ROLETYPEID"), hasColumn(rs, "ROLETYPEID"))
+          .setRoleType(rs.getString("ROLETYPE"), hasColumn(rs, "ROLETYPE"))
+          .setAddress(rs.getString("ADDRESS"), hasColumn(rs, "ADDRESS"))
+          .setActive(rs.getBoolean("ACTIVE"), hasColumn(rs, "ACTIVE"))
+          .build();
+
+      return user;
     }
   };
+
   /**
    * Finds a user by their unique ID.
    *
@@ -52,11 +58,13 @@ public class UserBuilder {
   protected UserModel findUserById(int userId) {
     return jdbcTemplate.query(UserSql.FIND_USER_BY_ID.getQuery(), userRowMapper, userId).get(0);
   }
+
   /**
    * Builds the SQL query and parameters for finding a user by email address.
    *
    * @param user The UserModel object containing the user's email address.
-   * @return A Binds object containing the constructed SQL query and the parameters.
+   * @return A Binds object containing the constructed SQL query and the
+   *         parameters.
    */
   protected Binds buildFindUser(UserModel user) {
     StringBuilder sql = new StringBuilder(UserSql.FIND_USER_BY_EMAIL.getQuery());
@@ -69,12 +77,15 @@ public class UserBuilder {
 
     return new Binds(sql.toString(), params.toArray());
   }
+
   /**
    * Builds the SQL query and parameters for finding a user by login credentials.
    *
    * @param user The UserModel object containing the user's login information.
-   * If the email is not null, it will be added as a condition in the query.
-   * @return A Binds object containing the constructed SQL query and the parameters.
+   *             If the email is not null, it will be added as a condition in the
+   *             query.
+   * @return A Binds object containing the constructed SQL query and the
+   *         parameters.
    */
   protected Binds buildFindLoginUser(UserModel user) {
     StringBuilder sql = new StringBuilder(UserSql.FIND_LOGIN_USER.getQuery());
@@ -87,12 +98,15 @@ public class UserBuilder {
 
     return new Binds(sql.toString(), params.toArray());
   }
+
   /**
    * Builds an SQL query to register a new user in the TB_IMC_USERS table.
-   * The query is constructed dynamically based on the non-null fields of the provided UserModel object.
+   * The query is constructed dynamically based on the non-null fields of the
+   * provided UserModel object.
    * 
    * @param user The UserModel object containing user details to be registered.
-   * @return A Binds object containing the constructed SQL query and the corresponding parameters.
+   * @return A Binds object containing the constructed SQL query and the
+   *         corresponding parameters.
    */
   protected Binds buildRegisterUser(UserModel user) {
     StringBuilder sql = new StringBuilder("INSERT INTO TB_IMC_USERS ");
@@ -103,7 +117,7 @@ public class UserBuilder {
     if (user.getNames() != null) {
       columns.append("NAMES, ");
       values.append("?, ");
-      params.add(user.getNames());   
+      params.add(user.getNames());
     }
 
     if (user.getSurNames() != null) {
@@ -165,13 +179,16 @@ public class UserBuilder {
 
     return new Binds(sql.toString(), params.toArray());
   }
+
   /**
    * Builds an SQL query to update an existing user in the TB_IMC_USERS table.
-   * The query is constructed dynamically based on the non-null fields of the provided UserModel object.
+   * The query is constructed dynamically based on the non-null fields of the
+   * provided UserModel object.
    * 
-   * @param user The UserModel object containing the updated user details.
+   * @param user   The UserModel object containing the updated user details.
    * @param userId The unique identifier of the user to be updated.
-   * @return A Binds object containing the constructed SQL query and the corresponding parameters.
+   * @return A Binds object containing the constructed SQL query and the
+   *         corresponding parameters.
    */
   protected Binds buildUpdateUser(UserModel user, int userId) {
     StringBuilder sql = new StringBuilder("UPDATE TB_IMC_USERS SET ");
@@ -231,10 +248,11 @@ public class UserBuilder {
 
     return new Binds(sql.toString(), params.toArray());
   }
+
   /**
    * Checks if the specified column exists in the given ResultSet.
    *
-   * @param rs the ResultSet to check for the column
+   * @param rs         the ResultSet to check for the column
    * @param columnName the name of the column to check for
    * @return true if the column exists, false otherwise
    * @throws SQLException if a database access error occurs

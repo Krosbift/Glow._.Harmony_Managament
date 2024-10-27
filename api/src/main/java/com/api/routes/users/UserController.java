@@ -1,11 +1,8 @@
 package com.api.routes.users;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import com.api.routes.users.dto.LoginUserDto;
 import com.api.routes.users.dto.RegisterUserDto;
 import com.api.routes.users.dto.UpdateUserDto;
@@ -24,25 +20,25 @@ import com.api.routes.users.model.UserModel;
 
 @RestController
 @RequestMapping("users")
-@Tag(name = "Usuarios", description = "Endpoint para el manejo de usuarios")
+@Tag(name = "Usuarios", description = "Endpoints para el manejo de usuarios.")
 public class UserController {
   @Autowired
   private UserService userService;
 
   @GetMapping("find-user")
   @Operation(summary = "Buscar usuario por email", description = "Retorna un usuario con base en el email ingresado.")
-  public UserModel findUser(@RequestParam String userEmail) throws Exception  {
+  public UserModel findUser(@RequestParam String userEmail) throws Exception {
     return userService.findUser(userEmail);
   }
 
   @GetMapping("find-all-users")
   @Operation(summary = "Buscar todos los usuarios", description = "Retorna una lista de todos los usuarios encontrados.")
-  public List<UserModel> findAllUsers() throws Exception  {
+  public List<UserModel> findAllUsers() throws Exception {
     return userService.findAllUsers();
   }
 
   @PostMapping("login")
-  @Operation(summary = "Login de usuario", description = "Autentica un usuario com base en los datos ingresados.")
+  @Operation(summary = "Login de usuario", description = "Autentica un usuario con base en los datos ingresados.")
   public boolean loginUser(@RequestBody LoginUserDto loginData) throws Exception {
     return userService.findLoginUser(loginData);
   }
