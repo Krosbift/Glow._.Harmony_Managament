@@ -16,6 +16,13 @@ import com.api.routes.utils.interfaces.Binds;
 public class UserService extends UserBuilder {
 
 
+  /**
+   * Finds a user by their email address.
+   *
+   * @param email the email address of the user to find
+   * @return the UserModel object representing the found user
+   * @throws RuntimeException if an unexpected error occurs during the query
+   */
   public UserModel findUser(String email) {
     UserModel user = new UserModel()
         .setEmail(email)
@@ -56,8 +63,9 @@ public class UserService extends UserBuilder {
    *                          query.
    */
   public boolean findLoginUser(LoginUserDto loginData) {
-    UserModel user = new UserModel();
-    user.setEmail(loginData.getEmail());
+    UserModel user = new UserModel()
+      .setEmail(loginData.getEmail())
+      .build();
 
     Binds binds = buildFindLoginUser(user);
     try {
@@ -87,16 +95,17 @@ public class UserService extends UserBuilder {
    *                          registration process
    */
   public UserModel registerUser(RegisterUserDto registerData) {
-    UserModel user = new UserModel();
-    user.setNames(registerData.getNames());
-    user.setSurNames(registerData.getSurNames());
-    user.setDocumentTypeId(registerData.getDocumentTypeId());
-    user.setDocumentNumber(registerData.getDocumentNumber());
-    user.setEmail(registerData.getEmail());
-    user.setPassword(registerData.getPassword());
-    user.setPhone(registerData.getPhone());
-    user.setRoleTypeId(registerData.getRoleTypeId());
-    user.setAddress(registerData.getAddress());
+    UserModel user = new UserModel()
+        .setNames(registerData.getNames())
+        .setSurNames(registerData.getSurNames())
+        .setDocumentTypeId(registerData.getDocumentTypeId())
+        .setDocumentNumber(registerData.getDocumentNumber())
+        .setEmail(registerData.getEmail())
+        .setPassword(registerData.getPassword())
+        .setPhone(registerData.getPhone())
+        .setRoleTypeId(registerData.getRoleTypeId())
+        .setAddress(registerData.getAddress())
+        .build();
 
     Binds binds = buildRegisterUser(user);
     KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -129,16 +138,18 @@ public class UserService extends UserBuilder {
    *                          process
    */
   public UserModel updateUser(RegisterUserDto updateData, int userId) {
-    UserModel user = new UserModel();
-    user.setNames(updateData.getNames());
-    user.setSurNames(updateData.getSurNames());
-    user.setDocumentTypeId(updateData.getDocumentTypeId());
-    user.setDocumentNumber(updateData.getDocumentNumber());
-    user.setEmail(updateData.getEmail());
-    user.setPassword(updateData.getPassword());
-    user.setPhone(updateData.getPhone());
-    user.setRoleTypeId(updateData.getRoleTypeId());
-    user.setAddress(updateData.getAddress());
+    UserModel user = new UserModel()
+        .setUserId(userId)
+        .setNames(updateData.getNames())
+        .setSurNames(updateData.getSurNames())
+        .setDocumentTypeId(updateData.getDocumentTypeId())
+        .setDocumentNumber(updateData.getDocumentNumber())
+        .setEmail(updateData.getEmail())
+        .setPassword(updateData.getPassword())
+        .setPhone(updateData.getPhone())
+        .setRoleTypeId(updateData.getRoleTypeId())
+        .setAddress(updateData.getAddress())
+        .build();
 
     Binds binds = buildUpdateUser(user, userId);
     try {

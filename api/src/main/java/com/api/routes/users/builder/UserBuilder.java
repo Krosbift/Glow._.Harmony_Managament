@@ -1,15 +1,13 @@
 package com.api.routes.users.builder;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import com.api.routes.users.model.UserModel;
 import com.api.routes.users.sql.UserSql;
 import com.api.routes.utils.interfaces.Binds;
@@ -30,19 +28,19 @@ public class UserBuilder {
     @Override
     public UserModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
       UserModel user = new UserModel()
-          .setUserId(rs.getInt("USERID"), hasColumn(rs, "USERID"))
-          .setNames(rs.getString("NAMES"), hasColumn(rs, "NAMES"))
-          .setSurNames(rs.getString("SURNAMES"), hasColumn(rs, "SURNAMES"))
-          .setDocumentTypeId(rs.getInt("DOCUMENTTYPEID"), hasColumn(rs, "DOCUMENTTYPEID"))
-          .setDocumentType(rs.getString("DOCUMENTTYPE"), hasColumn(rs, "DOCUMENTTYPE"))
-          .setDocumentNumber(rs.getString("DOCUMENTNUMBER"), hasColumn(rs, "DOCUMENTNUMBER"))
-          .setEmail(rs.getString("EMAIL"), hasColumn(rs, "EMAIL"))
-          .setPassword(rs.getString("PASSWORD"), hasColumn(rs, "PASSWORD"))
-          .setPhone(rs.getString("PHONENUMBER"), hasColumn(rs, "PHONENUMBER"))
-          .setRoleTypeId(rs.getInt("ROLETYPEID"), hasColumn(rs, "ROLETYPEID"))
-          .setRoleType(rs.getString("ROLETYPE"), hasColumn(rs, "ROLETYPE"))
-          .setAddress(rs.getString("ADDRESS"), hasColumn(rs, "ADDRESS"))
-          .setActive(rs.getBoolean("ACTIVE"), hasColumn(rs, "ACTIVE"))
+          .setUserId(rs, hasColumn(rs, "USERID"))
+          .setNames(rs, hasColumn(rs, "NAMES"))
+          .setSurNames(rs, hasColumn(rs, "SURNAMES"))
+          .setDocumentTypeId(rs, hasColumn(rs, "DOCUMENTTYPEID"))
+          .setDocumentType(rs, hasColumn(rs, "DOCUMENTTYPE"))
+          .setDocumentNumber(rs, hasColumn(rs, "DOCUMENTNUMBER"))
+          .setEmail(rs, hasColumn(rs, "EMAIL"))
+          .setPassword(rs, hasColumn(rs, "PASSWORD"))
+          .setPhone(rs, hasColumn(rs, "PHONENUMBER"))
+          .setRoleTypeId(rs, hasColumn(rs, "ROLETYPEID"))
+          .setRoleType(rs, hasColumn(rs, "ROLETYPE"))
+          .setAddress(rs, hasColumn(rs, "ADDRESS"))
+          .setActive(rs, hasColumn(rs, "ACTIVE"))
           .build();
 
       return user;
@@ -67,11 +65,11 @@ public class UserBuilder {
    *         parameters.
    */
   protected Binds buildFindUser(UserModel user) {
-    StringBuilder sql = new StringBuilder(UserSql.FIND_USER_BY_EMAIL.getQuery());
+    StringBuilder sql = new StringBuilder(UserSql.FIND_USER.getQuery());
     List<Object> params = new ArrayList<>();
 
     if (user.getEmail() != null) {
-      sql.append(" AND TIU.EMAIL = ?");
+      sql.append(" AND IUS.EMAIL = ?");
       params.add(user.getEmail());
     }
 
@@ -92,7 +90,7 @@ public class UserBuilder {
     List<Object> params = new ArrayList<>();
 
     if (user.getEmail() != null) {
-      sql.append(" AND TIU.EMAIL = ?");
+      sql.append(" AND IUS.EMAIL = ?");
       params.add(user.getEmail());
     }
 
@@ -100,7 +98,7 @@ public class UserBuilder {
   }
 
   /**
-   * Builds an SQL query to register a new user in the TB_IMC_USERS table.
+   * Builds an SQL query to register a new user in the TB_IMS_USERS table.
    * The query is constructed dynamically based on the non-null fields of the
    * provided UserModel object.
    * 
@@ -109,7 +107,7 @@ public class UserBuilder {
    *         corresponding parameters.
    */
   protected Binds buildRegisterUser(UserModel user) {
-    StringBuilder sql = new StringBuilder("INSERT INTO TB_IMC_USERS ");
+    StringBuilder sql = new StringBuilder("INSERT INTO TB_IMS_USERS ");
     StringBuilder columns = new StringBuilder("(");
     StringBuilder values = new StringBuilder("VALUES (");
     List<Object> params = new ArrayList<>();
@@ -181,7 +179,7 @@ public class UserBuilder {
   }
 
   /**
-   * Builds an SQL query to update an existing user in the TB_IMC_USERS table.
+   * Builds an SQL query to update an existing user in the TB_IMS_USERS table.
    * The query is constructed dynamically based on the non-null fields of the
    * provided UserModel object.
    * 
@@ -191,7 +189,7 @@ public class UserBuilder {
    *         corresponding parameters.
    */
   protected Binds buildUpdateUser(UserModel user, int userId) {
-    StringBuilder sql = new StringBuilder("UPDATE TB_IMC_USERS SET ");
+    StringBuilder sql = new StringBuilder("UPDATE TB_IMS_USERS SET ");
     List<Object> params = new ArrayList<>();
 
     if (user.getNames() != null) {

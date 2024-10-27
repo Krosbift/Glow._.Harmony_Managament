@@ -22,96 +22,85 @@ package com.api.routes.users.sql;
 public enum UserSql {
   FIND_USER_BY_ID(
     "SELECT " +
-      "TIU.USERID, " +
-      "TIU.NAMES, " + 
-      "TIU.SURNAMES, " +
-      "TIU.DOCUMENTTYPEID, " +
-      "TID.DOCUMENTTYPE, " +
-      "TIU.DOCUMENTNUMBER, " +
-      "TIU.EMAIL, " + 
-      "TIU.PASSWORD, " +
-      "TIU.PHONENUMBER, " +
-      "TIU.ROLETYPEID, " +
-      "TIR.ROLETYPE, " +
-      "TIU.ADDRESS " + 
-    "FROM TB_IMC_USERS TIU " +
-    "JOIN TB_IMC_ROLETYPES TIR ON TIU.ROLETYPEID = TIR.ROLETYPEID " +
-    "JOIN TB_IMC_DOCUMENTTYPES TID ON TIU.DOCUMENTTYPEID = TID.DOCUMENTTYPEID " +
-    "WHERE TIU.USERID = ?"
+      "IUS.USERID, " +
+      "IUS.NAMES, " + 
+      "IUS.SURNAMES, " +
+      "IUS.DOCUMENTTYPEID, " +
+      "IDT.DOCUMENTTYPE, " +
+      "IUS.DOCUMENTNUMBER, " +
+      "IUS.EMAIL, " + 
+      "IUS.PASSWORD, " +
+      "IUS.PHONENUMBER, " +
+      "IUS.ROLETYPEID, " +
+      "IRT.ROLETYPE, " +
+      "IUS.ADDRESS, " +
+      "IUS.ACTIVE " +
+    "FROM TB_IMS_USERS IUS " +
+    "JOIN TB_IMS_ROLETYPES IRT ON IUS.ROLETYPEID = IRT.ROLETYPEID " +
+    "JOIN TB_IMS_DOCUMENTTYPES IDT ON IUS.DOCUMENTTYPEID = IDT.DOCUMENTTYPEID " +
+    "WHERE IUS.USERID = ?"
   ),
-  FIND_USER_BY_EMAIL(
+  FIND_USER(
     "SELECT " +
-      "TIU.USERID, " +
-      "TIU.NAMES, " + 
-      "TIU.SURNAMES, " +
-      "TIU.DOCUMENTTYPEID, " +
-      "TID.DOCUMENTTYPE, " +
-      "TIU.DOCUMENTNUMBER, " +
-      "TIU.EMAIL, " + 
-      "TIU.PHONENUMBER, " +
-      "TIU.ROLETYPEID, " +
-      "TIR.ROLETYPE, " +
-      "TIU.ADDRESS " +
-    "FROM TB_IMC_USERS TIU " +
-    "JOIN TB_IMC_ROLETYPES TIR ON TIU.ROLETYPEID = TIR.ROLETYPEID " +
-    "JOIN TB_IMC_DOCUMENTTYPES TID ON TIU.DOCUMENTTYPEID = TID.DOCUMENTTYPEID " +
-    "WHERE TIU.ACTIVE = 1"
+      "IUS.USERID, " +
+      "IUS.NAMES, " + 
+      "IUS.SURNAMES, " +
+      "IUS.DOCUMENTTYPEID, " +
+      "IDT.DOCUMENTTYPE, " +
+      "IUS.DOCUMENTNUMBER, " +
+      "IUS.EMAIL, " + 
+      "IUS.PHONENUMBER, " +
+      "IUS.ROLETYPEID, " +
+      "IRT.ROLETYPE, " +
+      "IUS.ADDRESS, " +
+      "IUS.ACTIVE " +
+    "FROM TB_IMS_USERS IUS " +
+    "JOIN TB_IMS_ROLETYPES IRT ON IUS.ROLETYPEID = IRT.ROLETYPEID " +
+    "JOIN TB_IMS_DOCUMENTTYPES IDT ON IUS.DOCUMENTTYPEID = IDT.DOCUMENTTYPEID " +
+    "WHERE IUS.ACTIVE = 1"
   ),
   FIND_ALL_USERS(
     "SELECT " +
-      "TIU.USERID, " +
-      "TIU.NAMES, " + 
-      "TIU.SURNAMES, " +
-      "TIU.DOCUMENTTYPEID, " +
-      "TID.DOCUMENTTYPE, " +
-      "TIU.DOCUMENTNUMBER, " +
-      "TIU.EMAIL, " + 
-      "TIU.PHONENUMBER, " +
-      "TIU.ROLETYPEID, " +
-      "TIR.ROLETYPE, " +
-      "TIU.ADDRESS, " +
-      "TIU.ACTIVE " +
-    "FROM TB_IMC_USERS TIU " +
-    "JOIN TB_IMC_ROLETYPES TIR ON TIU.ROLETYPEID = TIR.ROLETYPEID " +
-    "JOIN TB_IMC_DOCUMENTTYPES TID ON TIU.DOCUMENTTYPEID = TID.DOCUMENTTYPEID"
+      "IUS.USERID, " +
+      "IUS.NAMES, " + 
+      "IUS.SURNAMES, " +
+      "IUS.DOCUMENTTYPEID, " +
+      "IDT.DOCUMENTTYPE, " +
+      "IUS.DOCUMENTNUMBER, " +
+      "IUS.EMAIL, " + 
+      "IUS.PHONENUMBER, " +
+      "IUS.ROLETYPEID, " +
+      "IRT.ROLETYPE, " +
+      "IUS.ADDRESS, " +
+      "IUS.ACTIVE " +
+    "FROM TB_IMS_USERS IUS " +
+    "JOIN TB_IMS_ROLETYPES IRT ON IUS.ROLETYPEID = IRT.ROLETYPEID " +
+    "JOIN TB_IMS_DOCUMENTTYPES IDT ON IUS.DOCUMENTTYPEID = IDT.DOCUMENTTYPEID"
   ),
   FIND_LOGIN_USER(
     "SELECT " +
-      "TIU.EMAIL, " + 
-      "TIU.PASSWORD " +
-    "FROM TB_IMC_USERS TIU " +
-    "WHERE TIU.ACTIVE = 1"
+      "IUS.EMAIL, " + 
+      "IUS.PASSWORD " +
+    "FROM TB_IMS_USERS IUS " +
+    "WHERE IUS.ACTIVE = 1"
   ),
   ACTIVE_USER(
-    "UPDATE TB_IMC_USERS " +
+    "UPDATE TB_IMS_USERS " +
     "SET ACTIVE = 1 " +
     "WHERE USERID = ?"
   ),
   DELETE_USER(
-    "UPDATE TB_IMC_USERS " +
+    "UPDATE TB_IMS_USERS " +
     "SET ACTIVE = 0 " +
     "WHERE USERID = ?"
   );
 
-  /**
-   * The SQL query string used for user-related database operations.
-   */
   private final String query;
 
-  /**
-   * Constructs a new UserSql instance with the specified SQL query.
-   *
-   * @param query the SQL query to be used by this UserSql instance
-   */
   UserSql(String query) {
     this.query = query;
   }
   
-  /**
-   * Retrieves the SQL query string.
-   *
-   * @return the SQL query string.
-   */
   public String getQuery() {
     return query;
   }

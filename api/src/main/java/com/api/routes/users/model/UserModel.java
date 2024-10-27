@@ -1,5 +1,8 @@
 package com.api.routes.users.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserModel {
   private int userId;
   private String names;
@@ -24,11 +27,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setUserId(int userId, boolean setValue) {
+  public UserModel setUserId(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.userId = userId;
+    this.userId = rs.getInt("USERID");
     return this;
   }
 
@@ -41,11 +44,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setNames(String names, boolean setValue) {
+  public UserModel setNames(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.names = names;
+    this.names = rs.getString("NAMES");
     return this;
   }
 
@@ -58,11 +61,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setSurNames(String surNames, boolean setValue) {
+  public UserModel setSurNames(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.surNames = surNames;
+    this.surNames = rs.getString("SURNAMES");
     return this;
   }
 
@@ -75,11 +78,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setDocumentTypeId(int documentTypeId, boolean setValue) {
+  public UserModel setDocumentTypeId(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.documentTypeId = documentTypeId;
+    this.documentTypeId = rs.getInt("DOCUMENTTYPEID");
     return this;
   }
 
@@ -92,11 +95,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setDocumentType(String documentType, boolean setValue) {
+  public UserModel setDocumentType(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.documentType = documentType;
+    this.documentType = rs.getString("DOCUMENTTYPE");
     return this;
   }
 
@@ -109,11 +112,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setDocumentNumber(String documentNumber, boolean setValue) {
+  public UserModel setDocumentNumber(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.documentNumber = documentNumber;
+    this.documentNumber = rs.getString("DOCUMENTNUMBER");
     return this;
   }
 
@@ -126,11 +129,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setEmail(String email, boolean setValue) {
+  public UserModel setEmail(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.email = email;
+    this.email = rs.getString("EMAIL");
     return this;
   }
 
@@ -143,11 +146,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setPassword(String password, boolean setValue) {
+  public UserModel setPassword(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.password = password;
+    this.password = rs.getString("PASSWORD");
     return this;
   }
 
@@ -160,11 +163,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setPhone(String phone, boolean setValue) {
+  public UserModel setPhone(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.phone = phone;
+    this.phone = rs.getString("PHONENUMBER");
     return this;
   }
 
@@ -177,11 +180,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setRoleTypeId(int roleTypeId, boolean setValue) {
+  public UserModel setRoleTypeId(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.roleTypeId = roleTypeId;
+    this.roleTypeId = rs.getInt("ROLETYPEID");
     return this;
   }
 
@@ -194,11 +197,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setRoleType(String roleType, boolean setValue) {
+  public UserModel setRoleType(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.roleType = roleType;
+    this.roleType = rs.getString("ROLETYPE");
     return this;
   }
 
@@ -211,11 +214,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setAddress(String address, boolean setValue) {
+  public UserModel setAddress(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.address = address;
+    this.address = rs.getString("ADDRESS");
     return this;
   }
 
@@ -228,11 +231,11 @@ public class UserModel {
     return this;
   }
 
-  public UserModel setActive(boolean active, boolean setValue) {
+  public UserModel setActive(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.active = active;
+    this.active = rs.getBoolean("ACTIVE");
     return this;
   }
 

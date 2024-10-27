@@ -27,43 +27,43 @@ public class UserController {
 
   @GetMapping("find-user")
   @Operation(summary = "Buscar usuario por email", description = "Retorna un usuario con base en el email ingresado.")
-  public UserModel findUser(@RequestParam String userEmail) throws Exception {
+  public UserModel findUser(@RequestParam String userEmail) {
     return userService.findUser(userEmail);
   }
 
   @GetMapping("find-all-users")
   @Operation(summary = "Buscar todos los usuarios", description = "Retorna una lista de todos los usuarios encontrados.")
-  public List<UserModel> findAllUsers() throws Exception {
+  public List<UserModel> findAllUsers() {
     return userService.findAllUsers();
   }
 
   @PostMapping("login")
   @Operation(summary = "Login de usuario", description = "Autentica un usuario con base en los datos ingresados.")
-  public boolean loginUser(@RequestBody LoginUserDto loginData) throws Exception {
+  public boolean loginUser(@RequestBody LoginUserDto loginData) {
     return userService.findLoginUser(loginData);
   }
 
   @PostMapping("register")
   @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario al sistema.")
-  public UserModel registerUser(@RequestBody RegisterUserDto registerData) throws Exception {
+  public UserModel registerUser(@RequestBody RegisterUserDto registerData) {
     return userService.registerUser(registerData);
   }
 
-  @PatchMapping("user-update/{userId}")
+  @PatchMapping("update-user/{userId}")
   @Operation(summary = "Actualizar usuario", description = "Actualiza los datos de un usuario existente.")
-  public UserModel updateUser(@RequestBody UpdateUserDto registerData, @PathVariable int userId) throws Exception {
+  public UserModel updateUser(@RequestBody UpdateUserDto registerData, @PathVariable int userId) {
     return userService.updateUser(registerData, userId);
   }
 
-  @PatchMapping("user-activate/{userId}")
+  @PatchMapping("activate-user/{userId}")
   @Operation(summary = "Activar usuario", description = "Activa un usuario existente.")
-  public int activateUser(@PathVariable int userId) throws Exception {
+  public int activateUser(@PathVariable int userId) {
     return userService.activateUser(userId);
   }
 
-  @DeleteMapping("user-delete/{userId}")
+  @DeleteMapping("delete-user/{userId}")
   @Operation(summary = "Desactivar usuario", description = "Desactiva un usuario existente.")
-  public int deleteUser(@PathVariable int userId) throws Exception {
+  public int deleteUser(@PathVariable int userId) {
     return userService.deleteUser(userId);
   }
 }
