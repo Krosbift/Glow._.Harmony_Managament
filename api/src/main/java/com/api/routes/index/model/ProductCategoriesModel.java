@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductCategoriesModel {
-  private int productCategoryId;
+  private Integer productCategoryId;
   private String name;
   private String description;
   private boolean isActive;
 
-  public int getProductCategoryId() {
+  public Integer getProductCategoryId() {
     return productCategoryId;
   }
 
-  public ProductCategoriesModel setProductCategoryId(int productCategoryId) {
+  public ProductCategoriesModel setProductCategoryId(Integer productCategoryId) {
     this.productCategoryId = productCategoryId;
     return this;
   }

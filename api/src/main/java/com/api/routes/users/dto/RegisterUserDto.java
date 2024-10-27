@@ -3,12 +3,12 @@ package com.api.routes.users.dto;
 public class RegisterUserDto {
   private String names;
   private String surNames;
-  private int documentTypeId;
+  private Integer documentTypeId;
   private String documentNumber;
   private String email;
   private String password;
   private String phone;
-  private int roleTypeId;
+  private Integer roleTypeId;
   private String address;
 
   public String getNames() {
@@ -27,11 +27,11 @@ public class RegisterUserDto {
     this.surNames = surNames;
   }
 
-  public int getDocumentTypeId() {
+  public Integer getDocumentTypeId() {
     return documentTypeId;
   }
 
-  public void setDocumentTypeId(int documentTypeId) {
+  public void setDocumentTypeId(Integer documentTypeId) {
     this.documentTypeId = documentTypeId;
   }
 
@@ -67,11 +67,11 @@ public class RegisterUserDto {
     this.phone = phone;
   }
 
-  public int getRoleTypeId() {
+  public Integer getRoleTypeId() {
     return roleTypeId;
   }
 
-  public void setRoleTypeId(int roleTypeId) {
+  public void setRoleTypeId(Integer roleTypeId) {
     this.roleTypeId = roleTypeId;
   }
 

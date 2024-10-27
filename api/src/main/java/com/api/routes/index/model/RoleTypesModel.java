@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RoleTypesModel {
-  private int roleTypeId;
+  private Integer roleTypeId;
   private String roleType;
   private String description;
   private boolean isActive;
 
-  public int getRoleTypeId() {
+  public Integer getRoleTypeId() {
     return roleTypeId;
   }
 
-  public RoleTypesModel setRoleTypeId(int roleTypeId) {
+  public RoleTypesModel setRoleTypeId(Integer roleTypeId) {
     this.roleTypeId = roleTypeId;
     return this;
   }

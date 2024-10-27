@@ -4,25 +4,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserModel {
-  private int userId;
+  private Integer userId;
   private String names;
   private String surNames;
-  private int documentTypeId;
+  private Integer documentTypeId;
   private String documentType;
   private String documentNumber;
   private String email;
   private String password;
   private String phone;
-  private int roleTypeId;
+  private Integer roleTypeId;
   private String roleType;
   private String address;
   private boolean active;
 
-  public int getUserId() {
+  public Integer getUserId() {
     return userId;
   }
 
-  public UserModel setUserId(int userId) {
+  public UserModel setUserId(Integer userId) {
     this.userId = userId;
     return this;
   }
@@ -69,11 +69,11 @@ public class UserModel {
     return this;
   }
 
-  public int getDocumentTypeId() {
+  public Integer getDocumentTypeId() {
     return documentTypeId;
   }
 
-  public UserModel setDocumentTypeId(int documentTypeId) {
+  public UserModel setDocumentTypeId(Integer documentTypeId) {
     this.documentTypeId = documentTypeId;
     return this;
   }
@@ -171,11 +171,11 @@ public class UserModel {
     return this;
   }
 
-  public int getRoleTypeId() {
+  public Integer getRoleTypeId() {
     return roleTypeId;
   }
 
-  public UserModel setRoleTypeId(int roleTypeId) {
+  public UserModel setRoleTypeId(Integer roleTypeId) {
     this.roleTypeId = roleTypeId;
     return this;
   }

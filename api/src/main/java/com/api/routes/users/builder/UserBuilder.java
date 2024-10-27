@@ -124,7 +124,7 @@ public class UserBuilder {
       params.add(user.getSurNames());
     }
 
-    if (user.getDocumentTypeId() > 0) {
+    if (user.getDocumentTypeId() != null) {
       columns.append("DOCUMENTTYPEID, ");
       values.append("?, ");
       params.add(user.getDocumentTypeId());
@@ -154,7 +154,7 @@ public class UserBuilder {
       params.add(user.getPhone());
     }
 
-    if (user.getRoleTypeId() > 0) {
+    if (user.getRoleTypeId() != null) {
       columns.append("ROLETYPEID, ");
       values.append("?, ");
       params.add(user.getRoleTypeId());
@@ -202,7 +202,7 @@ public class UserBuilder {
       params.add(user.getSurNames());
     }
 
-    if (user.getDocumentTypeId() > 0) {
+    if (user.getDocumentTypeId() != null) {
       sql.append("DOCUMENTTYPEID = ?, ");
       params.add(user.getDocumentTypeId());
     }
@@ -227,7 +227,7 @@ public class UserBuilder {
       params.add(user.getPhone());
     }
 
-    if (user.getRoleTypeId() > 0) {
+    if (user.getRoleTypeId() != null) {
       sql.append("ROLETYPEID = ?, ");
       params.add(user.getRoleTypeId());
     }

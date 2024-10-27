@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DocumentTypesModel {
-  private int documentTypeId;
+  private Integer documentTypeId;
   private String documentType;
   private String description;
   private boolean isActive;
 
-  public int getDocumentTypeId() {
+  public Integer getDocumentTypeId() {
     return documentTypeId;
   }
 
-  public DocumentTypesModel setDocumentTypeId(int documentTypeId) {
+  public DocumentTypesModel setDocumentTypeId(Integer documentTypeId) {
     this.documentTypeId = documentTypeId;
     return this;
   }

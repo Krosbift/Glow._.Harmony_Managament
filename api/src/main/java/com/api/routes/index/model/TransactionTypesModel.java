@@ -4,16 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TransactionTypesModel {
-  private int transactionTypeId;
+  private Integer transactionTypeId;
   private String transactionType;
   private String description;
   private boolean isActive;
 
-  public int getTransactionTypeId() {
+  public Integer getTransactionTypeId() {
     return transactionTypeId;
   }
 
-  public TransactionTypesModel setTransactionTypeId(int transactionTypeId) {
+  public TransactionTypesModel setTransactionTypeId(Integer transactionTypeId) {
     this.transactionTypeId = transactionTypeId;
     return this;
   }

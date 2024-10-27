@@ -27,7 +27,7 @@ public class SuppliersController {
 
   @GetMapping("find-supplier")
   @Operation(summary = "Buscar proveedores por cualquier valor coincidiente", description = "Retorna el proveedor encontrado.")
-  public SupplierModel findSupplier(@RequestParam(required = false) String name,
+  public List<SupplierModel> findSupplier(@RequestParam(required = false) String name,
       @RequestParam(required = false) String address, @RequestParam(required = false) String phone) {
     GetSupplierDto getSupplierDto = new GetSupplierDto()
         .setName(name)

@@ -89,6 +89,16 @@ public class SupplierBuilder {
     return new Binds(sql.toString(), params.toArray());
   }
 
+  /**
+   * Builds an SQL INSERT statement for creating a new supplier in the
+   * TB_IMS_SUPPLIERS table.
+   * The method dynamically constructs the SQL query based on the non-null fields
+   * of the provided SupplierModel.
+   * 
+   * @param supplier The SupplierModel object containing the supplier details.
+   * @return A Binds object containing the constructed SQL query and the
+   *         corresponding parameters.
+   */
   protected Binds buildCreateSupplier(SupplierModel supplier) {
     StringBuilder sql = new StringBuilder("INSERT INTO TB_IMS_SUPPLIERS ");
     StringBuilder columns = new StringBuilder("(");
@@ -122,11 +132,21 @@ public class SupplierBuilder {
     values.append(") ");
     sql.append(columns).append(values);
 
-    System.out.println(sql.toString());
-
     return new Binds(sql.toString(), params.toArray());
   }
 
+  /**
+   * Builds an SQL update statement for the TB_IMS_SUPPLIERS table based on the
+   * provided SupplierModel.
+   * The method dynamically constructs the SQL query by including only the
+   * non-null fields of the supplier.
+   * 
+   * @param supplier   The SupplierModel object containing the supplier details to
+   *                   be updated.
+   * @param supplierId The ID of the supplier to be updated.
+   * @return A Binds object containing the constructed SQL update statement and
+   *         the corresponding parameters.
+   */
   protected Binds buildUpdateSupplier(SupplierModel supplier, int supplierId) {
     StringBuilder sql = new StringBuilder("UPDATE TB_IMS_SUPPLIERS SET ");
     List<Object> params = new ArrayList<>();

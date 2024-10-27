@@ -23,7 +23,7 @@ public class SuppliersService extends SupplierBuilder {
    * @return the found SupplierModel
    * @throws RuntimeException if an unexpected error occurs during the query
    */
-  public SupplierModel findSupplier(GetSupplierDto getSupplierDto) {
+  public List<SupplierModel> findSupplier(GetSupplierDto getSupplierDto) {
     SupplierModel supplier = new SupplierModel()
         .setName(getSupplierDto.getName())
         .setAddress(getSupplierDto.getAddress())
@@ -33,7 +33,7 @@ public class SuppliersService extends SupplierBuilder {
     Binds binds = buildFindSupplier(supplier);
     try {
       List<SupplierModel> supplierFound = jdbcTemplate.query(binds.getSql(), supplierRowMapper, binds.getParams());
-      return supplierFound.get(0);
+      return supplierFound;
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
