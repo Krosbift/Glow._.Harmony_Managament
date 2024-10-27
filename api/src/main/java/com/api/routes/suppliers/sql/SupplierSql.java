@@ -7,30 +7,32 @@ package com.api.routes.suppliers.sql;
 public enum SupplierSql {
   FIND_SUPPLIER_BY_ID(
     "SELECT " +
-      "TIS.SUPPLIERID, " +
-      "TIS.NAME, " +
-      "TIS.ADDRESS, " +
-      "TIS.PHONENUMBERNUMBER, " +
-    "FROM TB_IMS_SUPPLIERS TIS " +
-    "WHERE TIS.SUPPLIERID = ?"
+      "ISL.SUPPLIERID, " +
+      "ISL.NAME, " +
+      "ISL.ADDRESS, " +
+      "ISL.PHONENUMBER, " +
+      "ISL.ACTIVE " +
+    "FROM TB_IMS_SUPPLIERS ISL " +
+    "WHERE ISL.SUPPLIERID = ?"
   ),
   FIND_SUPPLIER(
     "SELECT " +
-      "TIS.SUPPLIERID, " +
-      "TIS.NAME, " +
-      "TIS.ADDRESS, " +
-      "TIS.PHONENUMBER, " +
-    "FROM TB_IMS_SUPPLIERS TIS " +
-    "WHERE TIS.ACTIVE = 1"
+      "ISL.SUPPLIERID, " +
+      "ISL.NAME, " +
+      "ISL.ADDRESS, " +
+      "ISL.PHONENUMBER, " +
+      "ISL.ACTIVE " +
+    "FROM TB_IMS_SUPPLIERS ISL " +
+    "WHERE ISL.ACTIVE = 1"
   ),
   FIND_ALL_SUPPLIERS(
     "SELECT " +
-      "TIS.SUPPLIERID, " +
-      "TIS.NAME, " +
-      "TIS.ADDRESS, " +
-      "TIS.PHONENUMBER, " +
-      "TIS.ACTIVE " +
-    "FROM TB_IMS_SUPPLIERS TIS"
+      "ISL.SUPPLIERID, " +
+      "ISL.NAME, " +
+      "ISL.ADDRESS, " +
+      "ISL.PHONENUMBER, " +
+      "ISL.ACTIVE " +
+    "FROM TB_IMS_SUPPLIERS ISL"
   ),
   ACTIVE_SUPPLIER(
     "UPDATE TB_IMS_SUPPLIERS " +

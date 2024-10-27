@@ -1,5 +1,8 @@
 package com.api.routes.suppliers.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class SupplierModel {
   private int supplierId;
   private String name;
@@ -16,11 +19,11 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setSupplierId(int supplierId, boolean setValue) {
+  public SupplierModel setSupplierId(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.supplierId = supplierId;
+    this.supplierId = rs.getInt("SUPPLIERID");
     return this;
   }
 
@@ -33,11 +36,11 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setName(String name, boolean setValue) {
+  public SupplierModel setName(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.name = name;
+    this.name = rs.getString("NAME");
     return this;
   }
 
@@ -50,11 +53,11 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setAddress(String address, boolean setValue) {
+  public SupplierModel setAddress(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.address = address;
+    this.address = rs.getString("ADDRESS");
     return this;
   }
 
@@ -67,11 +70,11 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setPhone(String phone, boolean setValue) {
+  public SupplierModel setPhone(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.phone = phone;
+    this.phone = rs.getString("PHONENUMBER");
     return this;
   }
 
@@ -84,11 +87,11 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setActive(boolean active, boolean setValue) {
+  public SupplierModel setActive(ResultSet rs, boolean setValue) throws SQLException {
     if (!setValue) {
       return this;
     }
-    this.active = active;
+    this.active = rs.getBoolean("ACTIVE");
     return this;
   }
 

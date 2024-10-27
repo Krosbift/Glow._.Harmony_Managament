@@ -5,7 +5,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.util.StringBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,19 +20,21 @@ public class SupplierBuilder {
    * RowMapper implementation to map a ResultSet to a SupplierModel object.
    * This mapper extracts the following fields from the ResultSet:
    * 
-   * Each field is set in the SupplierModel object only if the corresponding column exists in the ResultSet.
+   * Each field is set in the SupplierModel object only if the corresponding
+   * column exists in the ResultSet.
    * 
-   * @throws SQLException if a database access error occurs or this method is called on a closed result set
+   * @throws SQLException if a database access error occurs or this method is
+   *                      called on a closed result set
    */
   protected RowMapper<SupplierModel> supplierRowMapper = new RowMapper<SupplierModel>() {
     @Override
     public SupplierModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
       SupplierModel supplier = new SupplierModel()
-          .setSupplierId(rs.getInt("SUPPLIERID"), hasColumn(rs, "SUPPLIERID"))
-          .setName(rs.getString("SUPPLIERNAME"), hasColumn(rs, "SUPPLIERNAME"))
-          .setAddress(rs.getString("SUPPLIERADDRESS"), hasColumn(rs, "SUPPLIERADDRESS"))
-          .setPhone(rs.getString("SUPPLIERPHONE"), hasColumn(rs, "SUPPLIERPHONE"))
-          .setActive(rs.getBoolean("SUPPLIERACTIVE"), hasColumn(rs, "SUPPLIERACTIVE"))
+          .setSupplierId(rs, hasColumn(rs, "SUPPLIERID"))
+          .setName(rs, hasColumn(rs, "NAME"))
+          .setAddress(rs, hasColumn(rs, "ADDRESS"))
+          .setPhone(rs, hasColumn(rs, "PHONENUMBER"))
+          .setActive(rs, hasColumn(rs, "ACTIVE"))
           .build();
 
       return supplier;
@@ -44,39 +45,44 @@ public class SupplierBuilder {
    * Finds a supplier by their unique ID.
    *
    * @param supplierId the unique identifier of the supplier to be found
-   * @return the SupplierModel object representing the supplier with the specified ID
+   * @return the SupplierModel object representing the supplier with the specified
+   *         ID
    */
   protected SupplierModel findSupplierById(int supplierId) {
     return jdbcTemplate.query(SupplierSql.FIND_SUPPLIER_BY_ID.getQuery(), supplierRowMapper, supplierId).get(0);
   }
 
   /**
-   * Constructs a SQL query to find a supplier based on the provided SupplierModel attributes.
-   * The query is dynamically built by appending conditions for non-null attributes of the supplier.
+   * Constructs a SQL query to find a supplier based on the provided SupplierModel
+   * attributes.
+   * The query is dynamically built by appending conditions for non-null
+   * attributes of the supplier.
    *
-   * @param supplier The SupplierModel object containing the attributes to filter the supplier search.
+   * @param supplier The SupplierModel object containing the attributes to filter
+   *                 the supplier search.
    *                 The attributes that can be used for filtering are:
    *                 - Name
    *                 - Address
    *                 - Phone
-   * @return A Binds object containing the constructed SQL query and the corresponding parameters.
+   * @return A Binds object containing the constructed SQL query and the
+   *         corresponding parameters.
    */
   protected Binds buildFindSupplier(SupplierModel supplier) {
     StringBuilder sql = new StringBuilder(SupplierSql.FIND_SUPPLIER.getQuery());
     List<Object> params = new ArrayList<Object>();
 
     if (supplier.getName() != null) {
-      sql.append(" AND NAME = ?");
+      sql.append(" AND ISL.NAME = ?");
       params.add(supplier.getName());
     }
 
     if (supplier.getAddress() != null) {
-      sql.append(" AND ADDRESS = ?");
+      sql.append(" AND ISL.ADDRESS = ?");
       params.add(supplier.getAddress());
     }
 
     if (supplier.getPhone() != null) {
-      sql.append(" AND PHONENUMBER = ?");
+      sql.append(" AND ISL.PHONENUMBER = ?");
       params.add(supplier.getPhone());
     }
 
@@ -97,13 +103,13 @@ public class SupplierBuilder {
 
     if (supplier.getAddress() != null) {
       columns.append("ADDRESS, ");
-      sql.append("?, ");
+      values.append("?, ");
       params.add(supplier.getAddress());
     }
 
     if (supplier.getPhone() != null) {
       columns.append("PHONENUMBER, ");
-      sql.append("?, ");
+      values.append("?, ");
       params.add(supplier.getPhone());
     }
 
@@ -111,10 +117,12 @@ public class SupplierBuilder {
       columns.setLength(columns.length() - 2);
       values.setLength(values.length() - 2);
     }
-    
+
     columns.append(") ");
     values.append(") ");
     sql.append(columns).append(values);
+
+    System.out.println(sql.toString());
 
     return new Binds(sql.toString(), params.toArray());
   }
@@ -151,10 +159,11 @@ public class SupplierBuilder {
   /**
    * Checks if the ResultSet contains the specified column.
    * 
-   * @param rs the ResultSet to check
+   * @param rs     the ResultSet to check
    * @param column the name of the column to check for
    * @return true if the ResultSet contains the specified column, false otherwise
-   * @throws SQLException if a database access error occurs or this method is called on a closed result set
+   * @throws SQLException if a database access error occurs or this method is
+   *                      called on a closed result set
    */
   protected boolean hasColumn(ResultSet rs, String column) throws SQLException {
     ResultSetMetaData rsmd = rs.getMetaData();
