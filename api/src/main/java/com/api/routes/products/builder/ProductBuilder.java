@@ -170,19 +170,19 @@ public class ProductBuilder {
     List<Object> params = new ArrayList<>();
 
     if (product.getProductName() != null) {
-      sql.append("NAME = ?,");
+      sql.append("NAME = ?, ");
       params.add(product.getProductName());
     }
     if (product.getProductCategoryId() != null) {
-      sql.append("CATEGORYID = ?,");
+      sql.append("CATEGORYID = ?, ");
       params.add(product.getProductCategoryId());
     }
     if (product.getProductPrice() != null) {
-      sql.append("UNITPRICE = ?,");
+      sql.append("UNITPRICE = ?, ");
       params.add(product.getProductPrice());
     }
     if (product.getSupplierId() != null) {
-      sql.append("SUPPLIERID = ?,");
+      sql.append("SUPPLIERID = ?, ");
       params.add(product.getSupplierId());
     }
 
