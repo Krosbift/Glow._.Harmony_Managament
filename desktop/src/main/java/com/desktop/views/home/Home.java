@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.JPanel;
 
-import com.desktop.AppFrame;
+import com.desktop.views.AppFrameComponent;
 import com.desktop.views.home.components.Content;
 import com.desktop.views.home.components.SideNav;
 import com.desktop.views.home.components.ToolBar;
@@ -17,14 +17,14 @@ import com.desktop.views.home.services.HomeService;
 public class Home extends JPanel {
   private String userEmail;
 
-  private AppFrame appFrame;
+  private AppFrameComponent appFrame;
   private ToolBar toolBar;
   private SideNav sideNav;
   private Content contentPanel;
 
   private HomeService homeService = new HomeService();
 
-  public Home(AppFrame _appFrame, String _email) throws ExecutionException {
+  public Home(AppFrameComponent _appFrame, String _email) throws ExecutionException {
     userEmail = _email;
     appFrame = _appFrame;
     initConfig();
@@ -80,6 +80,6 @@ public class Home extends JPanel {
     toolBar = null;
     sideNav = null;
     contentPanel = null;
-    appFrame.showLogin();
+    // appFrame.showLogin();
   }
 }

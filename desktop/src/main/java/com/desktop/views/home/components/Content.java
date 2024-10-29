@@ -4,14 +4,14 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
-import com.desktop.AppFrame;
+import com.desktop.views.AppFrameComponent;
 import com.desktop.views.home.Home;
 
 public class Content extends JPanel {
-  private AppFrame appFrame;
+  private AppFrameComponent appFrame;
   @SuppressWarnings("unused") private Home home;
 
-  public Content(Home _home, AppFrame _appFrame) {
+  public Content(Home _home, AppFrameComponent _appFrame) {
     appFrame = _appFrame;
     home = _home;
     initConfig();

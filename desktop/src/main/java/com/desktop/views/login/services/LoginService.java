@@ -1,7 +1,6 @@
 package com.desktop.views.login.services;
 
 import java.util.concurrent.ExecutionException;
-
 import com.desktop.core.database.service.HttpClientService;
 import com.desktop.views.login.models.SendLogin;
 

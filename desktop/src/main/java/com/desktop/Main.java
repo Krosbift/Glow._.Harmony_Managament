@@ -1,5 +1,6 @@
 package com.desktop;
 
+import com.desktop.views.AppFrameController;
 /**
  * The Main class serves as the entry point for the desktop application.
  * It initializes the application by invoking the AppController's start method
@@ -16,7 +17,7 @@ public class Main {
   public static void main(String[] args) {
     javax.swing.SwingUtilities.invokeLater(new Runnable() {
       public void run() {
-        new AppController().start();
+        new AppFrameController().start();
       }
     });
   }
