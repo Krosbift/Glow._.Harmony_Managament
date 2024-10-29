@@ -11,6 +11,7 @@ import com.api.routes.index.model.DocumentTypesModel;
 import com.api.routes.index.model.ProductCategoriesModel;
 import com.api.routes.index.model.RoleTypesModel;
 import com.api.routes.index.model.TransactionTypesModel;
+import com.api.routes.index.model.ViewsModel;
 
 @RestController
 @RequestMapping("index")
@@ -18,6 +19,12 @@ import com.api.routes.index.model.TransactionTypesModel;
 public class IndexController {
   @Autowired
   private IndexService indexService;
+
+  @GetMapping("find-views")
+  @Operation(summary = "Buscar todas las vistas.", description = "Retorna las vistas encontradas.")
+  public List<ViewsModel> findAllViews() {
+    return indexService.findAllViews();
+  }
 
   @GetMapping("find-documentTypes")
   @Operation(summary = "Buscar todos los tipos de documentos.", description = "Retorna los tipos de documentos encontrados.")

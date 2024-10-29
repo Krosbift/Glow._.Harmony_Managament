@@ -1,6 +1,15 @@
 package com.api.routes.index.sql;
 
 public enum IndexSql {
+  FIND_VIEWS(
+    "SELECT " +
+      "IV.VIEWID, " +
+      "IV.NAME, " +
+      "IV.DESCRIPTION, " +
+      "IV.ACTIVE " +
+    "FROM TB_IMS_VIEWS IV " +
+    "WHERE ACTIVE = 1"
+  ),
   FIND_DOCUMENT_TYPES(
     "SELECT " +
       "IDT.DOCUMENTTYPEID, " +

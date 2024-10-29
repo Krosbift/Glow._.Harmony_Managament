@@ -128,6 +128,7 @@ public class InventoryBuilder {
           .setTransactionTypeId(rs, hasColumn(rs, "TRANSACTIONTYPEID"))
           .setTransactionType(rs, hasColumn(rs, "TRANSACTIONTYPE"))
           .setUpdateAmount(rs, hasColumn(rs, "UPDATEAMOUNT"))
+          .setExpirationDate(rs, hasColumn(rs, "EXPIRATIONDATE"))
           .setActive(rs, hasColumn(rs, "ACTIVE"))
           .build();
 
@@ -221,6 +222,11 @@ public class InventoryBuilder {
       values.append("?, ");
       params.add(updateProduct.getTransactionTypeId());
     }
+    if (updateProduct.getExpirationDate() != null) {
+      columns.append("EXPIRATIONDATE, ");
+      values.append("?, ");
+      params.add(updateProduct.getExpirationDate());
+    }
     if (updateProduct.getUpdateAmount() != null) {
       columns.append("UPDATEAMOUNT, ");
       values.append("?, ");
@@ -265,6 +271,10 @@ public class InventoryBuilder {
     if (updateProduct.getTransactionTypeId() != null) {
       sql.append("TRANSACTIONTYPEID = ?, ");
       params.add(updateProduct.getTransactionTypeId());
+    }
+    if (updateProduct.getExpirationDate() != null) {
+      sql.append("EXPIRATIONDATE = ?, ");
+      params.add(updateProduct.getExpirationDate());
     }
     if (updateProduct.getUpdateAmount() != null) {
       sql.append("UPDATEAMOUNT = ?, ");

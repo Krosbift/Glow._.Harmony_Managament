@@ -3,11 +3,14 @@ package com.api.routes.inventory.dto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.api.routes.inventory.model.UpdateProductModel;
+
 public class CreateUpdateProductDto {
   private String reason;
   private Integer productId;
   private Integer transactionTypeId;
   private Integer updateAmount;
+  private String expirationDate;
 
   public String getReason() {
     return reason;
@@ -74,6 +77,23 @@ public class CreateUpdateProductDto {
       return this;
     }
     this.updateAmount = rs.getInt("UPDATEAMOUNT");
+    return this;
+  }
+
+  public String getExpirationDate() {
+    return expirationDate;
+  }
+
+  public CreateUpdateProductDto setExpirationDate(String expirationDate) {
+    this.expirationDate = expirationDate;
+    return this;
+  }
+
+  public CreateUpdateProductDto setExpirationDate(ResultSet rs, boolean setValue) throws SQLException {
+    if (!setValue) {
+      return this;
+    }
+    this.expirationDate = rs.getString("EXPIRATIONDATE");
     return this;
   }
 

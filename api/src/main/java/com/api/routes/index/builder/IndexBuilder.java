@@ -11,13 +11,38 @@ import com.api.routes.index.model.DocumentTypesModel;
 import com.api.routes.index.model.ProductCategoriesModel;
 import com.api.routes.index.model.RoleTypesModel;
 import com.api.routes.index.model.TransactionTypesModel;
+import com.api.routes.index.model.ViewsModel;
 
 public class IndexBuilder {
   @Autowired
   protected JdbcTemplate jdbcTemplate;
 
   /**
-   * RowMapper implementation for mapping rows of a ResultSet to DocumentTypesModel instances.
+   * RowMapper implementation for mapping rows of a ResultSet to ViewsModel
+   * instances.
+   * This mapper extracts the following columns from the ResultSet:
+   * 
+   * The extracted values are used to populate a ViewsModel object.
+   * 
+   * @throws SQLException if an SQL error occurs while accessing the ResultSet
+   */
+  protected RowMapper<ViewsModel> viewsRowMapper = new RowMapper<ViewsModel>() {
+    @Override
+    public ViewsModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+      ViewsModel view = new ViewsModel()
+          .setViewId(rs, hasColumn(rs, "VIEWID"))
+          .setViewName(rs, hasColumn(rs, "NAME"))
+          .setDescription(rs, hasColumn(rs, "DESCRIPTION"))
+          .setActive(rs, hasColumn(rs, "ACTIVE"))
+          .build();
+
+      return view;
+    }
+  };
+
+  /**
+   * RowMapper implementation for mapping rows of a ResultSet to
+   * DocumentTypesModel instances.
    * This mapper extracts the following columns from the ResultSet:
    * 
    * The extracted values are used to populate a DocumentTypesModel object.
@@ -39,7 +64,8 @@ public class IndexBuilder {
   };
 
   /**
-   * RowMapper implementation for mapping rows of a ResultSet to ProductCategoriesModel instances.
+   * RowMapper implementation for mapping rows of a ResultSet to
+   * ProductCategoriesModel instances.
    * This mapper extracts the following columns from the ResultSet:
    * 
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
@@ -59,8 +85,10 @@ public class IndexBuilder {
   };
 
   /**
-   * RowMapper implementation for mapping rows of a ResultSet to RoleTypesModel instances.
-   * This mapper is used to convert the result set rows into RoleTypesModel objects.
+   * RowMapper implementation for mapping rows of a ResultSet to RoleTypesModel
+   * instances.
+   * This mapper is used to convert the result set rows into RoleTypesModel
+   * objects.
    * 
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
@@ -79,8 +107,10 @@ public class IndexBuilder {
   };
 
   /**
-   * RowMapper implementation for mapping rows of a ResultSet to TransactionTypesModel objects.
-   * This mapper is used to convert the result set from a database query into a TransactionTypesModel instance.
+   * RowMapper implementation for mapping rows of a ResultSet to
+   * TransactionTypesModel objects.
+   * This mapper is used to convert the result set from a database query into a
+   * TransactionTypesModel instance.
    * 
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */

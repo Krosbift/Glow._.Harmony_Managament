@@ -12,6 +12,7 @@ public class UpdateProductModel {
   private Integer transactionTypeId;
   private String transactionType;
   private Integer updateAmount;
+  private String expirationDate;
   private Integer active;
 
   public Integer getUpdateProductId() {
@@ -147,6 +148,23 @@ public class UpdateProductModel {
       return this;
     }
     this.updateAmount = rs.getInt("UPDATEAMOUNT");
+    return this;
+  }
+
+  public String getExpirationDate() {
+    return expirationDate;
+  }
+
+  public UpdateProductModel setExpirationDate(String expirationDate) {
+    this.expirationDate = expirationDate;
+    return this;
+  }
+
+  public UpdateProductModel setExpirationDate(ResultSet rs, boolean setValue) throws SQLException {
+    if (!setValue) {
+      return this;
+    }
+    this.expirationDate = rs.getString("EXPIRATIONDATE");
     return this;
   }
 

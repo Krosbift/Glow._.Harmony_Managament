@@ -7,10 +7,26 @@ import com.api.routes.index.model.DocumentTypesModel;
 import com.api.routes.index.model.ProductCategoriesModel;
 import com.api.routes.index.model.RoleTypesModel;
 import com.api.routes.index.model.TransactionTypesModel;
+import com.api.routes.index.model.ViewsModel;
 import com.api.routes.index.sql.IndexSql;
 
 @Service
 public class IndexService extends IndexBuilder {
+
+  /**
+   * Retrieves a list of views from the database.
+   *
+   * @return a list of {@link ViewsModel} representing the views.
+   * @throws RuntimeException if an unexpected error occurs during the database
+   *                          query.
+   */
+  public List<ViewsModel> findAllViews() {
+    try {
+      return jdbcTemplate.query(IndexSql.FIND_VIEWS.getSql(), viewsRowMapper);
+    } catch (Exception error) {
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
+    }
+  }
 
   /**
    * Retrieves a list of document types from the database.
