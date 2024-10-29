@@ -3,8 +3,6 @@ package com.api.routes.inventory.dto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.api.routes.inventory.model.UpdateProductModel;
-
 public class CreateUpdateProductDto {
   private String reason;
   private Integer productId;
