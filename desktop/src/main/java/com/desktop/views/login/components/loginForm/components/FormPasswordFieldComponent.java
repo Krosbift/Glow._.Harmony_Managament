@@ -72,5 +72,7 @@ public class FormPasswordFieldComponent extends JPasswordField implements Compon
     int centerY = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getHeight() / 2;
     passwordLabel.setBounds(centerX - 100, centerY + 70, 200, 30);
     this.setBounds(centerX - 100, centerY + 100, 200, 30);
+    this.repaint();
+    this.revalidate();
   }
 }

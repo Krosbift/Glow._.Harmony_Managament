@@ -33,7 +33,7 @@ public class MaximizeButton extends JButton implements ComponentInterface {
   private void _listenerClicking() {
     this.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent e) {
-        controller.appframe.setExtendedState(controller.appframe.getExtendedState() == 0 ? 6 : 0);
+        controller.appFrame.setExtendedState(controller.appFrame.getExtendedState() == 0 ? 6 : 0);
       }
     });
   }

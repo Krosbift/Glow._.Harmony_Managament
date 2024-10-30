@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.concurrent.ExecutionException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
@@ -76,7 +78,9 @@ public class FormInputButtonComponent extends JButton implements ComponentInterf
     int centerX = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getWidth() / 2;
     int centerY = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getHeight() / 2;
     this.setBounds(centerX - 90, centerY + 160, 180, 30);
-    errorMessage.setBounds(centerX - 90, centerY + 160, 180, 30);
+    errorMessage.setBounds(centerX - 110, centerY + 190, 240, 30);
+    this.repaint();
+    this.revalidate();
   }
 
   /**
@@ -90,11 +94,11 @@ public class FormInputButtonComponent extends JButton implements ComponentInterf
     this.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        String email = ((FormEmailFieldComponent) controller.childComponents.get("FormEmailFieldComponent"))
-            .getText();
-        String password = new String(
-            ((FormPasswordFieldComponent) controller.childComponents.get("FormPasswordFieldComponent")).getPassword());
-        System.out.println(email + " : " + password);
+        try {
+          controller.login();
+        } catch (ExecutionException e1) {
+          e1.printStackTrace();
+        }
       }
     });
   }

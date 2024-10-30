@@ -50,5 +50,7 @@ public class SubFormPanelComponent extends JPanel implements ComponentInterface 
     int height = controller.loginFormPanelComponent.getHeight() - 50;
 
     this.setBounds(25, 25, width, height);
+    this.repaint();
+    this.revalidate();
   }
 }

@@ -49,8 +49,12 @@ public class RightPanelComponent extends JPanel implements ComponentInterface {
    * triggers revalidation and repainting to reflect the changes.
    */
   private void resizeComponents() {
-    int loginWith = controller.loginComponent.getWidth();
-    int width = loginWith - Math.max(loginWith / 3, 300);
-    this.setBounds(Math.max(loginWith / 3, 300), 0, width, controller.loginComponent.getHeight());
+    if (controller.loginComponent != null) {
+      int loginWith = controller.loginComponent.getWidth();
+      int width = loginWith - Math.max(loginWith / 3, 300);
+      this.setBounds(Math.max(loginWith / 3, 300), 0, width, controller.loginComponent.getHeight());
+      this.repaint();
+      this.revalidate();
+    }
   }
 }

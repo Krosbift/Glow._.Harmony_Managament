@@ -24,7 +24,7 @@ public class TopBarPanelComponent extends JPanel implements ComponentInterface {
     this.setBackground(Color.decode("#121212"));
     this.setPreferredSize(new Dimension(this.getWidth(), 30));
     this.setLayout(new BorderLayout());
-    controller.appframe.add(this, BorderLayout.NORTH);
+    controller.appFrame.add(this, BorderLayout.NORTH);
   }
 
   /**
@@ -48,7 +48,7 @@ public class TopBarPanelComponent extends JPanel implements ComponentInterface {
 
     this.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
       public void mouseDragged(java.awt.event.MouseEvent e) {
-        controller.appframe.setLocation(e.getXOnScreen() - coords.get("pX"), e.getYOnScreen() - coords.get("pY"));
+        controller.appFrame.setLocation(e.getXOnScreen() - coords.get("pX"), e.getYOnScreen() - coords.get("pY"));
       }
     });
   }

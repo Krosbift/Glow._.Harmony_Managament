@@ -49,8 +49,12 @@ public class LoginFormPanelComponent extends JPanel implements ComponentInterfac
    * triggers revalidation and repainting to reflect the changes.
    */
   private void resizeComponents() {
-    int loginWith = controller.parentController.loginComponent.getWidth();
-    int width = Math.max(loginWith / 3, 300);
-    this.setBounds(0, 0, width, controller.parentController.loginComponent.getHeight());
+    if (controller.parentController.loginComponent != null) {
+      int loginWith = controller.parentController.loginComponent.getWidth();
+      int width = Math.max(loginWith / 3, 300);
+      this.setBounds(0, 0, width, controller.parentController.loginComponent.getHeight());
+      this.repaint();
+      this.revalidate();
+    }
   }
 }

@@ -35,7 +35,7 @@ public class MinimizeButton extends JButton implements ComponentInterface {
   private void _listenerClicking() {
     this.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent e) {
-        controller.appframe.setState(JFrame.ICONIFIED);
+        controller.appFrame.setState(JFrame.ICONIFIED);
       }
     });
   }

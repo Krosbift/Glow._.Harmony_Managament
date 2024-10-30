@@ -14,7 +14,10 @@ public class LoginService {
   public boolean login(String email, String password) throws ExecutionException {
     StringBuilder params = new StringBuilder("/login");
     try {
-      SendLogin sendLogin = new SendLogin(email, password);
+      SendLogin sendLogin = new SendLogin()
+          .setEmail(email)
+          .setPassword(password)
+          .build();
       return httpClientService.post(params.toString(), sendLogin, boolean.class);
     } catch (Exception e) {
       throw new ExecutionException(e.getMessage(), null);      

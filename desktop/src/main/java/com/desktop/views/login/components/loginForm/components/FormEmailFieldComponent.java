@@ -71,5 +71,7 @@ public class FormEmailFieldComponent extends JTextField implements ComponentInte
     int centerY = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getHeight() / 2;
     emailLabel.setBounds(centerX - 100, centerY, 200, 30);
     this.setBounds(centerX - 100, centerY + 30, 200, 30);
+    this.repaint();
+    this.revalidate();
   }
 }

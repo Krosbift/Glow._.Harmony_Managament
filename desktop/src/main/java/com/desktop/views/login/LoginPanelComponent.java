@@ -15,9 +15,9 @@ public class LoginPanelComponent extends JPanel {
 
   public void _configurateComponent() {
     this.setLayout(null);
-    this.setBounds(0, 0, controller.parentController.appframe.getWidth(),
-        controller.parentController.appframe.getHeight());
-    controller.parentController.appframe.add(this);
+    this.setBounds(0, 0, controller.parentController.appFrame.getWidth(),
+        controller.parentController.appFrame.getHeight());
+    controller.parentController.appFrame.add(this);
   }
 
   /**
@@ -26,7 +26,7 @@ public class LoginPanelComponent extends JPanel {
    * adjust the size of the components accordingly.
    */
   private void _listernerSizing() {
-    controller.parentController.appframe.addComponentListener(new ComponentAdapter() {
+    controller.parentController.appFrame.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
         resizeComponents();
@@ -41,8 +41,8 @@ public class LoginPanelComponent extends JPanel {
    * and then triggers revalidation and repainting of the component to reflect the changes.
    */
   private void resizeComponents() {
-    this.setBounds(0, 0, controller.parentController.appframe.getWidth(),
-        controller.parentController.appframe.getHeight());
+    this.setBounds(0, 0, controller.parentController.appFrame.getWidth(),
+        controller.parentController.appFrame.getHeight());
     revalidate();
     repaint();
   }

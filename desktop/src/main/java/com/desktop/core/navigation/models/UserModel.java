@@ -1,4 +1,4 @@
-package com.desktop.views.home.models;
+package com.desktop.core.navigation.models;
 
 public class UserModel {
   private int userId;

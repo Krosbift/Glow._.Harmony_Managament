@@ -2,7 +2,9 @@ package com.desktop.views;
 
 import java.util.Map;
 import java.util.HashMap;
-
+import java.awt.Component;
+import java.awt.Container;
+import com.desktop.core.navigation.NavigationPanelController;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.components.ButtonsPanelComponent;
@@ -15,7 +17,7 @@ import com.desktop.views.login.LoginPanelController;
 import com.desktop.views.service.AppService;
 
 public class AppFrameController implements ControllerInterface {
-  public AppFrameComponent appframe;
+  public AppFrameComponent appFrame;
   public AppService appService;
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
@@ -29,7 +31,7 @@ public class AppFrameController implements ControllerInterface {
 
   @Override
   public void _initComponent() {
-    appframe = new AppFrameComponent(this);
+    appFrame = new AppFrameComponent(this);
   }
 
   @Override
@@ -49,14 +51,63 @@ public class AppFrameController implements ControllerInterface {
   }
 
   public void start() {
-    appframe.setVisible(true);
+    appFrame.setVisible(true);
+  }
+
+  /**
+   * Switches the current component in the application frame based on the provided
+   * email.
+   * If the email is null, it switches to the login panel; otherwise, it switches
+   * to the navigation panel.
+   *
+   * @param email      the email of the user; if null, the login panel is
+   *                   displayed
+   * @param controller the controller instance to manage the current panel
+   */
+  public void switchComponent(String email, ControllerInterface controller) {
+    if (email == null) {
+      removeAllComponents(((NavigationPanelController) controller).homePanelComponent);
+      ((NavigationPanelController) controller).homePanelComponent = null;
+      childComponents.clear();
+      appFrame.revalidate();
+      appFrame.repaint();
+      childControllers.put("LoginPanelController", new LoginPanelController(this));
+    } else {
+      removeAllComponents(((LoginPanelController) controller).loginComponent);
+      ((LoginPanelController) controller).loginComponent = null;
+      childComponents.clear();
+      appFrame.revalidate();
+      appFrame.repaint();
+      childControllers.put("NavigationPanelController", new NavigationPanelController(this, email));
+    }
+  }
+
+  /**
+   * Recursively removes all components from the specified component and its
+   * children.
+   * If the component is a container, it will remove all its child components
+   * first.
+   * Finally, it removes the specified component from the app frame.
+   *
+   * @param component the component from which all child components will be
+   *                  removed
+   */
+  private void removeAllComponents(Component component) {
+    if (component instanceof Container) {
+      Container container = (Container) component;
+      for (Component child : container.getComponents()) {
+        removeAllComponents(child);
+      }
+      container.removeAll();
+    }
+    appFrame.remove(component);
   }
 
   /**
    * Initializes the AppService and activates the database.
    */
   private void _activeDB() {
-    // appService = new AppService();
-    // appService.activeDatabase();
+    appService = new AppService();
+    appService.activeDatabase();
   }
 }

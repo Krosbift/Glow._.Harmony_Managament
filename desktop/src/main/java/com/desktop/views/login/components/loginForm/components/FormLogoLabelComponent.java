@@ -47,5 +47,7 @@ public class FormLogoLabelComponent extends JLabel implements ComponentInterface
     int centerX = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getWidth() / 2;
     int centerY = ((SubFormPanelComponent) controller.childComponents.get("SubFormPanelComponent")).getHeight() / 2;
     this.setBounds(centerX - 100, centerY - 250, 200, 200);
+    this.repaint();
+    this.revalidate();
   }
 }

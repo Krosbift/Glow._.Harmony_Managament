@@ -58,6 +58,8 @@ public class ImageLabelComponent extends JLabel implements ComponentInterface {
       ImageIcon originalImage = new ImageIcon(getClass().getResource("/images/glow._.harmony.png"));
       Image scaledImage = originalImage.getImage().getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
       this.setIcon(new ImageIcon(scaledImage));
+      this.repaint();
+      this.revalidate();
     }
   }
 }
