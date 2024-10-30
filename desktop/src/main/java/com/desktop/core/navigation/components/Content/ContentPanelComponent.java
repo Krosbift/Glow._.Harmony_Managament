@@ -3,9 +3,7 @@ package com.desktop.core.navigation.components.Content;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
 import javax.swing.JPanel;
-
 import com.desktop.core.utils.interfaces.ComponentInterface;
 
 public class ContentPanelComponent extends JPanel implements ComponentInterface {
@@ -19,13 +17,13 @@ public class ContentPanelComponent extends JPanel implements ComponentInterface 
 
   @Override
   public void _configureComponent() {
-    this.setVisible(true);
+    this.setLayout(null);
     this.setBounds(200, 60,
         controller.parentController.parentController.appFrame.getWidth()
             - 200,
         controller.parentController.parentController.appFrame.getHeight() - 60);
-    this.setBackground(Color.decode("#f3f3f3"));
-    controller.parentController.homePanelComponent.add(this);
+    this.setBackground(Color.decode("#f0f0f0"));
+    controller.parentController.navigationPanelComponent.add(this);
   }
 
   /**
@@ -59,7 +57,7 @@ public class ContentPanelComponent extends JPanel implements ComponentInterface 
     this.setBounds(sideNavWidth, 60,
         controller.parentController.parentController.appFrame.getWidth() - sideNavWidth,
         controller.parentController.parentController.appFrame.getHeight() - 60);
-        this.repaint();
-        this.revalidate();
+    this.repaint();
+    this.revalidate();
   }
 }

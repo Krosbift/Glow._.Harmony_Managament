@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.desktop.core.navigation.NavigationPanelController;
 import com.desktop.core.navigation.components.SideNav.components.ButtonMenuComponent;
 import com.desktop.core.navigation.components.SideNav.components.LogoLabelComponent;
+import com.desktop.core.navigation.components.Content.ContentPanelController;
 import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
@@ -46,6 +47,6 @@ public class SideNavPanelController implements ControllerInterface {
   }
 
   public void onMenuItemClick(int viewId) {
-    System.out.println("View ID: " + viewId);
+    ((ContentPanelController) parentController.childControllers.get("ContentPanelController")).loadView(viewId);
   }
 }

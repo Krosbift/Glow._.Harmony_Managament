@@ -66,15 +66,13 @@ public class AppFrameController implements ControllerInterface {
    */
   public void switchComponent(String email, ControllerInterface controller) {
     if (email == null) {
-      removeAllComponents(((NavigationPanelController) controller).homePanelComponent);
-      ((NavigationPanelController) controller).homePanelComponent = null;
+      removeAllComponents(((NavigationPanelController) controller).navigationPanelComponent);
       childComponents.clear();
       appFrame.revalidate();
       appFrame.repaint();
       childControllers.put("LoginPanelController", new LoginPanelController(this));
     } else {
       removeAllComponents(((LoginPanelController) controller).loginComponent);
-      ((LoginPanelController) controller).loginComponent = null;
       childComponents.clear();
       appFrame.revalidate();
       appFrame.repaint();

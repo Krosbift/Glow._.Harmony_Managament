@@ -14,7 +14,7 @@ public class NavigationPanelController implements ControllerInterface {
   public String email;
   public NavigationService navigationService = new NavigationService();
   public AppFrameController parentController;
-  public NavigationPanelComponent homePanelComponent;
+  public NavigationPanelComponent navigationPanelComponent;
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
 
@@ -27,7 +27,7 @@ public class NavigationPanelController implements ControllerInterface {
 
   @Override
   public void _initComponent() {
-    homePanelComponent = new NavigationPanelComponent(this);
+    navigationPanelComponent = new NavigationPanelComponent(this);
   }
 
   @Override

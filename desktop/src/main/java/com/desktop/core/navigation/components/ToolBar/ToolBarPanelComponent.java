@@ -21,7 +21,7 @@ public class ToolBarPanelComponent extends JPanel implements ComponentInterface 
     this.setBounds(200, 0, controller.parentController.parentController.appFrame.getWidth() - 200, 60);
     this.setBackground(Color.decode("#e86c7c"));
     this.setLayout(null);
-    controller.parentController.homePanelComponent.add(this);
+    controller.parentController.navigationPanelComponent.add(this);
   }
 
   /**
