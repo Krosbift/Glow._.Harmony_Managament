@@ -35,9 +35,8 @@ public class InventoryService extends InventoryBuilder {
    */
   public List<UpdateProductModel> findUpdateProduct(GetUpdateProductDto getUpdateProductDto) {
     UpdateProductModel product = new UpdateProductModel()
-        .setProductName(getUpdateProductDto.getProductName())
+        .setProductId(getUpdateProductDto.getProductId())
         .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
-        .setTransactionType(getUpdateProductDto.getTransactionType())
         .build();
 
     Binds binds = buildFindUpdateProduct(product);
@@ -77,11 +76,12 @@ public class InventoryService extends InventoryBuilder {
    *                          process.
    */
   public UpdateProductModel createUpdateProduct(CreateUpdateProductDto getUpdateProductDto) {
-    UpdateProductModel product = new UpdateProductModel()
+    CreateUpdateProductDto product = new CreateUpdateProductDto()
         .setReason(getUpdateProductDto.getReason())
         .setProductId(getUpdateProductDto.getProductId())
         .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
         .setUpdateAmount(getUpdateProductDto.getUpdateAmount())
+        .setExpirationDate(getUpdateProductDto.getExpirationDate())
         .build();
     try {
       if (getUpdateProductDto.getTransactionTypeId() == 2) {
@@ -106,7 +106,6 @@ public class InventoryService extends InventoryBuilder {
         return statement;
       }, keyHolder);
 
-      @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findUpdateProductById(generatedId);
     } catch (Exception error) {
@@ -129,6 +128,7 @@ public class InventoryService extends InventoryBuilder {
         .setProductId(getUpdateProductDto.getProductId())
         .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
         .setUpdateAmount(getUpdateProductDto.getUpdateAmount())
+        .setExpirationDate(getUpdateProductDto.getExpirationDate())
         .build();
 
     try {

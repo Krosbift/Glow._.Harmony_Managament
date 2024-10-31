@@ -1,11 +1,12 @@
 package com.api.routes.inventory.dto;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GetInventoryDto {
   private String reason;
-  private String updateDate;
+  private Date updateDate;
   private Integer productId;
   private String productName;
   private Integer categoryId;
@@ -32,11 +33,11 @@ public class GetInventoryDto {
     return this;
   }
 
-  public String getUpdateDate() {
+  public Date getUpdateDate() {
     return updateDate;
   }
 
-  public GetInventoryDto setUpdateDate(String updateDate) {
+  public GetInventoryDto setUpdateDate(Date updateDate) {
     this.updateDate = updateDate;
     return this;
   }
@@ -45,7 +46,7 @@ public class GetInventoryDto {
     if (!setValue) {
       return this;
     }
-    this.updateDate = rs.getString("UPDATEDATE");
+    this.updateDate = rs.getDate("UPDATEDATE");
     return this;
   }
 

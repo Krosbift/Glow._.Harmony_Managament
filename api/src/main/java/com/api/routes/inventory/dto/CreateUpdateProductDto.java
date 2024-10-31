@@ -1,5 +1,6 @@
 package com.api.routes.inventory.dto;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,7 +9,7 @@ public class CreateUpdateProductDto {
   private Integer productId;
   private Integer transactionTypeId;
   private Integer updateAmount;
-  private String expirationDate;
+  private Date expirationDate;
 
   public String getReason() {
     return reason;
@@ -78,11 +79,11 @@ public class CreateUpdateProductDto {
     return this;
   }
 
-  public String getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public CreateUpdateProductDto setExpirationDate(String expirationDate) {
+  public CreateUpdateProductDto setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -91,7 +92,7 @@ public class CreateUpdateProductDto {
     if (!setValue) {
       return this;
     }
-    this.expirationDate = rs.getString("EXPIRATIONDATE");
+    this.expirationDate = rs.getDate("EXPIRATIONDATE");
     return this;
   }
 

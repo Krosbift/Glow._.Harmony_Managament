@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.awt.Component;
 import java.awt.Container;
 import com.desktop.core.navigation.NavigationPanelController;
+import com.desktop.core.navigation.models.UserModel;
+import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.IntsOuts.IntsOutsPanelController;
@@ -14,6 +16,7 @@ import com.desktop.views.suppliers.SuppliersPanelController;
 
 public class ContentPanelController implements ControllerInterface {
   public String oldView = "0";
+  public UserModel user;
   public NavigationPanelController parentController;
   public ContentPanelComponent contentPanelComponent;
   public Map<String, ControllerInterface> childControllers;
@@ -53,7 +56,7 @@ public class ContentPanelController implements ControllerInterface {
    *                   will be removed, and the container will be revalidated and
    *                   repainted.
    */
-  public void loadView(int viewId) {
+  public void loadView(ViewsModel view) {
     if ("1" == oldView) {
       ProductsPanelController controller = ((ProductsPanelController) childControllers.get(oldView));
       removeAllComponents(controller.productsComponent);
@@ -73,25 +76,25 @@ public class ContentPanelController implements ControllerInterface {
     childControllers.remove(oldView);
     contentPanelComponent.removeAll();
 
-    oldView = viewId + "";
+    oldView = view.getViewId() + "";
 
-    if (1 == viewId) {
-      childControllers.put(oldView, new ProductsPanelController(this));
+    if (1 == view.getViewId()) {
+      childControllers.put(oldView, new ProductsPanelController(this, view));
       contentPanelComponent.revalidate();
       contentPanelComponent.repaint();
     }
-    if (2 == viewId) {
-      childControllers.put(oldView, new InventoryPanelController(this));
+    if (2 == view.getViewId()) {
+      childControllers.put(oldView, new InventoryPanelController(this, view));
       contentPanelComponent.revalidate();
       contentPanelComponent.repaint();
     }
-    if (3 == viewId) {
-      childControllers.put(oldView, new IntsOutsPanelController(this));
+    if (3 == view.getViewId()) {
+      childControllers.put(oldView, new IntsOutsPanelController(this, view));
       contentPanelComponent.revalidate();
       contentPanelComponent.repaint();
     }
-    if (4 == viewId) {
-      childControllers.put(oldView, new SuppliersPanelController(this));
+    if (4 == view.getViewId()) {
+      childControllers.put(oldView, new SuppliersPanelController(this, view));
       contentPanelComponent.revalidate();
       contentPanelComponent.repaint();
     }

@@ -28,7 +28,7 @@ public class IndexBuilder {
    */
   protected RowMapper<ViewsModel> viewsRowMapper = new RowMapper<ViewsModel>() {
     @Override
-    public ViewsModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public ViewsModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ViewsModel view = new ViewsModel()
           .setViewId(rs, hasColumn(rs, "VIEWID"))
           .setViewName(rs, hasColumn(rs, "NAME"))
@@ -51,7 +51,7 @@ public class IndexBuilder {
    */
   protected RowMapper<DocumentTypesModel> documentTypesRowMapper = new RowMapper<DocumentTypesModel>() {
     @Override
-    public DocumentTypesModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public DocumentTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       DocumentTypesModel documentType = new DocumentTypesModel()
           .setDocumentTypeId(rs, hasColumn(rs, "DOCUMENTTYPEID"))
           .setDocumentType(rs, hasColumn(rs, "DOCUMENTTYPE"))
@@ -72,7 +72,7 @@ public class IndexBuilder {
    */
   protected RowMapper<ProductCategoriesModel> productCategoriesRowMapper = new RowMapper<ProductCategoriesModel>() {
     @Override
-    public ProductCategoriesModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public ProductCategoriesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ProductCategoriesModel productCategory = new ProductCategoriesModel()
           .setProductCategoryId(rs, hasColumn(rs, "PRODUCTCATEGORYID"))
           .setName(rs, hasColumn(rs, "NAME"))
@@ -94,7 +94,7 @@ public class IndexBuilder {
    */
   protected RowMapper<RoleTypesModel> roleTypesRowMapper = new RowMapper<RoleTypesModel>() {
     @Override
-    public RoleTypesModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public RoleTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       RoleTypesModel roleType = new RoleTypesModel()
           .setRoleTypeId(rs, hasColumn(rs, "ROLETYPEID"))
           .setRoleType(rs, hasColumn(rs, "ROLETYPE"))
@@ -116,7 +116,7 @@ public class IndexBuilder {
    */
   protected RowMapper<TransactionTypesModel> transactionTypesRowMapper = new RowMapper<TransactionTypesModel>() {
     @Override
-    public TransactionTypesModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public TransactionTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       TransactionTypesModel transactionType = new TransactionTypesModel()
           .setTransactionTypeId(rs, hasColumn(rs, "TRANSACTIONTYPEID"))
           .setTransactionType(rs, hasColumn(rs, "TRANSACTIONTYPE"))

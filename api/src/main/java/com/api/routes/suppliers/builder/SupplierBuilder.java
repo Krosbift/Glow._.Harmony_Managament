@@ -28,7 +28,7 @@ public class SupplierBuilder {
    */
   protected RowMapper<SupplierModel> supplierRowMapper = new RowMapper<SupplierModel>() {
     @Override
-    public SupplierModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public SupplierModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       SupplierModel supplier = new SupplierModel()
           .setSupplierId(rs, hasColumn(rs, "SUPPLIERID"))
           .setName(rs, hasColumn(rs, "NAME"))

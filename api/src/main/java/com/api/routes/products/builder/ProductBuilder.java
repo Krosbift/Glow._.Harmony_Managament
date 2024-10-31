@@ -28,7 +28,7 @@ public class ProductBuilder {
    */
   protected RowMapper<ProductModel> productRowMapper = new RowMapper<ProductModel>() {
     @Override
-    public ProductModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ProductModel product = new ProductModel()
           .setProductId(rs, hasColumn(rs, "PRODUCTID"))
           .setProductName(rs, hasColumn(rs, "NAME"))
@@ -186,8 +186,8 @@ public class ProductBuilder {
       params.add(product.getSupplierId());
     }
 
-    if (sql.charAt(sql.length() - 1) == ',') {
-      sql.setLength(sql.length() - 1);
+    if (sql.charAt(sql.length() - 2) == ',') {
+      sql.setLength(sql.length() - 2);
     }
 
     sql.append(" WHERE PRODUCTID = ?");

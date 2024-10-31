@@ -18,7 +18,7 @@ public class InventoryPanelComponent extends JPanel implements ComponentInterfac
   @Override
   public void _configureComponent() {
     this.setLayout(null);
-    this.setBackground(Color.decode("#00ff00"));
+    this.setBackground(Color.decode("#ffdffe"));
     controller.parentController.contentPanelComponent.add(this);
   }
 
@@ -52,5 +52,4 @@ public class InventoryPanelComponent extends JPanel implements ComponentInterfac
     this.revalidate();
     this.repaint();
   }
-
 }

@@ -32,13 +32,11 @@ public class InventoryController {
 
   @GetMapping("find-update-product")
   @Operation(summary = "Buscar productos actualizados por cualquier valor coincidiente", description = "Retorna el producto actualizado encontrado.")
-  public List<UpdateProductModel> findUpdateProduct(@RequestParam(required = false) String productName,
-      @RequestParam(required = false) Integer transactionTypeId,
-      @RequestParam(required = false) String transactionType) {
+  public List<UpdateProductModel> findUpdateProduct(@RequestParam(required = false) Integer productId,
+      @RequestParam(required = false) Integer transactionTypeId) {
     GetUpdateProductDto getUpdateProductDto = new GetUpdateProductDto()
-        .setProductName(productName)
+        .setProductId(productId)
         .setTransactionTypeId(transactionTypeId)
-        .setTransactionType(transactionType)
         .build();
     return inventoryService.findUpdateProduct(getUpdateProductDto);
   }

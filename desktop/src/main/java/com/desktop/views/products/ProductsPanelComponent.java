@@ -18,7 +18,7 @@ public class ProductsPanelComponent extends JPanel implements ComponentInterface
   @Override
   public void _configureComponent() {
     this.setLayout(null);
-    this.setBackground(Color.decode("#fffff"));
+    this.setBackground(Color.decode("#ffdffe"));
     controller.parentController.contentPanelComponent.add(this);
   }
 
@@ -49,7 +49,6 @@ public class ProductsPanelComponent extends JPanel implements ComponentInterface
     int width = controller.parentController.contentPanelComponent.getWidth();
     int height = controller.parentController.contentPanelComponent.getHeight();
     this.setBounds(50, 40, width - 100, height - 80);
-    this.setBackground(Color.decode("#ff0000"));
     this.revalidate();
     this.repaint();
   }

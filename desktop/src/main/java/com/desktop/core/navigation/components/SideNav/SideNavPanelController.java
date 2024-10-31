@@ -42,11 +42,11 @@ public class SideNavPanelController implements ControllerInterface {
   public void findViews() {
     ViewsModel[] x = parentController.navigationService.getViews();
     for (ViewsModel view : x) {
-      childComponents.put(String.valueOf(view.getViewId()), new ButtonMenuComponent(this, view.getViewName(), view.getDescription(), view.getViewId()));
+      childComponents.put(String.valueOf(view.getViewId()), new ButtonMenuComponent(this, view));
     }
   }
 
-  public void onMenuItemClick(int viewId) {
-    ((ContentPanelController) parentController.childControllers.get("ContentPanelController")).loadView(viewId);
+  public void onMenuItemClick(ViewsModel view) {
+    ((ContentPanelController) parentController.childControllers.get("ContentPanelController")).loadView(view);
   }
 }

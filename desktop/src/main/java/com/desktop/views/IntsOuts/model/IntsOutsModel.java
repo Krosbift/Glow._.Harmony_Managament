@@ -1,15 +1,17 @@
 package com.desktop.views.IntsOuts.model;
 
+import java.util.Date;
+
 public class IntsOutsModel {
   private Integer updateProductId;
   private String reason;
-  private String updateDate;
+  private Date updateDate;
   private Integer productId;
   private String productName;
   private Integer transactionTypeId;
   private String transactionType;
   private Integer updateAmount;
-  private String expirationDate;
+  private Date expirationDate;
   private Integer active;
 
   public Integer getUpdateProductId() {
@@ -30,11 +32,11 @@ public class IntsOutsModel {
     return this;
   }
 
-  public String getUpdateDate() {
+  public Date getUpdateDate() {
     return updateDate;
   }
 
-  public IntsOutsModel setUpdateDate(String updateDate) {
+  public IntsOutsModel setUpdateDate(Date updateDate) {
     this.updateDate = updateDate;
     return this;
   }
@@ -84,11 +86,11 @@ public class IntsOutsModel {
     return this;
   }
 
-  public String getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public IntsOutsModel setExpirationDate(String expirationDate) {
+  public IntsOutsModel setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }

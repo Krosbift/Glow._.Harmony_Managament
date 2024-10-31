@@ -20,7 +20,7 @@ public class IntsOutsPanelComponent extends JPanel implements ComponentInterface
     this.setLayout(null);
     this.setBounds(40, 40, controller.parentController.contentPanelComponent.getWidth() - 80,
         controller.parentController.contentPanelComponent.getHeight() - 80);
-    this.setBackground(Color.decode("#0000ff"));
+    this.setBackground(Color.decode("#ffdffe"));
     controller.parentController.contentPanelComponent.add(this);
   }
 

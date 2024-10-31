@@ -13,19 +13,20 @@ import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import com.desktop.core.navigation.components.SideNav.SideNavPanelController;
+import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 
 public class ButtonMenuComponent extends JButton implements ComponentInterface {
-  private int viewId;
+  private ViewsModel view;
   private SideNavPanelController controller;
-  private Color defaultColor = Color.decode("#ffdffe");
-  private Color hoverColor = Color.decode("#ffcfee");
+  private Color defaultColor = Color.decode("#eeceed");
+  private Color hoverColor = Color.decode("#ffdffe");
 
-  public ButtonMenuComponent(SideNavPanelController controller, String name, String hint, int viewId) {
+  public ButtonMenuComponent(SideNavPanelController controller, ViewsModel view) {
     this.controller = controller;
-    this.viewId = viewId;
-    this.setText(name);
-    this.setToolTipText(hint);
+    this.view = view;
+    this.setText(view.getViewName());
+    this.setToolTipText(view.getDescription());
     _configureComponent();
     _addActionListener();
     _addMouseListener();
@@ -51,7 +52,7 @@ public class ButtonMenuComponent extends JButton implements ComponentInterface {
     this.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        controller.onMenuItemClick(viewId);
+        controller.onMenuItemClick(view);
       }
     });
   }

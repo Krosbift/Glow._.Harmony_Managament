@@ -21,7 +21,7 @@ public class SideNavPanelComponent extends JPanel implements ComponentInterface 
   public void _configureComponent() {
     this.setVisible(true);
     this.setBounds(0, 0, 200, controller.parentController.parentController.appFrame.getHeight());
-    this.setBackground(Color.decode("#ffdffe"));
+    this.setBackground(Color.decode("#eeceed"));
     controller.parentController.navigationPanelComponent.add(this);
   }
 

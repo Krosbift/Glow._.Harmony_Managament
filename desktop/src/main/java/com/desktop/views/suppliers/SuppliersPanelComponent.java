@@ -20,7 +20,7 @@ public class SuppliersPanelComponent extends JPanel implements ComponentInterfac
     this.setLayout(null);
     this.setBounds(40, 40, controller.parentController.contentPanelComponent.getWidth() - 80,
         controller.parentController.contentPanelComponent.getHeight() - 80);
-    this.setBackground(Color.decode("#f0000f"));
+    this.setBackground(Color.decode("#ffdffe"));
     controller.parentController.contentPanelComponent.add(this);
   }
 

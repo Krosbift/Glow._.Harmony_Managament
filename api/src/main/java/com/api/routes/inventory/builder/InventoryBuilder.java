@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.api.routes.inventory.dto.CreateUpdateProductDto;
 import com.api.routes.inventory.model.InventoryModel;
 import com.api.routes.inventory.model.UpdateProductModel;
 import com.api.routes.inventory.sql.InventorySql;
@@ -31,7 +32,7 @@ public class InventoryBuilder {
    */
   protected RowMapper<InventoryModel> inventoryRowMapper = new RowMapper<InventoryModel>() {
     @Override
-    public InventoryModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public InventoryModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       InventoryModel inventory = new InventoryModel()
           .setUpdateProductId(rs, hasColumn(rs, "UPDATEPRODUCTID"))
           .setReason(rs, hasColumn(rs, "REASON"))
@@ -118,7 +119,7 @@ public class InventoryBuilder {
    */
   protected RowMapper<UpdateProductModel> updateProductRowMapper = new RowMapper<UpdateProductModel>() {
     @Override
-    public UpdateProductModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
+    public UpdateProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       UpdateProductModel updateProduct = new UpdateProductModel()
           .setUpdateProductId(rs, hasColumn(rs, "UPDATEPRODUCTID"))
           .setReason(rs, hasColumn(rs, "REASON"))
@@ -162,21 +163,13 @@ public class InventoryBuilder {
     List<Object> binds = new ArrayList<>();
     StringBuilder query = new StringBuilder(InventorySql.FIND_UPDATEPRODUCT.getQuery());
 
-    if (updateProduct.getProductName() != null) {
-      query.append(" AND IPT.NAME = ?");
-      binds.add(updateProduct.getProductName());
+    if (updateProduct.getProductId() != null) {
+      query.append(" AND IPT.PRODUCTID = ?");
+      binds.add(updateProduct.getProductId());
     }
     if (updateProduct.getTransactionTypeId() != null) {
       query.append(" AND IIT.TRANSACTIONTYPEID = ?");
       binds.add(updateProduct.getTransactionTypeId());
-    }
-    if (updateProduct.getTransactionType() != null) {
-      query.append(" AND ITT.TRANSACTIONTYPE = ?");
-      binds.add(updateProduct.getTransactionType());
-    }
-    if (updateProduct.getUpdateAmount() != null) {
-      query.append(" AND IIT.UPDATEAMOUNT = ?");
-      binds.add(updateProduct.getUpdateAmount());
     }
 
     return new Binds(query.toString(), binds.toArray());
@@ -196,41 +189,36 @@ public class InventoryBuilder {
    *         parameters
    *         to be bound to the query.
    */
-  protected Binds buildCreateUpdateProduct(UpdateProductModel updateProduct) {
+  protected Binds buildCreateUpdateProduct(CreateUpdateProductDto CreateUpdateProductDto) {
     StringBuilder sql = new StringBuilder("INSERT INTO TB_IMS_UPDATEPRODUCTS ");
     StringBuilder columns = new StringBuilder("(");
     StringBuilder values = new StringBuilder("VALUES (");
     List<Object> params = new ArrayList<>();
 
-    if (updateProduct.getReason() != null) {
+    if (CreateUpdateProductDto.getReason() != null) {
       columns.append("REASON, ");
       values.append("?, ");
-      params.add(updateProduct.getReason());
+      params.add(CreateUpdateProductDto.getReason());
     }
-    if (updateProduct.getUpdateDate() != null) {
-      columns.append("UPDATEDATE, ");
-      values.append("?, ");
-      params.add(updateProduct.getUpdateDate());
-    }
-    if (updateProduct.getProductId() != null) {
+    if (CreateUpdateProductDto.getProductId() != null) {
       columns.append("PRODUCTID, ");
       values.append("?, ");
-      params.add(updateProduct.getProductId());
+      params.add(CreateUpdateProductDto.getProductId());
     }
-    if (updateProduct.getTransactionTypeId() != null) {
+    if (CreateUpdateProductDto.getTransactionTypeId() != null) {
       columns.append("TRANSACTIONTYPEID, ");
       values.append("?, ");
-      params.add(updateProduct.getTransactionTypeId());
+      params.add(CreateUpdateProductDto.getTransactionTypeId());
     }
-    if (updateProduct.getExpirationDate() != null) {
+    if (CreateUpdateProductDto.getExpirationDate() != null) {
       columns.append("EXPIRATIONDATE, ");
       values.append("?, ");
-      params.add(updateProduct.getExpirationDate());
+      params.add(CreateUpdateProductDto.getExpirationDate());
     }
-    if (updateProduct.getUpdateAmount() != null) {
+    if (CreateUpdateProductDto.getUpdateAmount() != null) {
       columns.append("UPDATEAMOUNT, ");
       values.append("?, ");
-      params.add(updateProduct.getUpdateAmount());
+      params.add(CreateUpdateProductDto.getUpdateAmount());
     }
 
     if (columns.charAt(columns.length() - 2) == ',') {

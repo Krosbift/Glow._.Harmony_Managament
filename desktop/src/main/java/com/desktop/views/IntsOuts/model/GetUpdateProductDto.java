@@ -1,8 +1,5 @@
 package com.desktop.views.IntsOuts.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class GetUpdateProductDto {
   private Integer productId;
   private String productName;
@@ -18,28 +15,12 @@ public class GetUpdateProductDto {
     return this;
   }
 
-  public GetUpdateProductDto setProductId(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.productId = rs.getInt("PRODUCTID");
-    return this;
-  }
-
   public String getProductName() {
     return productName;
   }
 
   public GetUpdateProductDto setProductName(String productName) {
     this.productName = productName;
-    return this;
-  }
-
-  public GetUpdateProductDto setProductName(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.productName = rs.getString("PRODUCTNAME");
     return this;
   }
 
@@ -52,28 +33,12 @@ public class GetUpdateProductDto {
     return this;
   }
 
-  public GetUpdateProductDto setTransactionTypeId(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.transactionTypeId = rs.getInt("TRANSACTIONTYPEID");
-    return this;
-  }
-
   public String getTransactionType() {
     return transactionType;
   }
 
   public GetUpdateProductDto setTransactionType(String transactionTypeId) {
     this.transactionType = transactionTypeId;
-    return this;
-  }
-
-  public GetUpdateProductDto setTransactionType(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.transactionType = rs.getString("TRANSACTIONTYPE");
     return this;
   }
 

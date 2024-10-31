@@ -1,14 +1,13 @@
 package com.desktop.views.IntsOuts.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Date;
 
 public class CreateUpdateProductDto {
   private String reason;
   private Integer productId;
   private Integer transactionTypeId;
   private Integer updateAmount;
-  private String expirationDate;
+  private Date expirationDate;
 
   public String getReason() {
     return reason;
@@ -16,14 +15,6 @@ public class CreateUpdateProductDto {
 
   public CreateUpdateProductDto setReason(String reason) {
     this.reason = reason;
-    return this;
-  }
-
-  public CreateUpdateProductDto setReason(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.reason = rs.getString("REASON");
     return this;
   }
 
@@ -36,28 +27,12 @@ public class CreateUpdateProductDto {
     return this;
   }
 
-  public CreateUpdateProductDto setProductId(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.productId = rs.getInt("PRODUCTID");
-    return this;
-  }
-
   public Integer getTransactionTypeId() {
     return transactionTypeId;
   }
 
   public CreateUpdateProductDto setTransactionTypeId(Integer transactionTypeId) {
     this.transactionTypeId = transactionTypeId;
-    return this;
-  }
-
-  public CreateUpdateProductDto setTransactionTypeId(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.transactionTypeId = rs.getInt("TRANSACTIONTYPEID");
     return this;
   }
 
@@ -70,28 +45,12 @@ public class CreateUpdateProductDto {
     return this;
   }
 
-  public CreateUpdateProductDto setUpdateAmount(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.updateAmount = rs.getInt("UPDATEAMOUNT");
-    return this;
-  }
-
-  public String getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public CreateUpdateProductDto setExpirationDate(String expirationDate) {
-    this.expirationDate = expirationDate;
-    return this;
-  }
-
-  public CreateUpdateProductDto setExpirationDate(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.expirationDate = rs.getString("EXPIRATIONDATE");
+  public CreateUpdateProductDto setExpirationDate(Date date) {
+    this.expirationDate = date;
     return this;
   }
 

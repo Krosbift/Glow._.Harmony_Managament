@@ -1,18 +1,19 @@
 package com.api.routes.inventory.model;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UpdateProductModel {
   private Integer updateProductId;
   private String reason;
-  private String updateDate;
+  private Date updateDate;
   private Integer productId;
   private String productName;
   private Integer transactionTypeId;
   private String transactionType;
   private Integer updateAmount;
-  private String expirationDate;
+  private Date expirationDate;
   private Integer active;
 
   public Integer getUpdateProductId() {
@@ -49,11 +50,11 @@ public class UpdateProductModel {
     return this;
   }
 
-  public String getUpdateDate() {
+  public Date getUpdateDate() {
     return updateDate;
   }
 
-  public UpdateProductModel setUpdateDate(String updateDate) {
+  public UpdateProductModel setUpdateDate(Date updateDate) {
     this.updateDate = updateDate;
     return this;
   }
@@ -62,7 +63,7 @@ public class UpdateProductModel {
     if (!setValue) {
       return this;
     }
-    this.updateDate = rs.getString("UPDATEDATE");
+    this.updateDate = rs.getDate("UPDATEDATE");
     return this;
   }
 
@@ -151,11 +152,11 @@ public class UpdateProductModel {
     return this;
   }
 
-  public String getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public UpdateProductModel setExpirationDate(String expirationDate) {
+  public UpdateProductModel setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
     return this;
   }
@@ -164,7 +165,7 @@ public class UpdateProductModel {
     if (!setValue) {
       return this;
     }
-    this.expirationDate = rs.getString("EXPIRATIONDATE");
+    this.expirationDate = rs.getDate("EXPIRATIONDATE");
     return this;
   }
 
