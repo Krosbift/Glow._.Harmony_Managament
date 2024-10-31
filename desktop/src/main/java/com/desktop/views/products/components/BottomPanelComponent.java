@@ -30,14 +30,10 @@ import com.desktop.views.products.model.UpdateProductDto;
 public class BottomPanelComponent extends JPanel implements ComponentInterface {
   public ProductsPanelController controller;
   public List<ProductModel> originalProducts;
-  public List<ProductCategoriesModel> productCategories;
-  public List<SupplierModel> suppliers;
   private JDialog productDialog;
 
   public BottomPanelComponent(ProductsPanelController controller) {
     this.controller = controller;
-    this.productCategories = this.controller.findCategories();
-    this.suppliers = this.controller.findSuppliers();
     _configureComponent();
     _listernerSizing();
   }
@@ -156,7 +152,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("Categoria:"));
     JComboBox<String> categoryComboBox = new JComboBox<>();
-    for (ProductCategoriesModel category : productCategories) {
+    for (ProductCategoriesModel category : controller.productCategories) {
       categoryComboBox.addItem(category.getName());
     }
     categoryComboBox.setSelectedItem(product.getProductCategory());
@@ -168,7 +164,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("proveedor:"));
     JComboBox<String> supplierComboBox = new JComboBox<>();
-    for (SupplierModel supplier : suppliers) {
+    for (SupplierModel supplier : controller.suppliers) {
       supplierComboBox.addItem(supplier.getName());
     }
     supplierComboBox.setSelectedItem(product.getSupplierName());
@@ -184,9 +180,9 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     editButton.addActionListener(e -> {
       UpdateProductDto updateProduct = (UpdateProductDto) new UpdateProductDto()
           .setProductName(productNameField.getText())
-          .setProductCategoryId(productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
+          .setProductCategoryId(controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
           .setProductPrice(Integer.parseInt(priceField.getText()))
-          .setSupplierId(suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
+          .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
           .build();
 
       ProductModel updatedProduct = controller.updateProduct(updateProduct, product.getProductId());
@@ -251,7 +247,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("Categoria:"));
     JComboBox<String> categoryComboBox = new JComboBox<>();
-    for (ProductCategoriesModel category : productCategories) {
+    for (ProductCategoriesModel category : controller.productCategories) {
       categoryComboBox.addItem(category.getName());
     }
     fieldsPanel.add(categoryComboBox);
@@ -262,7 +258,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("Proveedor:"));
     JComboBox<String> supplierComboBox = new JComboBox<>();
-    for (SupplierModel supplier : suppliers) {
+    for (SupplierModel supplier : controller.suppliers) {
       supplierComboBox.addItem(supplier.getName());
     }
     fieldsPanel.add(supplierComboBox);
@@ -278,9 +274,9 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
       if (validateCreateProductFields(productNameField, priceField)) {
         CreateProductDto newProduct = new CreateProductDto()
             .setProductName(productNameField.getText())
-            .setProductCategoryId(productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
+            .setProductCategoryId(controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
             .setProductPrice(Integer.parseInt(priceField.getText()))
-            .setSupplierId(suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
+            .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
             .build();
 
         ProductModel createdProduct = controller.createProduct(newProduct);

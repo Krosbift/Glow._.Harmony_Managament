@@ -27,18 +27,9 @@ public class ProductService {
       firstParam = false;
     }
 
-    if (getDto.getProductCategory() != null) {
-      url.append(firstParam ? "?" : "&").append("productCategory=").append(getDto.getProductCategory());
-      firstParam = false;
-    }
-
     if (getDto.getSupplierId() != null) {
       url.append(firstParam ? "?" : "&").append("supplierId=").append(getDto.getSupplierId());
       firstParam = false;
-    }
-
-    if (getDto.getSupplierName() != null) {
-      url.append(firstParam ? "?" : "&").append("supplierName=").append(getDto.getSupplierName());
     }
 
     try {

@@ -24,10 +24,16 @@ public class ProductsPanelController implements ControllerInterface {
   public ProductsPanelComponent productsComponent;
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
+  public List<ProductModel> products;
+  public List<ProductCategoriesModel> productCategories;
+  public List<SupplierModel> suppliers;
 
   public ProductsPanelController(ContentPanelController controller, ViewsModel view) {
     this.parentController = controller;
     this.view = view;
+    this.products = productService.getAllProducts();
+    this.productCategories = findCategories();
+    this.suppliers = findSuppliers();
     _initComponent();
     _initChildControllers();
     _initChildComponents();
@@ -49,9 +55,9 @@ public class ProductsPanelController implements ControllerInterface {
     childComponents.put("BottomPanelComponent", new BottomPanelComponent(this));
   }
 
-  public void setDataTable() {
+  public void setDataTable(GetProductDto getProductDto) {
     try {
-      List<ProductModel> products = productService.getProducts(new GetProductDto());
+      List<ProductModel> products = productService.getProducts(getProductDto);
       ((BottomPanelComponent) childComponents.get("BottomPanelComponent")).createTable(products);
     } catch (Exception e) {
       e.printStackTrace();
