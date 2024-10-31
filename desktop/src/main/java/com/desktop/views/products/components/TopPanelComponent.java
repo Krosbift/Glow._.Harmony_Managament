@@ -129,7 +129,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
         JOptionPane.PLAIN_MESSAGE);
     if (result == JOptionPane.OK_OPTION) {
       GetProductDto dto = new GetProductDto()
-          .setProductName(products.getSelectedIndex() <= 0 ? null : products.getSelectedItem().toString())
+          .setProductId(products.getSelectedIndex() <= 0 ? null : controller.products.get(products.getSelectedIndex() - 1).getProductId())
           .setProductCategoryId(productCategoryComboBox.getSelectedIndex() <= 0 ? null
               : controller.productCategories.get(productCategoryComboBox.getSelectedIndex() - 1).getProductCategoryId())
           .setSupplierId(supplierComboBox.getSelectedIndex() <= 0 ? null

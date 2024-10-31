@@ -17,8 +17,8 @@ public class ProductService {
     StringBuilder url = new StringBuilder("/find-product");
     boolean firstParam = true;
 
-    if (getDto.getProductName() != null) {
-      url.append("?productName=").append(getDto.getProductName());
+    if (getDto.getProductId() != null) {
+      url.append("?productId=").append(getDto.getProductId());
       firstParam = false;
     }
 
@@ -84,7 +84,7 @@ public class ProductService {
   public Integer deleteProduct(Integer productId) {
     httpClientService.endpoint = "/products";
     try {
-      return httpClientService.delete("/deactivate-product/" + productId, Integer.class);
+      return httpClientService.delete("/delete-product/" + productId, Integer.class);
     } catch (Exception e) {
       e.printStackTrace();
       return null;

@@ -77,33 +77,17 @@ public class InventoryBuilder {
     List<Object> binds = new ArrayList<>();
     StringBuilder query = new StringBuilder(InventorySql.FIND_INVENTORY.getQuery());
 
-    if (inventory.getProductName() != null) {
-      query.append(" AND IPT.PRODUCTNAME = ?");
-      binds.add(inventory.getProductName());
+    if (inventory.getProductId() != null) {
+      query.append(" AND IPT.PRODUCTID = ?");
+      binds.add(inventory.getProductId());
     }
     if (inventory.getCategoryId() != null) {
       query.append(" AND IPT.CATEGORYID = ?");
       binds.add(inventory.getCategoryId());
     }
-    if (inventory.getCategoryName() != null) {
-      query.append(" AND IPT.CATEGORYNAME = ?");
-      binds.add(inventory.getCategoryName());
-    }
     if (inventory.getSupplierId() != null) {
       query.append(" AND IPT.SUPPLIERID = ?");
       binds.add(inventory.getSupplierId());
-    }
-    if (inventory.getSupplierName() != null) {
-      query.append(" AND ISP.NAME = ?");
-      binds.add(inventory.getSupplierName());
-    }
-    if (inventory.getTransactionTypeId() != null) {
-      query.append(" AND IPT.TRANSACTIONTYPEID = ?");
-      binds.add(inventory.getTransactionTypeId());
-    }
-    if (inventory.getTransactionType() != null) {
-      query.append(" AND IPT.TRANSACTIONTYPE = ?");
-      binds.add(inventory.getTransactionType());
     }
 
     return new Binds(query.toString(), binds.toArray());

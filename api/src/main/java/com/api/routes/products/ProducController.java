@@ -27,15 +27,13 @@ public class ProducController {
 
   @GetMapping("find-product")
   @Operation(summary = "Buscar productos por cualquier valor coincidiente", description = "Retorna el producto encontrado.")
-  public List<ProductModel> findProduct(@RequestParam(required = false) String productName,
-      @RequestParam(required = false) Integer productCategoryId, @RequestParam(required = false) String productCategory,
-      @RequestParam(required = false) Integer supplierId, @RequestParam(required = false) String supplierName) {
+  public List<ProductModel> findProduct(@RequestParam(required = false) Integer productId,
+      @RequestParam(required = false) Integer productCategoryId,
+      @RequestParam(required = false) Integer supplierId) {
     GetProductDto getProductDto = new GetProductDto()
-        .setProductName(productName)
+        .setProductId(productId)
         .setProductCategoryId(productCategoryId)
-        .setProductCategory(productCategory)
         .setSupplierId(supplierId)
-        .setSupplierName(supplierName)
         .build();
     return productService.findProduct(getProductDto);
   }
@@ -64,7 +62,7 @@ public class ProducController {
     return productService.activeProduct(productId);
   }
 
-  @DeleteMapping("deactivate-product/{productId}")
+  @DeleteMapping("delete-product/{productId}")
   @Operation(summary = "Desactivar producto", description = "Desactiva un producto existente.")
   public int deactivateProduct(@PathVariable int productId) {
     return productService.deleteProduct(productId);

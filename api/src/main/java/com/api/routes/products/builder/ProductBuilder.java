@@ -68,29 +68,17 @@ public class ProductBuilder {
     List<Object> binds = new ArrayList<>();
     StringBuilder query = new StringBuilder(ProducSql.FIND_PRODUCT.getQuery());
 
-    if (product.getProductName() != null) {
-      query.append(" AND IPT.NAME = ?");
-      binds.add(product.getProductName());
+    if (product.getProductId() != null) {
+      query.append(" AND IPT.PRODUCTID = ?");
+      binds.add(product.getProductId());
     }
     if (product.getProductCategoryId() != null) {
       query.append(" AND IPT.CATEGORYID = ?");
       binds.add(product.getProductCategoryId());
     }
-    if (product.getProductCategory() != null) {
-      query.append(" AND IPC.CATEGORYNAME = ?");
-      binds.add(product.getProductCategory());
-    }
-    if (product.getProductPrice() != null) {
-      query.append(" AND IPT.UNITPRICE = ?");
-      binds.add(product.getProductPrice());
-    }
     if (product.getSupplierId() != null) {
       query.append(" AND IPT.SUPPLIERID = ?");
       binds.add(product.getSupplierId());
-    }
-    if (product.getSupplierName() != null) {
-      query.append(" AND ISL.SUPPLIERNAME = ?");
-      binds.add(product.getSupplierName());
     }
 
     return new Binds(query.toString(), binds.toArray());

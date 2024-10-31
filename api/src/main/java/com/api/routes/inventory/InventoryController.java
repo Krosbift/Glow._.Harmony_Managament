@@ -74,21 +74,14 @@ public class InventoryController {
 
   @GetMapping("find-inventory")
   @Operation(summary = "Buscar inventario por cualquier valor coincidiente", description = "Retorna una lista de inventario encontrado.")
-  public List<ProductStockModel> findInventory(@RequestParam(required = false) String productName,
+  public List<ProductStockModel> findInventory(
+    @RequestParam(required = false) Integer productId,
       @RequestParam(required = false) Integer categoryId,
-      @RequestParam(required = false) String categoryName,
-      @RequestParam(required = false) Integer supplierId,
-      @RequestParam(required = false) String supplierName,
-      @RequestParam(required = false) Integer transactionTypeId,
-      @RequestParam(required = false) String transactionType) {
+      @RequestParam(required = false) Integer supplierId) {
     GetInventoryDto getInventoryDto = new GetInventoryDto()
-        .setProductName(productName)
+        .setProductId(productId)
         .setCategoryId(categoryId)
-        .setCategoryName(categoryName)
         .setSupplierId(supplierId)
-        .setSupplierName(supplierName)
-        .setTransactionTypeId(transactionTypeId)
-        .setTransactionType(transactionType)
         .build();
     return inventoryService.findInventory(getInventoryDto);
   }

@@ -25,12 +25,9 @@ public class ProductService extends ProductBuilder {
    */
   public List<ProductModel> findProduct(GetProductDto getProductDto) {
     ProductModel product = new ProductModel()
-        .setProductName(getProductDto.getProductName())
+        .setProductId(getProductDto.getProductId())
         .setProductCategoryId(getProductDto.getProductCategoryId())
-        .setProductCategory(getProductDto.getProductCategory())
-        .setProductPrice(getProductDto.getProductPrice())
         .setSupplierId(getProductDto.getSupplierId())
-        .setSupplierName(getProductDto.getSupplierName())
         .build();
 
     Binds binds = buildFindProduct(product);

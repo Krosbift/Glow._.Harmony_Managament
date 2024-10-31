@@ -1,12 +1,30 @@
 package com.api.routes.products.dto;
 
 public class GetProductDto {
+  private Integer productId;
   private String productName;
   private Integer productCategoryId;
   private String productCategory;
   private Integer productPrice;
   private Integer supplierId;
   private String supplierName;
+
+  public Integer getProductId() {
+    return productId;
+  }
+
+  public GetProductDto setProductId(Integer productId) {
+    this.productId = productId;
+    return this;
+  }
+
+  public GetProductDto setProductId(Integer productId, boolean setValue) {
+    if (!setValue) {
+      return this;
+    }
+    this.productId = productId;
+    return this;
+  }
 
   public String getProductName() {
     return productName;

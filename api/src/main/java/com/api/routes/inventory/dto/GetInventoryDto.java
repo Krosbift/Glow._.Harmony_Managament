@@ -1,54 +1,15 @@
 package com.api.routes.inventory.dto;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GetInventoryDto {
-  private String reason;
-  private Date updateDate;
   private Integer productId;
   private String productName;
   private Integer categoryId;
   private String categoryName;
   private Integer supplierId;
   private String supplierName;
-  private Integer transactionTypeId;
-  private String transactionType;
-
-  public String getReason() {
-    return reason;
-  }
-
-  public GetInventoryDto setReason(String reason) {
-    this.reason = reason;
-    return this;
-  }
-
-  public GetInventoryDto setReason(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.reason = rs.getString("REASON");
-    return this;
-  }
-
-  public Date getUpdateDate() {
-    return updateDate;
-  }
-
-  public GetInventoryDto setUpdateDate(Date updateDate) {
-    this.updateDate = updateDate;
-    return this;
-  }
-
-  public GetInventoryDto setUpdateDate(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.updateDate = rs.getDate("UPDATEDATE");
-    return this;
-  }
 
   public Integer getProductId() {
     return productId;
@@ -149,40 +110,6 @@ public class GetInventoryDto {
       return this;
     }
     this.supplierName = rs.getString("SUPPLIERNAME");
-    return this;
-  }
-
-  public Integer getTransactionTypeId() {
-    return transactionTypeId;
-  }
-
-  public GetInventoryDto setTransactionTypeId(Integer transactionTypeId) {
-    this.transactionTypeId = transactionTypeId;
-    return this;
-  }
-
-  public GetInventoryDto setTransactionTypeId(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.transactionTypeId = rs.getInt("TRANSACTIONTYPEID");
-    return this;
-  }
-
-  public String getTransactionType() {
-    return transactionType;
-  }
-
-  public GetInventoryDto setTransactionType(String transactionType) {
-    this.transactionType = transactionType;
-    return this;
-  }
-
-  public GetInventoryDto setTransactionType(ResultSet rs, boolean setValue) throws SQLException {
-    if (!setValue) {
-      return this;
-    }
-    this.transactionType = rs.getString("TRANSACTIONTYPE");
     return this;
   }
 

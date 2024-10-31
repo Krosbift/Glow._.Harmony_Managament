@@ -202,13 +202,9 @@ public class InventoryService extends InventoryBuilder {
    */
   public List<ProductStockModel> findInventory(GetInventoryDto getInventoryDto) {
     InventoryModel inventory = new InventoryModel()
-        .setProductName(getInventoryDto.getProductName())
+        .setProductId(getInventoryDto.getProductId())
         .setCategoryId(getInventoryDto.getCategoryId())
-        .setCategoryName(getInventoryDto.getCategoryName())
         .setSupplierId(getInventoryDto.getSupplierId())
-        .setSupplierName(getInventoryDto.getSupplierName())
-        .setTransactionTypeId(getInventoryDto.getTransactionTypeId())
-        .setTransactionType(getInventoryDto.getTransactionType())
         .build();
 
     Binds binds = buildFindInventory(inventory);
