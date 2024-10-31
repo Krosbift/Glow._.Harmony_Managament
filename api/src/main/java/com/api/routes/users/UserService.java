@@ -119,6 +119,7 @@ public class UserService extends UserBuilder {
         return ps;
       }, keyHolder);
 
+      @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findUserById(generatedId);
     } catch (Exception error) {

@@ -27,6 +27,7 @@ public class IndexBuilder {
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
   protected RowMapper<ViewsModel> viewsRowMapper = new RowMapper<ViewsModel>() {
+    @SuppressWarnings("null")
     @Override
     public ViewsModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ViewsModel view = new ViewsModel()
@@ -50,6 +51,7 @@ public class IndexBuilder {
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
   protected RowMapper<DocumentTypesModel> documentTypesRowMapper = new RowMapper<DocumentTypesModel>() {
+    @SuppressWarnings("null")
     @Override
     public DocumentTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       DocumentTypesModel documentType = new DocumentTypesModel()
@@ -71,6 +73,7 @@ public class IndexBuilder {
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
   protected RowMapper<ProductCategoriesModel> productCategoriesRowMapper = new RowMapper<ProductCategoriesModel>() {
+    @SuppressWarnings("null")
     @Override
     public ProductCategoriesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ProductCategoriesModel productCategory = new ProductCategoriesModel()
@@ -93,6 +96,7 @@ public class IndexBuilder {
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
   protected RowMapper<RoleTypesModel> roleTypesRowMapper = new RowMapper<RoleTypesModel>() {
+    @SuppressWarnings("null")
     @Override
     public RoleTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       RoleTypesModel roleType = new RoleTypesModel()
@@ -115,6 +119,7 @@ public class IndexBuilder {
    * @throws SQLException if an SQL error occurs while accessing the ResultSet
    */
   protected RowMapper<TransactionTypesModel> transactionTypesRowMapper = new RowMapper<TransactionTypesModel>() {
+    @SuppressWarnings("null")
     @Override
     public TransactionTypesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       TransactionTypesModel transactionType = new TransactionTypesModel()

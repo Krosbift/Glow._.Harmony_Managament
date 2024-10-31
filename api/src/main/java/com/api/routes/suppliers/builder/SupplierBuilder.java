@@ -27,6 +27,7 @@ public class SupplierBuilder {
    *                      called on a closed result set
    */
   protected RowMapper<SupplierModel> supplierRowMapper = new RowMapper<SupplierModel>() {
+    @SuppressWarnings("null")
     @Override
     public SupplierModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       SupplierModel supplier = new SupplierModel()

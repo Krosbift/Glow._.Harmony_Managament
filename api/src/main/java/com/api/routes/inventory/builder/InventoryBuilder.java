@@ -31,6 +31,7 @@ public class InventoryBuilder {
    *                      called on a closed result set
    */
   protected RowMapper<InventoryModel> inventoryRowMapper = new RowMapper<InventoryModel>() {
+    @SuppressWarnings("null")
     @Override
     public InventoryModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       InventoryModel inventory = new InventoryModel()
@@ -102,6 +103,7 @@ public class InventoryBuilder {
    * @throws SQLException if an SQL error occurs while mapping the row
    */
   protected RowMapper<UpdateProductModel> updateProductRowMapper = new RowMapper<UpdateProductModel>() {
+    @SuppressWarnings("null")
     @Override
     public UpdateProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       UpdateProductModel updateProduct = new UpdateProductModel()

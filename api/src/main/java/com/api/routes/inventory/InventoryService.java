@@ -106,6 +106,7 @@ public class InventoryService extends InventoryBuilder {
         return statement;
       }, keyHolder);
 
+      @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findUpdateProductById(generatedId);
     } catch (Exception error) {

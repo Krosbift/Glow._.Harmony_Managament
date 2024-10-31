@@ -27,6 +27,7 @@ public class ProductBuilder {
    *                      called on a closed result set
    */
   protected RowMapper<ProductModel> productRowMapper = new RowMapper<ProductModel>() {
+    @SuppressWarnings("null")
     @Override
     public ProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       ProductModel product = new ProductModel()

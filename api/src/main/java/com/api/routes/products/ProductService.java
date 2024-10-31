@@ -83,6 +83,7 @@ public class ProductService extends ProductBuilder {
         return statement;
       }, keyHolder);
 
+      @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findProductById(generatedId);
     } catch (Exception error) {

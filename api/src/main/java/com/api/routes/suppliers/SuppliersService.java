@@ -82,6 +82,7 @@ public class SuppliersService extends SupplierBuilder {
         return statement;
       }, keyHolder);
 
+      @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findSupplierById(generatedId);
     } catch (Exception error) {

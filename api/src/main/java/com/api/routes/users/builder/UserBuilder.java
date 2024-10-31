@@ -25,6 +25,7 @@ public class UserBuilder {
    * @throws SQLException if a database access error occurs or this method is called on a closed result set
    */
   protected RowMapper<UserModel> userRowMapper = new RowMapper<UserModel>() {
+    @SuppressWarnings("null")
     @Override
     public UserModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       UserModel user = new UserModel()
