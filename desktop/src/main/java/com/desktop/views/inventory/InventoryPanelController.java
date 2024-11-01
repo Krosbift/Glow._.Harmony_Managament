@@ -29,7 +29,7 @@ public class InventoryPanelController implements ControllerInterface {
   public InventoryPanelController(ContentPanelController controller, ViewsModel view) {
     this.parentController = controller;
     this.view = view;
-    products = inventoryService.getAllInventory();
+    products = inventoryService.getInventory(new GetInventoryDto());
     productCategories = findCategories();
     suppliers = findSuppliers();
     _initComponent();

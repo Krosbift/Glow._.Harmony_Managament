@@ -31,7 +31,7 @@ public class ProductsPanelController implements ControllerInterface {
   public ProductsPanelController(ContentPanelController controller, ViewsModel view) {
     this.parentController = controller;
     this.view = view;
-    this.products = productService.getAllProducts();
+    this.products = productService.getProducts(new GetProductDto());
     this.productCategories = findCategories();
     this.suppliers = findSuppliers();
     _initComponent();

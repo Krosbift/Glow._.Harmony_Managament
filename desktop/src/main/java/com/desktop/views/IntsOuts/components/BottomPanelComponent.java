@@ -331,7 +331,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
    * The dialog contains fields for selecting a product, specifying a reason, 
    * entering an amount, choosing a transaction type, and picking an expiration date.
    * 
-   * The dialog includes "Guardar" (Save) and "Cancelar" (Cancel) buttons.
+   * The dialog includes "Guardar" (Guardar) and "Cancelar" (Cancel) buttons.
    * When the "Guardar" button is clicked, the input fields are validated, 
    * and if valid, a new record is created and added to the table.
    * 

@@ -267,7 +267,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     JPanel buttonsPanel = new JPanel();
     buttonsPanel.setBackground(controller.productsComponent.getBackground());
-    JButton saveButton = new JButton("Save");
+    JButton saveButton = new JButton("Guardar");
     JButton cancelButton = new JButton("Cancel");
 
     saveButton.addActionListener(e -> {
@@ -282,7 +282,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
         ProductModel createdProduct = controller.createProduct(newProduct);
         if (createdProduct != null) {
           updateTable(createdProduct);
-          controller.createProduct(newProduct);
         }
         createDialog.dispose();
       }
