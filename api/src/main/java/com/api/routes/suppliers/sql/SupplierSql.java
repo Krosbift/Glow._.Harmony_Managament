@@ -1,9 +1,5 @@
 package com.api.routes.suppliers.sql;
 
-/**
- * Enum representing SQL queries for supplier-related operations.
- * Each enum constant holds a specific SQL query string.
- */
 public enum SupplierSql {
   FIND_SUPPLIER_BY_ID(
     "SELECT " +

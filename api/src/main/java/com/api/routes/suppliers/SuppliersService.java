@@ -2,79 +2,52 @@ package com.api.routes.suppliers;
 
 import java.util.List;
 import java.sql.PreparedStatement;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.api.routes.shared.utils.query.Binds;
-import com.api.routes.suppliers.builder.SupplierBuilder;
-import com.api.routes.suppliers.dto.CreateSupplierDto;
+import com.api.routes.suppliers.sql.SupplierSql;
+import com.api.routes.shared.models.SupplierModel;
 import com.api.routes.suppliers.dto.GetSupplierDto;
 import com.api.routes.suppliers.dto.UpdateSupplierDto;
-import com.api.routes.suppliers.model.SupplierModel;
-import com.api.routes.suppliers.sql.SupplierSql;
+import com.api.routes.suppliers.dto.CreateSupplierDto;
+import com.api.routes.suppliers.builder.CreateSupplierBuilder;
+import com.api.routes.suppliers.builder.FindSupplierBuilder;
+import com.api.routes.suppliers.builder.UpdateSupplierBuilder;
+import com.api.routes.shared.mappers.supplier.SupplierMapper;
 
 @Service
-public class SuppliersService extends SupplierBuilder {
+public class SuppliersService {
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
-  /**
-   * Finds a supplier based on the provided supplier details.
-   *
-   * @param getSupplierDto the DTO containing the supplier details to search for
-   * @return the found SupplierModel
-   * @throws RuntimeException if an unexpected error occurs during the query
-   */
-  public List<SupplierModel> findSupplier(GetSupplierDto getSupplierDto) {
-    SupplierModel supplier = new SupplierModel()
-        .setName(getSupplierDto.getName())
-        .setAddress(getSupplierDto.getAddress())
-        .setPhone(getSupplierDto.getPhone())
-        .build();
-
-    Binds binds = buildFindSupplier(supplier);
-    try {
-      List<SupplierModel> supplierFound = jdbcTemplate.query(binds.getSql(), supplierRowMapper, binds.getParams());
-      return supplierFound;
-    } catch (Exception error) {
-      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
-    }
+  private SupplierModel findSupplierById(int supplierId) {
+    return jdbcTemplate.query(SupplierSql.FIND_SUPPLIER_BY_ID.getQuery(), SupplierMapper.supplierRowMapper, supplierId).get(0);
   }
 
-  /**
-   * Retrieves a list of all suppliers from the database.
-   *
-   * @return a list of SupplierModel objects representing all suppliers.
-   * @throws RuntimeException if an unexpected error occurs during the database
-   *                          query.
-   */
   public List<SupplierModel> findAllSuppliers() {
     try {
-      List<SupplierModel> suppliers = jdbcTemplate.query(SupplierSql.FIND_ALL_SUPPLIERS.getQuery(), supplierRowMapper);
-      return suppliers;
+      return jdbcTemplate.query(SupplierSql.FIND_ALL_SUPPLIERS.getQuery(), SupplierMapper.supplierRowMapper);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Creates a new supplier using the provided CreateSupplierDto.
-   *
-   * @param createSupplierDto the data transfer object containing the details of
-   *                          the supplier to be created
-   * @return the created SupplierModel with the generated ID
-   * @throws RuntimeException if an unexpected error occurs during the creation
-   *                          process
-   */
-  public SupplierModel createSupplier(CreateSupplierDto createSupplierDto) {
-    SupplierModel supplier = new SupplierModel()
-        .setName(createSupplierDto.getName())
-        .setAddress(createSupplierDto.getAddress())
-        .setPhone(createSupplierDto.getPhone())
-        .build();
-
-    Binds binds = buildCreateSupplier(supplier);
-    KeyHolder keyHolder = new GeneratedKeyHolder();
+  public List<SupplierModel> findSupplier(GetSupplierDto getSupplierDto) {
+    Binds binds = FindSupplierBuilder.buildFindSupplier(getSupplierDto);
     try {
+      return jdbcTemplate.query(binds.getSql(), SupplierMapper.supplierRowMapper, binds.getParams());
+    } catch (Exception error) {
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
+    }
+  }
+
+  public SupplierModel createSupplier(CreateSupplierDto createSupplierDto) {
+    Binds binds = CreateSupplierBuilder.buildCreateSupplier(createSupplierDto);
+    try {
+      KeyHolder keyHolder = new GeneratedKeyHolder();
       jdbcTemplate.update(connection -> {
         PreparedStatement statement = connection.prepareStatement(binds.getSql(), new String[] { "id" });
         for (int i = 0; i < binds.getParams().length; i++) {
@@ -82,7 +55,6 @@ public class SuppliersService extends SupplierBuilder {
         }
         return statement;
       }, keyHolder);
-
       @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findSupplierById(generatedId);
@@ -91,22 +63,8 @@ public class SuppliersService extends SupplierBuilder {
     }
   }
 
-  /**
-   * Updates the details of an existing supplier.
-   *
-   * @param updateSupplierDto the supplier to update
-   * @return the updated SupplierModel
-   * @throws RuntimeException if an unexpected error occurs during the update
-   *                          process
-   */
   public SupplierModel updateSupplier(UpdateSupplierDto updateSupplierDto, int supplierId) {
-    SupplierModel supplier = new SupplierModel()
-        .setName(updateSupplierDto.getName())
-        .setAddress(updateSupplierDto.getAddress())
-        .setPhone(updateSupplierDto.getPhone())
-        .build();
-
-    Binds binds = buildUpdateSupplier(supplier, supplierId);
+    Binds binds = UpdateSupplierBuilder.buildUpdateSupplier(updateSupplierDto, supplierId);
     try {
       jdbcTemplate.update(binds.getSql(), binds.getParams());
       return findSupplierById(supplierId);
@@ -115,13 +73,6 @@ public class SuppliersService extends SupplierBuilder {
     }
   }
 
-  /**
-   * Activates a supplier by updating its status in the database.
-   *
-   * @param supplierId the ID of the supplier to be activated
-   * @return the ID of the activated supplier
-   * @throws RuntimeException if an unexpected error occurs during the update
-   */
   public int activateSupplier(int supplierId) {
     try {
       jdbcTemplate.update(SupplierSql.ACTIVE_SUPPLIER.getQuery(), supplierId);
@@ -131,14 +82,6 @@ public class SuppliersService extends SupplierBuilder {
     }
   }
 
-  /**
-   * Deletes a supplier from the database based on the provided supplier ID.
-   *
-   * @param supplierId the ID of the supplier to be deleted
-   * @return the ID of the deleted supplier
-   * @throws RuntimeException if an unexpected error occurs during the deletion
-   *                          process
-   */
   public int deleteSupplier(int supplierId) {
     try {
       jdbcTemplate.update(SupplierSql.DELETE_SUPPLIER.getQuery(), supplierId);
