@@ -12,7 +12,7 @@ public class InitController {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  @GetMapping
+  @GetMapping()
   public String activate() {
     return jdbcTemplate.queryForObject("SELECT 1", String.class);
   }

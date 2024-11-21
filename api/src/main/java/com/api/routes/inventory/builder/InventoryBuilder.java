@@ -13,7 +13,7 @@ import com.api.routes.inventory.dto.CreateUpdateProductDto;
 import com.api.routes.inventory.model.InventoryModel;
 import com.api.routes.inventory.model.UpdateProductModel;
 import com.api.routes.inventory.sql.InventorySql;
-import com.api.routes.utils.interfaces.Binds;
+import com.api.routes.shared.utils.query.Binds;
 
 public class InventoryBuilder {
   @Autowired

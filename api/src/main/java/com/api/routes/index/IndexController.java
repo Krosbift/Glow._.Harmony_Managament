@@ -1,52 +1,51 @@
 package com.api.routes.index;
 
 import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import com.api.routes.index.model.DocumentTypesModel;
-import com.api.routes.index.model.ProductCategoriesModel;
-import com.api.routes.index.model.RoleTypesModel;
-import com.api.routes.index.model.TransactionTypesModel;
-import com.api.routes.index.model.ViewsModel;
+import com.api.routes.shared.models.*;
+import com.api.routes.shared.models.inventory.*;
+import com.api.routes.shared.models.product.*;
+import com.api.routes.shared.models.user.*;
 
 @RestController
 @RequestMapping("index")
-@Tag(name = "Index", description = "Endpoints para obtener la información de las tablas complemento de las principales.")
+@Tag(name = "Index")
 public class IndexController {
   @Autowired
   private IndexService indexService;
 
-  @GetMapping("find-views")
-  @Operation(summary = "Buscar todas las vistas.", description = "Retorna las vistas encontradas.")
-  public List<ViewsModel> findAllViews() {
+  @GetMapping("views")
+  @Operation(summary = "Obtener todas las vistas")
+  public List<ViewModel> findAllViews() {
     return indexService.findAllViews();
   }
 
-  @GetMapping("find-documentTypes")
-  @Operation(summary = "Buscar todos los tipos de documentos.", description = "Retorna los tipos de documentos encontrados.")
-  public List<DocumentTypesModel> findAllDocumentTypes() {
+  @GetMapping("document-types")
+  @Operation(summary = "Obtener todos los tipos de documentos")
+  public List<DocumentTypeModel> findAllDocumentTypes() {
     return indexService.findAllDocumentTypes();
   }
 
-  @GetMapping("find-productCategories")
-  @Operation(summary = "Buscar todas las categorías de productos.", description = "Retorna las categorías de productos encontradas.")
-  public List<ProductCategoriesModel> findAllProductCategories() {
+  @GetMapping("product-categories")
+  @Operation(summary = "Obtener todas las categorías de productos")
+  public List<ProductCategoryModel> findAllProductCategories() {
     return indexService.findAllProductCategories();
   }
 
-  @GetMapping("find-roleTypes")
-  @Operation(summary = "Buscar todos los tipos de roles.", description = "Retorna los tipos de roles encontrados.")
-  public List<RoleTypesModel> findAllRoleTypes() {
+  @GetMapping("role-types")
+  @Operation(summary = "Obtener todos los tipos de roles")
+  public List<RoleTypeModel> findAllRoleTypes() {
     return indexService.findAllRoleTypes();
   }
 
-  @GetMapping("find-transactionTypes")
-  @Operation(summary = "Buscar todos los tipos de transacciones.", description = "Retorna los tipos de transacciones encontrados.")
-  public List<TransactionTypesModel> findAllTransactionTypes() {
+  @GetMapping("transaction-types")
+  @Operation(summary = "Obtener todos los tipos de transacciones")
+  public List<TransactionTypeModel> findAllTransactionTypes() {
     return indexService.findAllTransactionTypes();
   }
 }

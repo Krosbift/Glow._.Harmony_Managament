@@ -8,10 +8,13 @@ public class UpdateProductModel {
   private Integer updateProductId;
   private String reason;
   private Date updateDate;
+
   private Integer productId;
   private String productName;
+  
   private Integer transactionTypeId;
   private String transactionType;
+  
   private Integer updateAmount;
   private Date expirationDate;
   private Integer active;
@@ -186,11 +189,6 @@ public class UpdateProductModel {
     return this;
   }
 
-  /**
-   * Builds and returns the current instance of UpdateProductModel.
-   *
-   * @return the current instance of UpdateProductModel
-   */
   public UpdateProductModel build() {
     return this;
   }

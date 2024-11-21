@@ -7,11 +7,11 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 import com.api.routes.products.builder.ProductBuilder;
 import com.api.routes.products.sql.ProducSql;
+import com.api.routes.shared.utils.query.Binds;
 import com.api.routes.products.dto.CreateProductDto;
 import com.api.routes.products.dto.GetProductDto;
 import com.api.routes.products.dto.UpdateProductDto;
 import com.api.routes.products.model.ProductModel;
-import com.api.routes.utils.interfaces.Binds;
 
 @Service
 public class ProductService extends ProductBuilder {

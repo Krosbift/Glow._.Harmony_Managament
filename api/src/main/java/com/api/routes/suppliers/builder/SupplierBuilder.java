@@ -8,9 +8,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
+import com.api.routes.shared.utils.query.Binds;
 import com.api.routes.suppliers.model.SupplierModel;
 import com.api.routes.suppliers.sql.SupplierSql;
-import com.api.routes.utils.interfaces.Binds;
 
 public class SupplierBuilder {
   @Autowired

@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import com.api.routes.products.model.ProductModel;
 import com.api.routes.products.sql.ProducSql;
-import com.api.routes.utils.interfaces.Binds;
+import com.api.routes.shared.utils.query.Binds;
 
 public class ProductBuilder {
   @Autowired

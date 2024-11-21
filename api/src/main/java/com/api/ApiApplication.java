@@ -6,13 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * The main class for the Spring Boot application.
  * This class serves as the entry point for the application.
- * 
- * <p>
- * The {@code @SpringBootApplication} annotation indicates that this is a Spring
- * Boot application.
- * The {@code main} method uses {@code SpringApplication.run} to launch the
- * application.
- * </p>
  */
 @SpringBootApplication
 public class ApiApplication {

@@ -5,13 +5,14 @@ import java.sql.PreparedStatement;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+
+import com.api.routes.shared.utils.query.Binds;
 import com.api.routes.suppliers.builder.SupplierBuilder;
 import com.api.routes.suppliers.dto.CreateSupplierDto;
 import com.api.routes.suppliers.dto.GetSupplierDto;
 import com.api.routes.suppliers.dto.UpdateSupplierDto;
 import com.api.routes.suppliers.model.SupplierModel;
 import com.api.routes.suppliers.sql.SupplierSql;
-import com.api.routes.utils.interfaces.Binds;
 
 @Service
 public class SuppliersService extends SupplierBuilder {

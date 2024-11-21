@@ -7,14 +7,18 @@ public class UserModel {
   private Integer userId;
   private String names;
   private String surNames;
+  
   private Integer documentTypeId;
   private String documentType;
+
   private String documentNumber;
   private String email;
   private String password;
   private String phone;
+
   private Integer roleTypeId;
   private String roleType;
+
   private String address;
   private boolean active;
 

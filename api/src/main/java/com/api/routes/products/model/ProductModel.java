@@ -6,11 +6,15 @@ import java.sql.SQLException;
 public class ProductModel {
   private Integer productId;
   private String productName;
+  
   private Integer productCategoryId;
   private String productCategory;
+
   private Integer productPrice;
+
   private Integer supplierId;
   private String supplierName;
+
   private boolean isActive;
 
   public Integer getProductId() {

@@ -1,4 +1,4 @@
-package com.api.routes.utils.interfaces;
+package com.api.routes.shared.utils.query;
 
 /**
  * Represents a container for SQL query and its parameters.

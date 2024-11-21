@@ -16,7 +16,7 @@ import com.api.routes.inventory.model.ProductStockModel;
 import com.api.routes.inventory.model.UpdateProductModel;
 import com.api.routes.inventory.sql.InventorySql;
 import com.api.routes.inventory.usecases.InvetoryManagmentUseCase;
-import com.api.routes.utils.interfaces.Binds;
+import com.api.routes.shared.utils.query.Binds;
 
 @Service
 public class InventoryService extends InventoryBuilder {

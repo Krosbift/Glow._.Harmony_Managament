@@ -1,42 +1,17 @@
 package com.api.core.config.env;
 
+import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.cdimascio.dotenv.Dotenv;
-import java.io.File;
 import com.api.core.config.env.enums.EnvKeys;
+import com.api.core.config.env.interfaces.IEnvConfig;
 
 /**
- * The EnvConfig class is responsible for loading and providing access to
- * environment variables
- * defined in a .env file. It uses the Dotenv library to load the environment
- * variables and
- * provides a method to retrieve the value associated with a specified
- * environment key.
- * 
- * <p>
- * This class will log an error and throw an IllegalStateException if the .env
- * file is not found
- * or could not be loaded.
- * </p>
- * 
- * <p>
- * Usage example:
- * </p>
- * 
- * <pre>
- * {@code
- * EnvConfig config = new EnvConfig();
- * String value = config.get(EnvKeys.SOME_KEY);
- * }
- * </pre>
- * 
- * <p>
- * Note: Ensure that the .env file is present in the root directory of the
- * project.
- * </p>
- */
-public class EnvConfig {
+ * The EnvConfig class is responsible for loading environment variables from a .env file
+ * and providing access to these variables through the get method.
+ **/
+public class EnvConfig implements IEnvConfig{
   private static final Logger logger = LoggerFactory.getLogger(EnvConfig.class);
   private final Dotenv dotenv;
 

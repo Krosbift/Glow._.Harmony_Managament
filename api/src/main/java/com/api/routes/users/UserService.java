@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+
+import com.api.routes.shared.utils.query.Binds;
 import com.api.routes.users.builder.UserBuilder;
 import com.api.routes.users.dto.LoginUserDto;
 import com.api.routes.users.dto.RegisterUserDto;
 import com.api.routes.users.model.UserModel;
 import com.api.routes.users.sql.UserSql;
-import com.api.routes.utils.interfaces.Binds;
 
 @Service
 public class UserService extends UserBuilder {
