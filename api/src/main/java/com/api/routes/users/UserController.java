@@ -13,49 +13,50 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import com.api.routes.shared.models.user.UserModel;
 import com.api.routes.users.dto.RegisterUserDto;
 import com.api.routes.users.dto.UpdateUserDto;
-import com.api.routes.users.model.UserModel;
+
 
 @RestController
 @RequestMapping("users")
-@Tag(name = "Usuarios", description = "Endpoints para el manejo de usuarios.")
+@Tag(name = "Usuarios")
 public class UserController {
   @Autowired
   private UserService userService;
 
   @GetMapping("find-user")
-  @Operation(summary = "Buscar usuario por email", description = "Retorna un usuario con base en el email ingresado.")
+  @Operation(summary = "Buscar usuario por email")
   public UserModel findUser(@RequestParam String userEmail) {
     return userService.findUser(userEmail);
   }
 
   @GetMapping("find-all-users")
-  @Operation(summary = "Buscar todos los usuarios", description = "Retorna una lista de todos los usuarios encontrados.")
+  @Operation(summary = "Buscar todos los usuarios")
   public List<UserModel> findAllUsers() {
     return userService.findAllUsers();
   }
 
   @PostMapping("register")
-  @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario al sistema.")
+  @Operation(summary = "Registrar usuario")
   public UserModel registerUser(@RequestBody RegisterUserDto registerData) {
     return userService.registerUser(registerData);
   }
 
   @PatchMapping("update-user/{userId}")
-  @Operation(summary = "Actualizar usuario", description = "Actualiza los datos de un usuario existente.")
+  @Operation(summary = "Actualizar usuario")
   public UserModel updateUser(@RequestBody UpdateUserDto registerData, @PathVariable int userId) {
     return userService.updateUser(registerData, userId);
   }
 
   @PatchMapping("activate-user/{userId}")
-  @Operation(summary = "Activar usuario", description = "Activa un usuario existente.")
+  @Operation(summary = "Activar usuario")
   public int activateUser(@PathVariable int userId) {
     return userService.activateUser(userId);
   }
 
   @DeleteMapping("delete-user/{userId}")
-  @Operation(summary = "Desactivar usuario", description = "Desactiva un usuario existente.")
+  @Operation(summary = "Desactivar usuario")
   public int deleteUser(@PathVariable int userId) {
     return userService.deleteUser(userId);
   }
