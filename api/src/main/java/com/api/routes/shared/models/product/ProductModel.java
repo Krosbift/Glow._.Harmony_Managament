@@ -36,6 +36,16 @@ public class ProductModel {
     return active;
   }
 
+  public ProductModel setProductCategoryModel() {
+    this.productCategoryModel = new ProductCategoryModel();
+    return this;
+  }
+
+  public ProductModel setSupplierModel() {
+    this.supplierModel = new SupplierModel();
+    return this;
+  }
+
   public ProductModel setProductId(Integer productId) {
     this.productId = productId;
     return this;
@@ -60,6 +70,30 @@ public class ProductModel {
     return this;
   }
 
+  public ProductModel setProductCategoryId(Integer productCategoryId) {
+    this.productCategoryModel.setProductCategoryId(productCategoryId);
+    return this;
+  }
+
+  public ProductModel setProductCategoryId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productCategoryModel.setProductCategoryId(rs.getInt("CATEGORYID"));
+    }
+    return this;
+  }
+
+  public ProductModel setProductCategory(String productCategory) {
+    this.productCategoryModel.setProductCategory(productCategory);
+    return this;
+  }
+
+  public ProductModel setProductCategory(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productCategoryModel.setProductCategory(rs.getString("CATEGORYNAME"));
+    }
+    return this;
+  }
+
   public ProductModel setProductPrice(Integer productPrice) {
     this.productPrice = productPrice;
     return this;
@@ -68,6 +102,30 @@ public class ProductModel {
   public ProductModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.productPrice = rs.getInt("UNITPRICE");
+    }
+    return this;
+  }
+
+  public ProductModel setSupplierId(Integer supplierId) {
+    this.supplierModel.setSupplierId(supplierId);
+    return this;
+  }
+
+  public ProductModel setSupplierId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.supplierModel.setSupplierId(rs.getInt("SUPPLIERID"));
+    }
+    return this;
+  }
+
+  public ProductModel setSupplierName(String supplierName) {
+    this.supplierModel.setName(supplierName);
+    return this;
+  }
+
+  public ProductModel setSupplierName(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.supplierModel.setName(rs.getString("SUPPLIERNAME"));
     }
     return this;
   }

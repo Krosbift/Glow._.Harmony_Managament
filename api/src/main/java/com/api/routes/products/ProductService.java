@@ -2,77 +2,47 @@ package com.api.routes.products;
 
 import java.util.List;
 import java.sql.PreparedStatement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
-import com.api.routes.products.builder.ProductBuilder;
 import com.api.routes.products.sql.ProducSql;
+import com.api.routes.shared.mappers.product.ProductMapper;
+import com.api.routes.shared.models.product.ProductModel;
 import com.api.routes.shared.utils.query.Binds;
-import com.api.routes.products.dto.CreateProductDto;
-import com.api.routes.products.dto.GetProductDto;
-import com.api.routes.products.dto.UpdateProductDto;
-import com.api.routes.products.model.ProductModel;
+import com.api.routes.products.builder.*;
+import com.api.routes.products.dto.*;
 
 @Service
-public class ProductService extends ProductBuilder {
+public class ProductService {
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
-  /**
-   * Finds a product based on the provided product details.
-   *
-   * @param getProductDto the DTO containing the product details to search for
-   * @return the found ProductModel
-   * @throws RuntimeException if an unexpected error occurs during the query
-   */
-  public List<ProductModel> findProduct(GetProductDto getProductDto) {
-    ProductModel product = new ProductModel()
-        .setProductId(getProductDto.getProductId())
-        .setProductCategoryId(getProductDto.getProductCategoryId())
-        .setSupplierId(getProductDto.getSupplierId())
-        .build();
-
-    Binds binds = buildFindProduct(product);
-    try {
-      List<ProductModel> productFound = jdbcTemplate.query(binds.getSql(), productRowMapper, binds.getParams());
-      return productFound;
-    } catch (Exception error) {
-      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
-    }
+  protected ProductModel findProductById(int productId) {
+    return jdbcTemplate.query(ProducSql.FIND_PRODUCT_BY_ID.getQuery(), ProductMapper.productRowMapper, productId)
+        .get(0);
   }
 
-  /**
-   * Retrieves a list of all products from the database.
-   *
-   * @return a list of {@link ProductModel} objects representing all products.
-   * @throws RuntimeException if an unexpected error occurs during the database
-   *                          query.
-   */
   public List<ProductModel> findAllProducts() {
     try {
-      List<ProductModel> products = jdbcTemplate.query(ProducSql.FIND_ALL_PRODUCTS.getQuery(), productRowMapper);
-      return products;
+      return jdbcTemplate.query(ProducSql.FIND_ALL_PRODUCTS.getQuery(), ProductMapper.productRowMapper);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Creates a new product in the database.
-   *
-   * @param createProductDto the data transfer object containing the details of
-   *                         the product to be created
-   * @return the created ProductModel with the generated ID
-   * @throws RuntimeException if an unexpected error occurs during the creation
-   *                          process
-   */
-  public ProductModel createProduct(CreateProductDto createProductDto) {
-    ProductModel product = new ProductModel()
-        .setProductName(createProductDto.getProductName())
-        .setProductCategoryId(createProductDto.getProductCategoryId())
-        .setProductPrice(createProductDto.getProductPrice())
-        .setSupplierId(createProductDto.getSupplierId())
-        .build();
+  public List<ProductModel> findProduct(GetProductDto getProductDto) {
+    Binds binds = FindProductBuilder.buildFindProduct(getProductDto);
+    try {
+      return jdbcTemplate.query(binds.getSql(), ProductMapper.productRowMapper, binds.getParams());
+    } catch (Exception error) {
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
+    }
+  }
 
-    Binds binds = buildCreateProduct(product);
+  public ProductModel createProduct(CreateProductDto createProductDto) {
+    Binds binds = CreateProductBuilder.buildCreateProduct(createProductDto);
     try {
       KeyHolder keyHolder = new GeneratedKeyHolder();
       jdbcTemplate.update(connection -> {
@@ -82,7 +52,6 @@ public class ProductService extends ProductBuilder {
         }
         return statement;
       }, keyHolder);
-
       @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
       return findProductById(generatedId);
@@ -91,25 +60,8 @@ public class ProductService extends ProductBuilder {
     }
   }
 
-  /**
-   * Updates an existing product with the provided details.
-   *
-   * @param updateProductDto the data transfer object containing the updated
-   *                         product details
-   * @param productId        the ID of the product to be updated
-   * @return the updated ProductModel
-   * @throws RuntimeException if an unexpected error occurs during the update
-   *                          process
-   */
   public ProductModel updateProduct(UpdateProductDto updateProductDto, int productId) {
-    ProductModel product = new ProductModel()
-        .setProductName(updateProductDto.getProductName())
-        .setProductCategoryId(updateProductDto.getProductCategoryId())
-        .setProductPrice(updateProductDto.getProductPrice())
-        .setSupplierId(updateProductDto.getSupplierId())
-        .build();
-
-    Binds binds = buildUpdateProduc(product, productId);
+    Binds binds = UpdateProductBuilder.buildUpdateProduc(updateProductDto, productId);
     try {
       jdbcTemplate.update(binds.getSql(), binds.getParams());
       return findProductById(productId);
@@ -118,14 +70,6 @@ public class ProductService extends ProductBuilder {
     }
   }
 
-  /**
-   * Activates a product by its ID.
-   *
-   * @param productId the ID of the product to activate
-   * @return the ID of the activated product
-   * @throws RuntimeException if an unexpected error occurs during the activation
-   *                          process
-   */
   public int activeProduct(int productId) {
     try {
       jdbcTemplate.update(ProducSql.ACTIVE_PRODUCT.getQuery(), productId);
@@ -135,14 +79,6 @@ public class ProductService extends ProductBuilder {
     }
   }
 
-  /**
-   * Deletes a product from the database.
-   *
-   * @param productId the ID of the product to be deleted
-   * @return the ID of the deleted product
-   * @throws RuntimeException if an unexpected error occurs during the deletion
-   *                          process
-   */
   public int deleteProduct(int productId) {
     try {
       jdbcTemplate.update(ProducSql.DELETE_PRODUCT.getQuery(), productId);

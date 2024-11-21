@@ -15,27 +15,11 @@ public class CreateProductDto {
     return this;
   }
 
-  public CreateProductDto setProductName(String productName, boolean setValue) {
-    if (!setValue) {
-      return this;
-    }
-    this.productName = productName;
-    return this;
-  }
-
   public Integer getProductCategoryId() {
     return productCategoryId;
   }
 
   public CreateProductDto setProductCategoryId(Integer productCategoryId) {
-    this.productCategoryId = productCategoryId;
-    return this;
-  }
-
-  public CreateProductDto setProductCategoryId(Integer productCategoryId, boolean setValue) {
-    if (!setValue) {
-      return this;
-    }
     this.productCategoryId = productCategoryId;
     return this;
   }
@@ -49,14 +33,6 @@ public class CreateProductDto {
     return this;
   }
 
-  public CreateProductDto setProductPrice(Integer productPrice, boolean setValue) {
-    if (!setValue) {
-      return this;
-    }
-    this.productPrice = productPrice;
-    return this;
-  }
-
   public Integer getSupplierId() {
     return supplierId;
   }
@@ -66,19 +42,6 @@ public class CreateProductDto {
     return this;
   }
 
-  public CreateProductDto setSupplierId(Integer supplierId, boolean setValue) {
-    if (!setValue) {
-      return this;
-    }
-    this.supplierId = supplierId;
-    return this;
-  }
-
-  /**
-   * Builds and returns the current instance of CreateProductDto.
-   *
-   * @return the current instance of CreateProductDto
-   */
   public CreateProductDto build() {
     return this;
   }
