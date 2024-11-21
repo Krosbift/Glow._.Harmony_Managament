@@ -1,9 +1,5 @@
 package com.api.routes.index.sql;
 
-/**
- * Enum representing SQL queries for various index operations.
- * Each enum constant holds a SQL query string.
- */
 public enum IndexSql {
   FIND_VIEWS(
     "SELECT " +

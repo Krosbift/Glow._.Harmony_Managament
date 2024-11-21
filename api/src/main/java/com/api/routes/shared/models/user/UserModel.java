@@ -60,6 +60,16 @@ public class UserModel {
     return active;
   }
 
+  public UserModel initDocumentType() {
+    this.documentType = new DocumentTypeModel();
+    return this;
+  }
+
+  public UserModel initRoleType() {
+    this.roleType = new RoleTypeModel();
+    return this;
+  }
+
   public UserModel setUserId(Integer userId) {
     this.userId = userId;
     return this;
@@ -92,6 +102,30 @@ public class UserModel {
   public UserModel setSurNames(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.surNames = rs.getString("SURNAMES");
+    }
+    return this;
+  }
+
+  public UserModel setDocumentTypeId(Integer documentTypeId) {
+    this.documentType.setDocumentTypeId(documentTypeId);
+    return this;
+  }
+
+  public UserModel setDocumentTypeId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.documentType.setDocumentTypeId(rs.getInt("DOCUMENTTYPEID"));
+    }
+    return this;
+  }
+
+  public UserModel setDocumentType(String documentType) {
+    this.documentType.setDocumentType(documentType);
+    return this;
+  }
+  
+  public UserModel setDocumentType(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.documentType.setDocumentType(rs.getString("DOCUMENTTYPE"));
     }
     return this;
   }
@@ -140,6 +174,30 @@ public class UserModel {
   public UserModel setPhone(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.phone = rs.getString("PHONENUMBER");
+    }
+    return this;
+  }
+
+  public UserModel setRoleTypeId(Integer roleTypeId) {
+    this.roleType.setRoleTypeId(roleTypeId);
+    return this;
+  }
+
+  public UserModel setRoleTypeId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.roleType.setRoleTypeId(rs.getInt("ROLETYPEID"));
+    }
+    return this;
+  }
+
+  public UserModel setRoleType(String roleType) {
+    this.roleType.setRoleType(roleType);
+    return this;
+  }
+
+  public UserModel setRoleType(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.roleType.setRoleType(rs.getString("ROLETYPE"));
     }
     return this;
   }

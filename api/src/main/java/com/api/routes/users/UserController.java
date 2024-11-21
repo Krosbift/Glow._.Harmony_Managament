@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.api.routes.users.dto.LoginUserDto;
 import com.api.routes.users.dto.RegisterUserDto;
 import com.api.routes.users.dto.UpdateUserDto;
 import com.api.routes.users.model.UserModel;
@@ -35,12 +34,6 @@ public class UserController {
   @Operation(summary = "Buscar todos los usuarios", description = "Retorna una lista de todos los usuarios encontrados.")
   public List<UserModel> findAllUsers() {
     return userService.findAllUsers();
-  }
-
-  @PostMapping("login")
-  @Operation(summary = "Login de usuario", description = "Autentica un usuario con base en los datos ingresados.")
-  public boolean loginUser(@RequestBody LoginUserDto loginData) {
-    return userService.findLoginUser(loginData);
   }
 
   @PostMapping("register")

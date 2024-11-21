@@ -14,7 +14,7 @@ import com.api.routes.shared.models.user.*;
 
 @RestController
 @RequestMapping("index")
-@Tag(name = "Index")
+@Tag(name = "index")
 public class IndexController {
   @Autowired
   private IndexService indexService;

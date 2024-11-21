@@ -1,4 +1,4 @@
-package com.api.routes.index.builder;
+package com.api.routes.shared.mappers.index;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,12 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.api.routes.shared.models.user.RoleTypeModel;
 import com.api.routes.shared.utils.methods.HasColumns;
 
-public class RoleTypeBuilder {
-  /**
-   * RowMapper implementation for mapping rows of a ResultSet to RoleTypeModel
-   * objects.
-   * This mapper is used to convert the ResultSet rows into RoleTypeModel instances.
-   */
+public class RoleTypeMapper {
   public static RowMapper<RoleTypeModel> roleTypesRowMapper = new RowMapper<RoleTypeModel>() {
     @Override
     public RoleTypeModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
