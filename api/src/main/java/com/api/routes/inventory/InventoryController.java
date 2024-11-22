@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.routes.inventory.dto.CreateProductMovementDto;
+import com.api.routes.inventory.dto.GetInventoryDto;
 import com.api.routes.inventory.dto.GetProductMovementDto;
 import com.api.routes.inventory.dto.UpdateProductMovementDto;
+import com.api.routes.inventory.model.ProductStockModel;
+import com.api.routes.shared.models.inventory.InventoryModel;
 import com.api.routes.shared.models.inventory.ProductMovementModel;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,23 +72,23 @@ public class InventoryController {
     return inventoryService.deleteUpdateProduct(updateProductId);
   }
 
-  // @GetMapping("find-inventory")
-  // @Operation(summary = "Buscar inventario por cualquier valor coincidiente")
-  // public List<ProductStockModel> findInventory(
-  // @RequestParam(required = false) Integer productId,
-  // @RequestParam(required = false) Integer categoryId,
-  // @RequestParam(required = false) Integer supplierId) {
-  // GetInventoryDto getInventoryDto = new GetInventoryDto()
-  // .setProductId(productId)
-  // .setCategoryId(categoryId)
-  // .setSupplierId(supplierId)
-  // .build();
-  // return inventoryService.findInventory(getInventoryDto);
-  // }
+  @GetMapping("find-inventory")
+  @Operation(summary = "Buscar inventario por cualquier valor coincidiente")
+  public List<ProductStockModel> findInventory(
+      @RequestParam(required = false) Integer productId,
+      @RequestParam(required = false) Integer categoryId,
+      @RequestParam(required = false) Integer supplierId) {
+    GetInventoryDto getInventoryDto = new GetInventoryDto()
+        .setProductId(productId)
+        .setCategoryId(categoryId)
+        .setSupplierId(supplierId)
+        .build();
+    return inventoryService.findInventory(getInventoryDto);
+  }
 
-  // @GetMapping("find-all-inventory")
-  // @Operation(summary = "Buscar todo el inventario")
-  // public List<InventoryModel> findAllInventory() {
-  // return inventoryService.findAllInventory();
-  // }
+  @GetMapping("find-all-inventory")
+  @Operation(summary = "Buscar todo el inventario")
+  public List<InventoryModel> findAllInventory() {
+    return inventoryService.findAllInventory();
+  }
 }

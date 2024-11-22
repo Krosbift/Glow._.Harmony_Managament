@@ -15,6 +15,26 @@ public class GetInventoryDto {
     return productId;
   }
 
+  public String getProductName() {
+    return productName;
+  }
+
+  public Integer getCategoryId() {
+    return categoryId;
+  }
+
+  public String getCategoryName() {
+    return categoryName;
+  }
+
+  public Integer getSupplierId() {
+    return supplierId;
+  }
+
+  public String getSupplierName() {
+    return supplierName;
+  }
+
   public GetInventoryDto setProductId(Integer productId) {
     this.productId = productId;
     return this;
@@ -26,10 +46,6 @@ public class GetInventoryDto {
     }
     this.productId = rs.getInt("PRODUCTID");
     return this;
-  }
-
-  public String getProductName() {
-    return productName;
   }
 
   public GetInventoryDto setProductName(String productName) {
@@ -45,10 +61,6 @@ public class GetInventoryDto {
     return this;
   }
 
-  public Integer getCategoryId() {
-    return categoryId;
-  }
-
   public GetInventoryDto setCategoryId(Integer categoryId) {
     this.categoryId = categoryId;
     return this;
@@ -60,10 +72,6 @@ public class GetInventoryDto {
     }
     this.categoryId = rs.getInt("CATEGORYID");
     return this;
-  }
-
-  public String getCategoryName() {
-    return categoryName;
   }
 
   public GetInventoryDto setCategoryName(String categoryName) {
@@ -79,10 +87,6 @@ public class GetInventoryDto {
     return this;
   }
 
-  public Integer getSupplierId() {
-    return supplierId;
-  }
-
   public GetInventoryDto setSupplierId(Integer supplierId) {
     this.supplierId = supplierId;
     return this;
@@ -94,10 +98,6 @@ public class GetInventoryDto {
     }
     this.supplierId = rs.getInt("SUPPLIERID");
     return this;
-  }
-
-  public String getSupplierName() {
-    return supplierName;
   }
 
   public GetInventoryDto setSupplierName(String supplierName) {

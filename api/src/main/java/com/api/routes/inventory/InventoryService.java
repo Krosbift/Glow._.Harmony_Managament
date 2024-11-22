@@ -4,29 +4,19 @@ import java.util.List;
 import java.sql.PreparedStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.*;
 import org.springframework.stereotype.Service;
-
-import com.api.routes.inventory.builder.CreateMovementBuilder;
-import com.api.routes.inventory.builder.FindMovementBuilder;
-import com.api.routes.inventory.builder.InventoryBuilder;
-import com.api.routes.inventory.builder.UpdateMovementBuilder;
-import com.api.routes.inventory.dto.CreateProductMovementDto;
-import com.api.routes.inventory.dto.GetInventoryDto;
-import com.api.routes.inventory.dto.GetProductMovementDto;
-import com.api.routes.inventory.dto.UpdateProductMovementDto;
-import com.api.routes.inventory.model.InventoryModel;
+import com.api.routes.inventory.builder.*;
+import com.api.routes.inventory.dto.*;
 import com.api.routes.inventory.model.ProductStockModel;
 import com.api.routes.inventory.sql.InventorySql;
-import com.api.routes.inventory.usecases.InvetoryManagmentUseCase;
-import com.api.routes.inventory.usecases.ValidateModifyUseCase;
-import com.api.routes.shared.mappers.inventory.ProductMovementMapper;
-import com.api.routes.shared.models.inventory.ProductMovementModel;
+import com.api.routes.inventory.usecases.*;
+import com.api.routes.shared.mappers.inventory.*;
+import com.api.routes.shared.models.inventory.*;
 import com.api.routes.shared.utils.query.Binds;
 
 @Service
-public class InventoryService extends InventoryBuilder {
+public class InventoryService {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
@@ -114,44 +104,21 @@ public class InventoryService extends InventoryBuilder {
     }
   }
 
-  /**
-   * Finds the inventory based on the provided criteria.
-   *
-   * @param getInventoryDto the DTO containing the criteria for fetching the
-   *                        inventory
-   * @return a list of ProductStockModel representing the inventory stock
-   * @throws RuntimeException if an unexpected error occurs during the query
-   *                          execution
-   */
-  public List<ProductStockModel> findInventory(GetInventoryDto getInventoryDto) {
-    InventoryModel inventory = new InventoryModel()
-        .setProductId(getInventoryDto.getProductId())
-        .setCategoryId(getInventoryDto.getCategoryId())
-        .setSupplierId(getInventoryDto.getSupplierId())
-        .build();
 
-    Binds binds = buildFindInventory(inventory);
+  public List<ProductStockModel> findInventory(GetInventoryDto getInventoryDto) {
+    Binds binds = FindInventoryBuilder.buildFindInventory(getInventoryDto);
     try {
-      List<InventoryModel> result = jdbcTemplate.query(binds.getSql(), inventoryRowMapper, binds.getParams());
+      List<InventoryModel> result = jdbcTemplate.query(binds.getSql(), InventoryMapper.inventoryRowMapper, binds.getParams());
       return InvetoryManagmentUseCase.calculateStock(result);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Retrieves all inventory items from the database.
-   *
-   * @return a list of {@link InventoryModel} objects representing the inventory
-   *         items.
-   * @throws RuntimeException if an unexpected error occurs during the database
-   *                          query.
-   */
   public List<InventoryModel> findAllInventory() {
     try {
-      List<InventoryModel> inventory = jdbcTemplate.query(InventorySql.FIND_ALL_INVENTORY.getQuery(),
-          inventoryRowMapper);
-      return inventory;
+      return jdbcTemplate.query(InventorySql.FIND_ALL_INVENTORY.getQuery(),
+      InventoryMapper.inventoryRowMapper);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }

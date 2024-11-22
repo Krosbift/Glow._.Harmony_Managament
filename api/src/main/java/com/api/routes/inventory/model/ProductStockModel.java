@@ -92,11 +92,6 @@ public class ProductStockModel {
     return this;
   }
 
-  /**
-   * Builds and returns the current instance of ProductStockModel.
-   *
-   * @return the current instance of ProductStockModel
-   */
   public ProductStockModel build() {
     return this;
   }

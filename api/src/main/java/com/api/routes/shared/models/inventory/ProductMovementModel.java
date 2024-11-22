@@ -118,6 +118,18 @@ public class ProductMovementModel {
     return this;
   }
 
+  public ProductMovementModel setProductPrice(Integer productPrice) {
+    this.productModel.setProductPrice(productPrice);
+    return this;
+  }
+
+  public ProductMovementModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productModel.setProductPrice(rs.getInt("PRODUCTPRICE"));
+    }
+    return this;
+  }
+
   public ProductMovementModel setTransactionTypeId(Integer productCategory) {
     this.transactionTypeModel.setTransactionTypeId(productCategory);
     return this;

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class SupplierModel {
   private Integer supplierId;
-  private String name;
+  private String supplierName;
   private String address;
   private String phone;
   private boolean active;
@@ -15,7 +15,7 @@ public class SupplierModel {
   }
 
   public String getName() {
-    return name;
+    return supplierName;
   }
 
   public String getAddress() {
@@ -42,14 +42,14 @@ public class SupplierModel {
     return this;
   }
 
-  public SupplierModel setName(String name) {
-    this.name = name;
+  public SupplierModel setName(String supplierName) {
+    this.supplierName = supplierName;
     return this;
   }
 
   public SupplierModel setName(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
-      this.name = rs.getString("NAME");
+      this.supplierName = rs.getString("NAME");
     }
     return this;
   }
