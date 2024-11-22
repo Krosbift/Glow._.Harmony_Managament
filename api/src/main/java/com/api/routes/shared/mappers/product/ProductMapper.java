@@ -12,7 +12,7 @@ public class ProductMapper {
     public ProductModel mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
       ProductModel product = new ProductModel()
           .setProductId(rs, HasColumns.verify(rs, "PRODUCTID"))
-          .setProductName(rs, HasColumns.verify(rs, "NAME"))
+          .setProductName(rs, HasColumns.verify(rs, "PRODUCTNAME"))
           .setProductCategoryModel()
           .setProductCategoryId(rs, HasColumns.verify(rs, "CATEGORYID"))
           .setProductCategory(rs, HasColumns.verify(rs, "CATEGORYNAME"))

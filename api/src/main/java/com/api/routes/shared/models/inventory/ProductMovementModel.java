@@ -3,7 +3,6 @@ package com.api.routes.shared.models.inventory;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.api.routes.shared.models.index.TransactionTypeModel;
 import com.api.routes.shared.models.product.ProductModel;
 
@@ -49,6 +48,16 @@ public class ProductMovementModel {
     return active;
   }
 
+  public ProductMovementModel setProductModel() {
+    this.productModel = new ProductModel();
+    return this;
+  }
+
+  public ProductMovementModel setTransactionTypeModel() {
+    this.transactionTypeModel = new TransactionTypeModel();
+    return this;
+  }
+
   public ProductMovementModel setUpdateProductId(Integer updateProductId) {
     this.updateProductId = updateProductId;
     return this;
@@ -81,6 +90,54 @@ public class ProductMovementModel {
   public ProductMovementModel setUpdateDate(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.updateDate = rs.getDate("UPDATEDATE");
+    }
+    return this;
+  }
+
+  public ProductMovementModel setProductId(Integer productId) {
+    this.productModel.setProductId(productId);
+    return this;
+  }
+
+  public ProductMovementModel setProductId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productModel.setProductId(rs.getInt("PRODUCTID"));
+    }
+    return this;
+  }
+
+  public ProductMovementModel setProductName(String productName) {
+    this.productModel.setProductName(productName);
+    return this;
+  }
+
+  public ProductMovementModel setProductName(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productModel.setProductName(rs.getString("PRODUCTNAME"));
+    }
+    return this;
+  }
+
+  public ProductMovementModel setTransactionTypeId(Integer productCategory) {
+    this.transactionTypeModel.setTransactionTypeId(productCategory);
+    return this;
+  }
+
+  public ProductMovementModel setTransactionTypeId(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.transactionTypeModel.setTransactionTypeId(rs.getInt("TRANSACTIONTYPEID"));
+    }
+    return this;
+  }
+
+  public ProductMovementModel setTransactionType(String transactionType) {
+    this.transactionTypeModel.setTransactionType(transactionType);
+    return this;
+  }
+
+  public ProductMovementModel setTransactionType(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.transactionTypeModel.setTransactionType(rs.getString("TRANSACTIONTYPE"));
     }
     return this;
   }

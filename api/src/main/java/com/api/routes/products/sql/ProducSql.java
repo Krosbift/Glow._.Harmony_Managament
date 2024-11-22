@@ -4,7 +4,7 @@ public enum ProducSql {
   FIND_PRODUCT_BY_ID(
     "SELECT " +
       "IPT.PRODUCTID, " +
-      "IPT.NAME, " +
+      "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
       "IPT.UNITPRICE, " +
@@ -19,7 +19,7 @@ public enum ProducSql {
   FIND_PRODUCT(
     "SELECT " +
       "IPT.PRODUCTID, " +
-      "IPT.NAME, " +
+      "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
       "IPT.UNITPRICE, " +
@@ -34,7 +34,7 @@ public enum ProducSql {
   FIND_ALL_PRODUCTS(
     "SELECT " +
       "IPT.PRODUCTID, " +
-      "IPT.NAME, " +
+      "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
       "IPT.UNITPRICE, " +

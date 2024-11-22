@@ -4,13 +4,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.routes.inventory.dto.CreateUpdateProductDto;
-import com.api.routes.inventory.dto.GetInventoryDto;
-import com.api.routes.inventory.dto.GetUpdateProductDto;
-import com.api.routes.inventory.dto.UpdateProductUpdateDto;
-import com.api.routes.inventory.model.InventoryModel;
-import com.api.routes.inventory.model.ProductStockModel;
-import com.api.routes.inventory.model.UpdateProductModel;
+import com.api.routes.inventory.dto.CreateProductMovementDto;
+import com.api.routes.inventory.dto.GetProductMovementDto;
+import com.api.routes.inventory.dto.UpdateProductMovementDto;
+import com.api.routes.shared.models.inventory.ProductMovementModel;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,70 +22,70 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("inventory")
-@Tag(name = "Inventario", description = "Endpoints para el manejo del inventario.")
+@Tag(name = "Inventario")
 public class InventoryController {
   @Autowired
   private InventoryService inventoryService;
 
-  @GetMapping("find-update-product")
-  @Operation(summary = "Buscar productos actualizados por cualquier valor coincidiente", description = "Retorna el producto actualizado encontrado.")
-  public List<UpdateProductModel> findUpdateProduct(@RequestParam(required = false) Integer productId,
+  @GetMapping("find-movement-product")
+  @Operation(summary = "Buscar productos actualizados por cualquier valor coincidiente")
+  public List<ProductMovementModel> findUpdateProduct(@RequestParam(required = false) Integer productId,
       @RequestParam(required = false) Integer transactionTypeId) {
-    GetUpdateProductDto getUpdateProductDto = new GetUpdateProductDto()
+    GetProductMovementDto getUpdateProductDto = new GetProductMovementDto()
         .setProductId(productId)
         .setTransactionTypeId(transactionTypeId)
         .build();
     return inventoryService.findUpdateProduct(getUpdateProductDto);
   }
 
-  @GetMapping("find-all-update-products")
-  @Operation(summary = "Buscar todos los productos actualizados", description = "Retorna una lista de todos los productos actualizados encontrados.")
-  public List<UpdateProductModel> findAllUpdateProducts() {
+  @GetMapping("find-all-movement-products")
+  @Operation(summary = "Buscar todos los productos actualizados")
+  public List<ProductMovementModel> findAllUpdateProducts() {
     return inventoryService.findAllUpdateProducts();
   }
 
-  @PostMapping("create-update-product")
-  @Operation(summary = "Crea un nuevo producto actualizado", description = "Crea un nuevo producto actualizado en el sistema.")
-  public UpdateProductModel createUpdateProduct(@RequestBody CreateUpdateProductDto createUpdateProductDto) {
-    return inventoryService.createUpdateProduct(createUpdateProductDto);
+  @PostMapping("create-movement-product")
+  @Operation(summary = "Crea un nuevo producto actualizado")
+  public ProductMovementModel createUpdateProduct(@RequestBody CreateProductMovementDto createProductMovementDto) {
+    return inventoryService.createUpdateProduct(createProductMovementDto);
   }
 
-  @PatchMapping("update-update-product/{updateProductId}")
-  @Operation(summary = "Actualizar producto actualizado", description = "Actualiza los datos de un producto actualizado existente.")
-  public UpdateProductModel updateUpdateProduct(@RequestBody UpdateProductUpdateDto updateProductUpdateDto,
+  @PatchMapping("update-movement-product/{updateProductId}")
+  @Operation(summary = "Actualizar producto actualizado")
+  public ProductMovementModel updateUpdateProduct(@RequestBody UpdateProductMovementDto updateProductMovementDto,
       @PathVariable int updateProductId) {
-    return inventoryService.updateUpdateProduct(updateProductUpdateDto, updateProductId);
+    return inventoryService.updateUpdateProduct(updateProductMovementDto, updateProductId);
   }
 
-  @PatchMapping("activate-update-product/{productId}")
-  @Operation(summary = "Activar registro de producto", description = "Activa un registro de producto existente.")
+  @PatchMapping("activate-movement-product/{productId}")
+  @Operation(summary = "Activar registro de producto")
   public int activateProduct(@PathVariable int productId) {
     return inventoryService.activeUpdateProduct(productId);
   }
 
-  @DeleteMapping("delete-update-product/{updateProductId}")
-  @Operation(summary = "Eliminar producto actualizado", description = "Elimina un producto actualizado del sistema.")
+  @DeleteMapping("delete-movement-product/{updateProductId}")
+  @Operation(summary = "Eliminar producto actualizado")
   public int deleteUpdateProduct(@PathVariable int updateProductId) {
     return inventoryService.deleteUpdateProduct(updateProductId);
   }
 
-  @GetMapping("find-inventory")
-  @Operation(summary = "Buscar inventario por cualquier valor coincidiente", description = "Retorna una lista de inventario encontrado.")
-  public List<ProductStockModel> findInventory(
-    @RequestParam(required = false) Integer productId,
-      @RequestParam(required = false) Integer categoryId,
-      @RequestParam(required = false) Integer supplierId) {
-    GetInventoryDto getInventoryDto = new GetInventoryDto()
-        .setProductId(productId)
-        .setCategoryId(categoryId)
-        .setSupplierId(supplierId)
-        .build();
-    return inventoryService.findInventory(getInventoryDto);
-  }
+  // @GetMapping("find-inventory")
+  // @Operation(summary = "Buscar inventario por cualquier valor coincidiente")
+  // public List<ProductStockModel> findInventory(
+  // @RequestParam(required = false) Integer productId,
+  // @RequestParam(required = false) Integer categoryId,
+  // @RequestParam(required = false) Integer supplierId) {
+  // GetInventoryDto getInventoryDto = new GetInventoryDto()
+  // .setProductId(productId)
+  // .setCategoryId(categoryId)
+  // .setSupplierId(supplierId)
+  // .build();
+  // return inventoryService.findInventory(getInventoryDto);
+  // }
 
-  @GetMapping("find-all-inventory")
-  @Operation(summary = "Buscar todo el inventario", description = "Retorna una lista de todo el inventario encontrado.")
-  public List<InventoryModel> findAllInventory() {
-    return inventoryService.findAllInventory();
-  }
+  // @GetMapping("find-all-inventory")
+  // @Operation(summary = "Buscar todo el inventario")
+  // public List<InventoryModel> findAllInventory() {
+  // return inventoryService.findAllInventory();
+  // }
 }

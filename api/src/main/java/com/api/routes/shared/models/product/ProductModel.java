@@ -66,7 +66,7 @@ public class ProductModel {
 
   public ProductModel setProductName(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
-      this.productName = rs.getString("NAME");
+      this.productName = rs.getString("PRODUCTNAME");
     }
     return this;
   }

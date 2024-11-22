@@ -113,11 +113,6 @@ public class GetInventoryDto {
     return this;
   }
 
-  /**
-   * Builds and returns the current instance of GetInventoryDto.
-   *
-   * @return the current instance of GetInventoryDto
-   */
   public GetInventoryDto build() {
     return this;
   }

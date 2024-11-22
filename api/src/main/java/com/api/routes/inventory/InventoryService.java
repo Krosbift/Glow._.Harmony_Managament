@@ -1,102 +1,68 @@
 package com.api.routes.inventory;
 
 import java.util.List;
-import java.util.Objects;
 import java.sql.PreparedStatement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+
+import com.api.routes.inventory.builder.CreateMovementBuilder;
+import com.api.routes.inventory.builder.FindMovementBuilder;
 import com.api.routes.inventory.builder.InventoryBuilder;
-import com.api.routes.inventory.dto.CreateUpdateProductDto;
+import com.api.routes.inventory.builder.UpdateMovementBuilder;
+import com.api.routes.inventory.dto.CreateProductMovementDto;
 import com.api.routes.inventory.dto.GetInventoryDto;
-import com.api.routes.inventory.dto.GetUpdateProductDto;
-import com.api.routes.inventory.dto.UpdateProductUpdateDto;
+import com.api.routes.inventory.dto.GetProductMovementDto;
+import com.api.routes.inventory.dto.UpdateProductMovementDto;
 import com.api.routes.inventory.model.InventoryModel;
 import com.api.routes.inventory.model.ProductStockModel;
-import com.api.routes.inventory.model.UpdateProductModel;
 import com.api.routes.inventory.sql.InventorySql;
 import com.api.routes.inventory.usecases.InvetoryManagmentUseCase;
+import com.api.routes.inventory.usecases.ValidateModifyUseCase;
+import com.api.routes.shared.mappers.inventory.ProductMovementMapper;
+import com.api.routes.shared.models.inventory.ProductMovementModel;
 import com.api.routes.shared.utils.query.Binds;
 
 @Service
 public class InventoryService extends InventoryBuilder {
-  private InvetoryManagmentUseCase invetoryManagmentUseCase = new InvetoryManagmentUseCase();
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
-  /**
-   * Finds and retrieves a list of products based on the provided update product
-   * details.
-   *
-   * @param getUpdateProductDto the DTO containing the details for the product
-   *                            update search.
-   * @return a list of {@link UpdateProductModel} objects that match the search
-   *         criteria.
-   * @throws RuntimeException if an unexpected error occurs during the query
-   *                          execution.
-   */
-  public List<UpdateProductModel> findUpdateProduct(GetUpdateProductDto getUpdateProductDto) {
-    UpdateProductModel product = new UpdateProductModel()
-        .setProductId(getUpdateProductDto.getProductId())
-        .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
-        .build();
+  private ProductMovementModel findProductMovementById(int updateProductId) {
+    return jdbcTemplate
+        .query(InventorySql.FIND_UPDATEPRODUCT_BY_ID.getQuery(), ProductMovementMapper.updateProductRowMapper,
+            updateProductId)
+        .get(0);
+  }
 
-    Binds binds = buildFindUpdateProduct(product);
+  public List<ProductMovementModel> findAllUpdateProducts() {
     try {
-      List<UpdateProductModel> updatesProducts = jdbcTemplate.query(binds.getSql(), updateProductRowMapper,
-          binds.getParams());
-      return updatesProducts;
+      return jdbcTemplate.query(InventorySql.FIND_ALL_UPDATEPRODUCT.getQuery(),
+          ProductMovementMapper.updateProductRowMapper);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Retrieves a list of all products.
-   *
-   * @return a list of {@link UpdateProductModel} representing all products.
-   * @throws RuntimeException if an unexpected error occurs during the retrieval
-   *                          process.
-   */
-  public List<UpdateProductModel> findAllUpdateProducts() {
+  public List<ProductMovementModel> findUpdateProduct(GetProductMovementDto getProductMovementDto) {
+    Binds binds = FindMovementBuilder.buildFindUpdateProduct(getProductMovementDto);
     try {
-      List<UpdateProductModel> products = jdbcTemplate.query(InventorySql.FIND_ALL_UPDATEPRODUCT.getQuery(),
-          updateProductRowMapper);
-      return products;
+      return jdbcTemplate.query(binds.getSql(), ProductMovementMapper.updateProductRowMapper, binds.getParams());
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Creates a new update product entry in the inventory.
-   *
-   * @param getUpdateProductDto the DTO containing the details for the update
-   *                            product.
-   * @return the created UpdateProductModel with the generated ID.
-   * @throws RuntimeException if an unexpected error occurs during the creation
-   *                          process.
-   */
-  public UpdateProductModel createUpdateProduct(CreateUpdateProductDto getUpdateProductDto) {
-    CreateUpdateProductDto product = new CreateUpdateProductDto()
-        .setReason(getUpdateProductDto.getReason())
-        .setProductId(getUpdateProductDto.getProductId())
-        .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
-        .setUpdateAmount(getUpdateProductDto.getUpdateAmount())
-        .setExpirationDate(getUpdateProductDto.getExpirationDate())
-        .build();
+  public ProductMovementModel createUpdateProduct(CreateProductMovementDto updateProductMovementDto) {
     try {
-      if (getUpdateProductDto.getTransactionTypeId() == 2) {
-        GetInventoryDto getInventoryDto = new GetInventoryDto()
-            .setProductId(getUpdateProductDto.getProductId())
-            .build();
-
-        List<ProductStockModel> result = findInventory(getInventoryDto);
-
-        if (invetoryManagmentUseCase.canSellProduct(result.get(0), getUpdateProductDto.getUpdateAmount())) {
-          throw new RuntimeException("The product stock is insufficient for the sale.");
-        }
+      if (ValidateModifyUseCase.validateStockInCreate(
+          findInventory(new GetInventoryDto().setProductId(updateProductMovementDto.getProductId())).get(0).getStock(),
+          updateProductMovementDto.getUpdateAmount(), updateProductMovementDto.getTransactionTypeId() == 2)) {
+        throw new RuntimeException("The product stock is insufficient for the sale.");
       }
-
-      Binds binds = buildCreateUpdateProduct(product);
+      Binds binds = CreateMovementBuilder.buildCreateUpdateProduct(updateProductMovementDto);
       KeyHolder keyHolder = new GeneratedKeyHolder();
       jdbcTemplate.update(connection -> {
         PreparedStatement statement = connection.prepareStatement(binds.getSql(), new String[] { "id" });
@@ -105,69 +71,33 @@ public class InventoryService extends InventoryBuilder {
         }
         return statement;
       }, keyHolder);
-
       @SuppressWarnings("null")
       int generatedId = keyHolder.getKey().intValue();
-      return findUpdateProductById(generatedId);
+      return findProductMovementById(generatedId);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Updates a product in the inventory.
-   *
-   * @param getUpdateProductDto the DTO containing the updated product information
-   * @param updateProductId     the ID of the product to be updated
-   * @return the updated product model
-   * @throws RuntimeException if an unexpected error occurs during the update
-   *                          process
-   */
-  public UpdateProductModel updateUpdateProduct(UpdateProductUpdateDto getUpdateProductDto, int updateProductId) {
-    UpdateProductModel updateProduct = new UpdateProductModel()
-        .setReason(getUpdateProductDto.getReason())
-        .setProductId(getUpdateProductDto.getProductId())
-        .setTransactionTypeId(getUpdateProductDto.getTransactionTypeId())
-        .setUpdateAmount(getUpdateProductDto.getUpdateAmount())
-        .setExpirationDate(getUpdateProductDto.getExpirationDate())
-        .build();
-
+  public ProductMovementModel updateUpdateProduct(UpdateProductMovementDto updateProductMovementDto,
+      int updateProductId) {
     try {
-      if (Objects.equals(getUpdateProductDto.getTransactionTypeId(), 2)) {
-        UpdateProductModel updateProductModel = findUpdateProductById(updateProductId);
-
-        if (updateProductModel.getTransactionTypeId() == 1) {
-          GetInventoryDto getInventoryDto = new GetInventoryDto()
-              .setProductId(updateProductModel.getProductId())
-              .build();
-
-          List<ProductStockModel> result = findInventory(getInventoryDto);
-          int stock = result.get(0).getStock();
-          int updateAmount = getUpdateProductDto.getUpdateAmount() != null
-              ? getUpdateProductDto.getUpdateAmount()
-              : updateProductModel.getUpdateAmount();
-
-          if (stock - updateAmount * 2 < 0) {
-            throw new RuntimeException("The product stock is insufficient for the sale.");
-          }
-        }
+      ProductMovementModel updateProductModel = findProductMovementById(updateProductId);
+      if (ValidateModifyUseCase.validateStockInModify(
+          updateProductMovementDto,
+          updateProductModel,
+          findInventory(new GetInventoryDto().setProductId(updateProductModel.getProductModel().getProductId())).get(0)
+              .getStock())) {
+        throw new RuntimeException("The product stock is insufficient for the sale.");
       }
-
-      Binds binds = buildUpdateUpdateProducts(updateProduct, updateProductId);
+      Binds binds = UpdateMovementBuilder.buildUpdateUpdateProducts(updateProductMovementDto, updateProductId);
       jdbcTemplate.update(binds.getSql(), binds.getParams());
-      return findUpdateProductById(updateProductId);
+      return findProductMovementById(updateProductId);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
   }
 
-  /**
-   * Updates the status of a product to active in the inventory.
-   *
-   * @param updateProductId the ID of the product to be updated.
-   * @return the number of rows affected by the update.
-   * @throws RuntimeException if an unexpected error occurs during the update.
-   */
   public int activeUpdateProduct(int updateProductId) {
     try {
       return jdbcTemplate.update(InventorySql.ACTIVE_UPDATEPRODUCT.getQuery(), updateProductId);
@@ -176,14 +106,6 @@ public class InventoryService extends InventoryBuilder {
     }
   }
 
-  /**
-   * Deletes an update product from the inventory.
-   *
-   * @param updateProductId the ID of the update product to be deleted
-   * @return the number of rows affected by the delete operation
-   * @throws RuntimeException if an unexpected error occurs during the delete
-   *                          operation
-   */
   public int deleteUpdateProduct(int updateProductId) {
     try {
       return jdbcTemplate.update(InventorySql.DELETE_UPDATEPRODUCT.getQuery(), updateProductId);
@@ -211,7 +133,7 @@ public class InventoryService extends InventoryBuilder {
     Binds binds = buildFindInventory(inventory);
     try {
       List<InventoryModel> result = jdbcTemplate.query(binds.getSql(), inventoryRowMapper, binds.getParams());
-      return invetoryManagmentUseCase.calculateStock(result);
+      return InvetoryManagmentUseCase.calculateStock(result);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }

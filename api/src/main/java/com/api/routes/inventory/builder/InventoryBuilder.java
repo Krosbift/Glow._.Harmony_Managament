@@ -1,23 +1,17 @@
 package com.api.routes.inventory.builder;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
-import com.api.routes.inventory.dto.CreateUpdateProductDto;
 import com.api.routes.inventory.model.InventoryModel;
-import com.api.routes.inventory.model.UpdateProductModel;
 import com.api.routes.inventory.sql.InventorySql;
+import com.api.routes.shared.utils.methods.HasColumns;
 import com.api.routes.shared.utils.query.Binds;
 
 public class InventoryBuilder {
-  @Autowired
-  protected JdbcTemplate jdbcTemplate;
+
 
   /**
    * RowMapper implementation to map a ResultSet to a InventoryModel object.
@@ -35,20 +29,20 @@ public class InventoryBuilder {
     @Override
     public InventoryModel mapRow(ResultSet rs, int rowNum) throws SQLException {
       InventoryModel inventory = new InventoryModel()
-          .setUpdateProductId(rs, hasColumn(rs, "UPDATEPRODUCTID"))
-          .setReason(rs, hasColumn(rs, "REASON"))
-          .setUpdateDate(rs, hasColumn(rs, "UPDATEDATE"))
-          .setProductId(rs, hasColumn(rs, "PRODUCTID"))
-          .setProductName(rs, hasColumn(rs, "PRODUCTNAME"))
-          .setCategoryId(rs, hasColumn(rs, "CATEGORYID"))
-          .setCategoryName(rs, hasColumn(rs, "CATEGORYNAME"))
-          .setUnitPrice(rs, hasColumn(rs, "UNITPRICE"))
-          .setSupplierId(rs, hasColumn(rs, "SUPPLIERID"))
-          .setSupplierName(rs, hasColumn(rs, "SUPPLIERNAME"))
-          .setTransactionTypeId(rs, hasColumn(rs, "TRANSACTIONTYPEID"))
-          .setTransactionType(rs, hasColumn(rs, "TRANSACTIONTYPE"))
-          .setUpdateAmount(rs, hasColumn(rs, "UPDATEAMOUNT"))
-          .setActive(rs, hasColumn(rs, "ACTIVE"))
+          .setUpdateProductId(rs, HasColumns.verify(rs, "UPDATEPRODUCTID"))
+          .setReason(rs, HasColumns.verify(rs, "REASON"))
+          .setUpdateDate(rs, HasColumns.verify(rs, "UPDATEDATE"))
+          .setProductId(rs, HasColumns.verify(rs, "PRODUCTID"))
+          .setProductName(rs, HasColumns.verify(rs, "PRODUCTNAME"))
+          .setCategoryId(rs, HasColumns.verify(rs, "CATEGORYID"))
+          .setCategoryName(rs, HasColumns.verify(rs, "CATEGORYNAME"))
+          .setUnitPrice(rs, HasColumns.verify(rs, "UNITPRICE"))
+          .setSupplierId(rs, HasColumns.verify(rs, "SUPPLIERID"))
+          .setSupplierName(rs, HasColumns.verify(rs, "SUPPLIERNAME"))
+          .setTransactionTypeId(rs, HasColumns.verify(rs, "TRANSACTIONTYPEID"))
+          .setTransactionType(rs, HasColumns.verify(rs, "TRANSACTIONTYPE"))
+          .setUpdateAmount(rs, HasColumns.verify(rs, "UPDATEAMOUNT"))
+          .setActive(rs, HasColumns.verify(rs, "ACTIVE"))
           .build();
 
       return inventory;
@@ -92,195 +86,5 @@ public class InventoryBuilder {
     }
 
     return new Binds(query.toString(), binds.toArray());
-  }
-
-  /**
-   * RowMapper implementation for mapping rows of a ResultSet to
-   * UpdateProductModel instances.
-   * This mapper is used to convert the result set rows into UpdateProductModel
-   * objects.
-   * 
-   * @throws SQLException if an SQL error occurs while mapping the row
-   */
-  protected RowMapper<UpdateProductModel> updateProductRowMapper = new RowMapper<UpdateProductModel>() {
-    @SuppressWarnings("null")
-    @Override
-    public UpdateProductModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-      UpdateProductModel updateProduct = new UpdateProductModel()
-          .setUpdateProductId(rs, hasColumn(rs, "UPDATEPRODUCTID"))
-          .setReason(rs, hasColumn(rs, "REASON"))
-          .setUpdateDate(rs, hasColumn(rs, "UPDATEDATE"))
-          .setProductId(rs, hasColumn(rs, "PRODUCTID"))
-          .setProductName(rs, hasColumn(rs, "PRODUCTNAME"))
-          .setTransactionTypeId(rs, hasColumn(rs, "TRANSACTIONTYPEID"))
-          .setTransactionType(rs, hasColumn(rs, "TRANSACTIONTYPE"))
-          .setUpdateAmount(rs, hasColumn(rs, "UPDATEAMOUNT"))
-          .setExpirationDate(rs, hasColumn(rs, "EXPIRATIONDATE"))
-          .setActive(rs, hasColumn(rs, "ACTIVE"))
-          .build();
-
-      return updateProduct;
-    }
-  };
-
-  /**
-   * Finds and returns an UpdateProductModel by its ID.
-   *
-   * @param updateProductId the ID of the update product to find
-   * @return the UpdateProductModel corresponding to the given ID
-   */
-  protected UpdateProductModel findUpdateProductById(int updateProductId) {
-    return jdbcTemplate.query(InventorySql.FIND_UPDATEPRODUCT_BY_ID.getQuery(), updateProductRowMapper, updateProductId)
-        .get(0);
-  }
-
-  /**
-   * Builds a query to find and update a product based on the provided
-   * updateProduct model.
-   * The query is constructed dynamically based on the non-null fields of the
-   * updateProduct model.
-   *
-   * @param updateProduct the model containing the fields to be used for finding
-   *                      and updating the product.
-   * @return a Binds object containing the constructed query string and the
-   *         corresponding bind parameters.
-   */
-  protected Binds buildFindUpdateProduct(UpdateProductModel updateProduct) {
-    List<Object> binds = new ArrayList<>();
-    StringBuilder query = new StringBuilder(InventorySql.FIND_UPDATEPRODUCT.getQuery());
-
-    if (updateProduct.getProductId() != null) {
-      query.append(" AND IPT.PRODUCTID = ?");
-      binds.add(updateProduct.getProductId());
-    }
-    if (updateProduct.getTransactionTypeId() != null) {
-      query.append(" AND IIT.TRANSACTIONTYPEID = ?");
-      binds.add(updateProduct.getTransactionTypeId());
-    }
-
-    return new Binds(query.toString(), binds.toArray());
-  }
-
-  /**
-   * Builds an SQL query for creating or updating a product in the inventory.
-   *
-   * This method constructs an SQL INSERT statement for the TB_IMS_INVENTORY table
-   * based on the non-null fields of the provided UpdateProductModel object. The
-   * columns and values are dynamically appended to the query based on the fields
-   * that are not null in the updateProduct parameter.
-   *
-   * @param updateProduct The model containing the product update information.
-   *                      The following fields are considered:
-   * @return A Binds object containing the constructed SQL query and the
-   *         parameters
-   *         to be bound to the query.
-   */
-  protected Binds buildCreateUpdateProduct(CreateUpdateProductDto CreateUpdateProductDto) {
-    StringBuilder sql = new StringBuilder("INSERT INTO TB_IMS_UPDATEPRODUCTS ");
-    StringBuilder columns = new StringBuilder("(");
-    StringBuilder values = new StringBuilder("VALUES (");
-    List<Object> params = new ArrayList<>();
-
-    if (CreateUpdateProductDto.getReason() != null) {
-      columns.append("REASON, ");
-      values.append("?, ");
-      params.add(CreateUpdateProductDto.getReason());
-    }
-    if (CreateUpdateProductDto.getProductId() != null) {
-      columns.append("PRODUCTID, ");
-      values.append("?, ");
-      params.add(CreateUpdateProductDto.getProductId());
-    }
-    if (CreateUpdateProductDto.getTransactionTypeId() != null) {
-      columns.append("TRANSACTIONTYPEID, ");
-      values.append("?, ");
-      params.add(CreateUpdateProductDto.getTransactionTypeId());
-    }
-    if (CreateUpdateProductDto.getExpirationDate() != null) {
-      columns.append("EXPIRATIONDATE, ");
-      values.append("?, ");
-      params.add(CreateUpdateProductDto.getExpirationDate());
-    }
-    if (CreateUpdateProductDto.getUpdateAmount() != null) {
-      columns.append("UPDATEAMOUNT, ");
-      values.append("?, ");
-      params.add(CreateUpdateProductDto.getUpdateAmount());
-    }
-
-    if (columns.charAt(columns.length() - 2) == ',') {
-      columns.setLength(columns.length() - 2);
-      values.setLength(values.length() - 2);
-    }
-
-    columns.append(") ");
-    values.append(") ");
-    sql.append(columns).append(values);
-
-    return new Binds(sql.toString(), params.toArray());
-  }
-
-  /**
-   * Builds an SQL update statement for updating product information in the inventory.
-   *
-   * @param updateProduct The model containing the updated product information.
-   * @param updateProductId The ID of the product to be updated.
-   * @return A Binds object containing the SQL update statement and the parameters to be bound.
-   */
-  protected Binds buildUpdateUpdateProducts(UpdateProductModel updateProduct, int updateProductId) {
-    StringBuilder sql = new StringBuilder("UPDATE TB_IMS_UPDATEPRODUCTS SET ");
-    List<Object> params = new ArrayList<>();
-
-    if (updateProduct.getReason() != null) {
-      sql.append("REASON = ?, ");
-      params.add(updateProduct.getReason());
-    }
-    if (updateProduct.getUpdateDate() != null) {
-      sql.append("UPDATEDATE = ?, ");
-      params.add(updateProduct.getUpdateDate());
-    }
-    if (updateProduct.getProductId() != null) {
-      sql.append("PRODUCTID = ?, ");
-      params.add(updateProduct.getProductId());
-    }
-    if (updateProduct.getTransactionTypeId() != null) {
-      sql.append("TRANSACTIONTYPEID = ?, ");
-      params.add(updateProduct.getTransactionTypeId());
-    }
-    if (updateProduct.getExpirationDate() != null) {
-      sql.append("EXPIRATIONDATE = ?, ");
-      params.add(updateProduct.getExpirationDate());
-    }
-    if (updateProduct.getUpdateAmount() != null) {
-      sql.append("UPDATEAMOUNT = ?, ");
-      params.add(updateProduct.getUpdateAmount());
-    }
-
-    if (sql.charAt(sql.length() - 2) == ',') {
-      sql.setLength(sql.length() - 2);
-    }
-
-    sql.append(" WHERE UPDATEPRODUCTID = ?");
-    params.add(updateProductId);
-
-    return new Binds(sql.toString(), params.toArray());
-  }
-
-  /**
-   * Checks if the specified column exists in the given ResultSet.
-   *
-   * @param rs         the ResultSet to check for the column
-   * @param columnName the name of the column to check for
-   * @return true if the column exists, false otherwise
-   * @throws SQLException if a database access error occurs
-   */
-  private boolean hasColumn(ResultSet rs, String columnName) throws SQLException {
-    ResultSetMetaData metaData = rs.getMetaData();
-    int columnCount = metaData.getColumnCount();
-    for (int i = 1; i <= columnCount; i++) {
-      if (columnName.equals(metaData.getColumnName(i))) {
-        return true;
-      }
-    }
-    return false;
   }
 }
