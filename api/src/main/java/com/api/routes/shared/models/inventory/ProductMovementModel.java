@@ -3,6 +3,8 @@ package com.api.routes.shared.models.inventory;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.api.routes.shared.models.index.TransactionTypeModel;
 import com.api.routes.shared.models.product.ProductModel;
 
 public class ProductMovementModel {

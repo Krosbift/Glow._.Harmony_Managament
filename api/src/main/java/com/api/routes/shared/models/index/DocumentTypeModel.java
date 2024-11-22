@@ -1,4 +1,4 @@
-package com.api.routes.shared.models.user;
+package com.api.routes.shared.models.index;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -3,6 +3,7 @@ package com.api.routes.shared.models.product;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.api.routes.shared.models.SupplierModel;
+import com.api.routes.shared.models.index.ProductCategoryModel;
 
 public class ProductModel {
   private Integer productId;

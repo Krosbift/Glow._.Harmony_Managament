@@ -3,8 +3,9 @@ package com.api.routes.shared.mappers.index;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
+
+import com.api.routes.shared.models.index.ProductCategoryModel;
 import com.api.routes.shared.utils.methods.HasColumns;
-import com.api.routes.shared.models.product.ProductCategoryModel;
 
 public class ProductCategoryMapper {
   public static RowMapper<ProductCategoryModel> productCategoriesRowMapper = new RowMapper<ProductCategoryModel>() {

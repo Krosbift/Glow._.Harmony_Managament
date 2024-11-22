@@ -3,6 +3,9 @@ package com.api.routes.shared.models.user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.api.routes.shared.models.index.DocumentTypeModel;
+import com.api.routes.shared.models.index.RoleTypeModel;
+
 public class UserModel {
   private Integer userId;
   private String names;

@@ -3,7 +3,8 @@ package com.api.routes.shared.mappers.index;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
-import com.api.routes.shared.models.user.DocumentTypeModel;
+
+import com.api.routes.shared.models.index.DocumentTypeModel;
 import com.api.routes.shared.utils.methods.HasColumns;
 
 public class DocumentTypeMapper {

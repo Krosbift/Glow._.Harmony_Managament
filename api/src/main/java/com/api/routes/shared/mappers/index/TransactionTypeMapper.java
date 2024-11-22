@@ -3,8 +3,9 @@ package com.api.routes.shared.mappers.index;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
+
+import com.api.routes.shared.models.index.TransactionTypeModel;
 import com.api.routes.shared.utils.methods.HasColumns;
-import com.api.routes.shared.models.inventory.TransactionTypeModel;
 
 public class TransactionTypeMapper {
   public static RowMapper<TransactionTypeModel> transactionTypesRowMapper = new RowMapper<TransactionTypeModel>() {
