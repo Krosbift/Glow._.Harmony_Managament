@@ -133,14 +133,20 @@ public class InventoryService {
     }
   }
 
-  public int orderProduct(int productId) {
+  public ProductMovementModel orderProduct(String productName) {
     try {
-      ProductMovementModel createMovement = createUpdateProduct(new CreateProductMovementDto()
-          .setProductId(productId)
+      List<ProductStockModel> inventory = findInventory(new GetInventoryDto());
+      int productId = 0;
+      for (ProductStockModel product : inventory) {
+        if (product.getProductName().equals(productName)) {
+          productId = product.getProductId();
+        }
+      }
+      return createUpdateProduct(new CreateProductMovementDto()
           .setReason("Compra proveedor")
-          .setUpdateAmount(100)
-          .setTransactionTypeId(1));
-      return createMovement != null ? 1 : 0;
+          .setProductId(productId)
+          .setTransactionTypeId(1)
+          .setUpdateAmount(100));
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }

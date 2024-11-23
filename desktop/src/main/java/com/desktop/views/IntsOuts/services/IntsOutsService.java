@@ -26,7 +26,6 @@ public class IntsOutsService {
       url.append(firstParam ? "?" : "&").append("transactionTypeId=").append(getDto.getTransactionTypeId());
     }
 
-    System.out.println(url.toString());
     try {
       return httpClientService.getList(url.toString(), ProductMovementModel.class);
     } catch (Exception e) {

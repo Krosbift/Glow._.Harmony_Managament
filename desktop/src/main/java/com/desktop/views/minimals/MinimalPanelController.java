@@ -6,15 +6,14 @@ import java.util.Map;
 import com.desktop.core.navigation.components.Content.ContentPanelController;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
-import com.desktop.views.products.components.BottomPanelComponent;
-import com.desktop.views.products.model.GetProductDto;
-import com.desktop.views.products.services.ProductService;
+import com.desktop.views.minimals.components.MinimalTableComponent;
+import com.desktop.views.minimals.model.ProductMinimalStockModel;
+import com.desktop.views.minimals.service.MinimalService;
 import com.desktop.views.shared.models.ViewModel;
-import com.desktop.views.shared.models.product.ProductModel;
 
 public class MinimalPanelController implements ControllerInterface {
   public ViewModel view;
-  public ProductService productService = new ProductService();
+  public MinimalService minimalService = new MinimalService();
   public ContentPanelController parentController;
   public MinimalPanelComponent minimalPanelComponent;
   public Map<String, ControllerInterface> childControllers;
@@ -40,12 +39,13 @@ public class MinimalPanelController implements ControllerInterface {
 
   public void _initChildComponents() {
     childComponents = new HashMap<>();
+    childComponents.put("MinimalTableComponent", new MinimalTableComponent(this));
   }
 
-  public void setDataTable(GetProductDto getProductDto) {
+  public void setDataTable() {
     try {
-      List<ProductModel> products = productService.getProducts(getProductDto);
-      ((BottomPanelComponent) childComponents.get("BottomPanelComponent")).createTable(products);
+      List<ProductMinimalStockModel> minimals = minimalService.getProductMinimalStock();
+      ((MinimalTableComponent) childComponents.get("MinimalTableComponent")).createTable(minimals);
     } catch (Exception e) {
       e.printStackTrace();
     }

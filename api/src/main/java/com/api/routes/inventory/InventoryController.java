@@ -105,9 +105,8 @@ public class InventoryController {
     return inventoryService.findProductsMinimals(getInventoryDto);
   }
 
-  @PostMapping("oder-product")
-  public int orderProduct(@RequestParam(required = true) int productId) {
-    return inventoryService.orderProduct(productId);
+  @PostMapping("order-product")
+  public ProductMovementModel orderProduct(@RequestParam(required = true) String productName) {
+    return inventoryService.orderProduct(productName);
   }
-
 }
