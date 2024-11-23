@@ -46,9 +46,6 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
     table.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent evt) {
-        if (controller.parentController.user.getRoleType().getRoleTypeId() != 1) {
-          return; // No hacer nada si el usuario no es administrador
-        }
         int row = table.rowAtPoint(evt.getPoint());
         if (row >= 0 && (orderDialog == null || !orderDialog.isVisible())) {
           DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -70,9 +67,6 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
   @SuppressWarnings("unused")
   private void showOrderDialog(ProductMinimalStockModel product, int rowIndex) {
     SwingUtilities.invokeLater(() -> {
-      if (controller.parentController.user.getRoleType().getRoleTypeId() != 1) {
-        return;
-      }
       if (orderDialog != null && orderDialog.isVisible()) {
         return;
       }
@@ -109,7 +103,6 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
           }
         }
       });
-
       orderDialog.setLocationRelativeTo(this);
       orderDialog.setVisible(true);
     });

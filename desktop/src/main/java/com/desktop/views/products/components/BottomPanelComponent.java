@@ -123,9 +123,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
     this.add(scrollPane, BorderLayout.CENTER);
 
-    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
-      addCreateButtonRow();
-    }
+    addCreateButtonRow();
 
     this.revalidate();
     this.repaint();

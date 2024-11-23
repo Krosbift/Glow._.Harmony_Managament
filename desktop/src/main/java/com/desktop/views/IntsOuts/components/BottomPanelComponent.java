@@ -55,8 +55,10 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   }
 
   /**
-   * Adds a component listener to the content panel component of the parent controller.
-   * The listener triggers the resizeComponents method whenever the component is resized.
+   * Adds a component listener to the content panel component of the parent
+   * controller.
+   * The listener triggers the resizeComponents method whenever the component is
+   * resized.
    * Additionally, it calls resizeComponents initially to ensure proper sizing.
    */
   private void _listenerSizing() {
@@ -72,10 +74,13 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   /**
    * Resizes the components of the BottomPanelComponent.
    * 
-   * This method sets the bounds of the BottomPanelComponent based on the dimensions
-   * of the intsOutsComponent from the controller. It positions the BottomPanelComponent
+   * This method sets the bounds of the BottomPanelComponent based on the
+   * dimensions
+   * of the intsOutsComponent from the controller. It positions the
+   * BottomPanelComponent
    * at the bottom 90% of the intsOutsComponent, starting from 10% of its height.
-   * After setting the bounds, it revalidates and repaints the component to reflect
+   * After setting the bounds, it revalidates and repaints the component to
+   * reflect
    * the changes.
    */
   private void resizeComponents() {
@@ -86,21 +91,30 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   }
 
   /**
-   * Creates and displays a table with the provided list of ProductMovementModel objects.
+   * Creates and displays a table with the provided list of ProductMovementModel
+   * objects.
    * If the list is null or empty, a label indicating no data is displayed.
    * 
-   * @param movements the list of ProductMovementModel objects to be displayed in the table
+   * @param movements the list of ProductMovementModel objects to be displayed in
+   *                  the table
    * 
    * 
-   * The table rows are not editable. The table's background color is set to match
-   * the background color of the intsOutsComponent. The first column (ID) is hidden.
+   *                  The table rows are not editable. The table's background
+   *                  color is set to match
+   *                  the background color of the intsOutsComponent. The first
+   *                  column (ID) is hidden.
    * 
-   * If the user has a role type ID of 1, a mouse listener is added to the table
-   * to handle row clicks, which will show a dialog with details of the selected
-   * ProductMovementModel object. Additionally, a create button row is added.
+   *                  If the user has a role type ID of 1, a mouse listener is
+   *                  added to the table
+   *                  to handle row clicks, which will show a dialog with details
+   *                  of the selected
+   *                  ProductMovementModel object. Additionally, a create button
+   *                  row is added.
    * 
-   * The table is wrapped in a JScrollPane with custom dimensions and no border.
-   * The panel is revalidated and repainted after adding the table.
+   *                  The table is wrapped in a JScrollPane with custom dimensions
+   *                  and no border.
+   *                  The panel is revalidated and repainted after adding the
+   *                  table.
    */
   public void createTable(List<ProductMovementModel> movements) {
     this.removeAll();
@@ -173,34 +187,40 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
     this.add(scrollPane, BorderLayout.CENTER);
 
-    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
-      addCreateButtonRow();
-    }
+    addCreateButtonRow();
 
     this.revalidate();
     this.repaint();
   }
 
   /**
-   * Displays a dialog for viewing and editing the details of an ProductMovementModel.
+   * Displays a dialog for viewing and editing the details of an
+   * ProductMovementModel.
    * 
-   * @param movements The ProductMovementModel object containing the details to be displayed and edited.
+   * @param movements The ProductMovementModel object containing the details to be
+   *                  displayed and edited.
    * 
-   * This method creates a JDialog with fields for editing the product name, reason, amount, 
-   * transaction type, and expiration date. It also provides buttons for editing and deleting 
-   * the ProductMovementModel. The dialog is disposed of when closed.
+   *                  This method creates a JDialog with fields for editing the
+   *                  product name, reason, amount,
+   *                  transaction type, and expiration date. It also provides
+   *                  buttons for editing and deleting
+   *                  the ProductMovementModel. The dialog is disposed of when
+   *                  closed.
    * 
-   * The dialog includes:
-   * - A JComboBox for selecting the product name.
-   * - A JTextField for entering the reason.
-   * - A JTextField for entering the amount.
-   * - A JComboBox for selecting the transaction type.
-   * - A JDatePickerImpl for selecting the expiration date.
+   *                  The dialog includes:
+   *                  - A JComboBox for selecting the product name.
+   *                  - A JTextField for entering the reason.
+   *                  - A JTextField for entering the amount.
+   *                  - A JComboBox for selecting the transaction type.
+   *                  - A JDatePickerImpl for selecting the expiration date.
    * 
-   * The edit button updates the ProductMovementModel with the new values and refreshes the table.
-   * The delete button confirms the deletion and removes the ProductMovementModel from the list and table.
+   *                  The edit button updates the ProductMovementModel with the
+   *                  new values and refreshes the table.
+   *                  The delete button confirms the deletion and removes the
+   *                  ProductMovementModel from the list and table.
    * 
-   * The dialog is centered relative to the parent component and is disposed of when closed.
+   *                  The dialog is centered relative to the parent component and
+   *                  is disposed of when closed.
    */
   @SuppressWarnings("unused")
   private void showIntsOutsDialog(ProductMovementModel movements) {
@@ -329,11 +349,12 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
   /**
    * Displays a dialog for creating a new "entrada/salida" (input/output) record.
-   * The dialog contains fields for selecting a product, specifying a reason, 
-   * entering an amount, choosing a transaction type, and picking an expiration date.
+   * The dialog contains fields for selecting a product, specifying a reason,
+   * entering an amount, choosing a transaction type, and picking an expiration
+   * date.
    * 
    * The dialog includes "Guardar" (Guardar) and "Cancelar" (Cancel) buttons.
-   * When the "Guardar" button is clicked, the input fields are validated, 
+   * When the "Guardar" button is clicked, the input fields are validated,
    * and if valid, a new record is created and added to the table.
    * 
    * Fields:
@@ -464,10 +485,13 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
    * @param amountField the JTextField containing the amount for the IntsOuts
    * @return true if both fields are valid, false otherwise
    * 
-   * The method performs the following validations:
-   * - Checks if the reason field is not empty. If it is empty, shows an error message dialog.
-   * - Checks if the amount field is not empty. If it is empty, shows an error message dialog.
-   * - Checks if the amount field contains a valid integer. If it does not, shows an error message dialog.
+   *         The method performs the following validations:
+   *         - Checks if the reason field is not empty. If it is empty, shows an
+   *         error message dialog.
+   *         - Checks if the amount field is not empty. If it is empty, shows an
+   *         error message dialog.
+   *         - Checks if the amount field contains a valid integer. If it does
+   *         not, shows an error message dialog.
    */
   private boolean validateCreateIntsOutsFields(JTextField reasonField, JTextField amountField) {
     if (reasonField.getText().trim().isEmpty()) {
@@ -491,10 +515,12 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
   /**
    * Updates the table with a new ProductMovementModel entry.
-   * If the provided ProductMovementModel is not null, it adds it to the original list
+   * If the provided ProductMovementModel is not null, it adds it to the original
+   * list
    * and then recreates the table with the updated list.
    *
-   * @param newIntsOut the new ProductMovementModel to be added to the table. If null, the table is not updated.
+   * @param newIntsOut the new ProductMovementModel to be added to the table. If
+   *                   null, the table is not updated.
    */
   public void updateTable(ProductMovementModel newIntsOut) {
     if (newIntsOut != null) {
