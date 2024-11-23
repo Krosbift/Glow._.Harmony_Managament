@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.desktop.core.navigation.components.Content.ContentPanelController;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.IntsOuts.components.BottomPanelComponent;
@@ -17,9 +16,10 @@ import com.desktop.views.IntsOuts.model.TransactionTypesModel;
 import com.desktop.views.IntsOuts.model.UpdateProductUpdateDto;
 import com.desktop.views.IntsOuts.services.IntsOutsService;
 import com.desktop.views.products.model.ProductModel;
+import com.desktop.views.shared.models.ViewModel;
 
 public class IntsOutsPanelController implements ControllerInterface {
-  public ViewsModel view;
+  public ViewModel view;
   public IntsOutsService intsOutsService = new IntsOutsService();
   public ContentPanelController parentController;
   public IntsOutsPanelComponent intsOutsComponent;
@@ -28,7 +28,7 @@ public class IntsOutsPanelController implements ControllerInterface {
   public List<ProductModel> productNames;
   public List<TransactionTypesModel> transactionTypes;
 
-  public IntsOutsPanelController(ContentPanelController controller, ViewsModel view) {
+  public IntsOutsPanelController(ContentPanelController controller, ViewModel view) {
     this.parentController = controller;
     this.view = view;
     productNames = getProducts();

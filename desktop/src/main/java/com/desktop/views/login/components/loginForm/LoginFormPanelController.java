@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import com.desktop.views.login.LoginPanelController;
 import com.desktop.views.login.components.loginForm.components.SubFormPanelComponent;
+import com.desktop.views.shared.models.user.UserModel;
 import com.desktop.views.login.components.loginForm.components.FormLogoLabelComponent;
 import com.desktop.views.login.components.loginForm.components.FormEmailFieldComponent;
 import com.desktop.views.login.components.loginForm.components.FormInputButtonComponent;
@@ -57,9 +58,9 @@ public class LoginFormPanelController implements ControllerInterface {
   public void login() throws ExecutionException {
     String email = ((FormEmailFieldComponent) childComponents.get("FormEmailFieldComponent")).getText();
     String password = new String(((FormPasswordFieldComponent) childComponents.get("FormPasswordFieldComponent")).getPassword());
-    boolean loginSuccefull = parentController.loginService.login(email, password);
-    if (stateLogin(loginSuccefull)) {
-      parentController.parentController.switchComponent(email, parentController);
+    UserModel user = parentController.loginService.login(email, password);
+    if (stateLogin(user != null)) {
+      parentController.parentController.switchComponent(user, parentController);
     }
   }
 

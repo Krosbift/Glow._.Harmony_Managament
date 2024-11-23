@@ -13,16 +13,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import com.desktop.core.navigation.components.SideNav.SideNavPanelController;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
+import com.desktop.views.shared.models.ViewModel;
 
 public class ButtonMenuComponent extends JButton implements ComponentInterface {
-  private ViewsModel view;
+  private ViewModel view;
   private SideNavPanelController controller;
   private Color defaultColor = Color.decode("#eeceed");
   private Color hoverColor = Color.decode("#ffdffe");
 
-  public ButtonMenuComponent(SideNavPanelController controller, ViewsModel view) {
+  public ButtonMenuComponent(SideNavPanelController controller, ViewModel view) {
     this.controller = controller;
     this.view = view;
     this.setText(view.getViewName());

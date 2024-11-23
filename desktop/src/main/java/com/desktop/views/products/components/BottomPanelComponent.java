@@ -22,10 +22,10 @@ import java.awt.event.ComponentEvent;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.views.products.ProductsPanelController;
 import com.desktop.views.products.model.CreateProductDto;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.ProductModel;
-import com.desktop.views.products.model.SupplierModel;
 import com.desktop.views.products.model.UpdateProductDto;
+import com.desktop.views.shared.models.SupplierModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
+import com.desktop.views.shared.models.product.ProductModel;
 
 public class BottomPanelComponent extends JPanel implements ComponentInterface {
   public ProductsPanelController controller;
@@ -87,9 +87,9 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
       Object[] rowData = {
           product.getProductId(),
           product.getProductName(),
-          product.getProductCategory(),
+          product.getProductCategoryModel().getProductCategory(),
           product.getProductPrice(),
-          product.getSupplierName()
+          product.getSupplierModel().getName()
       };
       tableModel.addRow(rowData);
     }
@@ -103,7 +103,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     table.getColumnModel().getColumn(0).setMaxWidth(0);
     table.getColumnModel().getColumn(0).setWidth(0);
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       table.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -123,7 +123,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     scrollPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
     this.add(scrollPane, BorderLayout.CENTER);
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       addCreateButtonRow();
     }
 
@@ -131,6 +131,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.repaint();
   }
 
+  @SuppressWarnings("unused")
   private void showProductDialog(ProductModel product) {
     if (productDialog != null) {
       productDialog.dispose();
@@ -152,10 +153,10 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("Categoria:"));
     JComboBox<String> categoryComboBox = new JComboBox<>();
-    for (ProductCategoriesModel category : controller.productCategories) {
-      categoryComboBox.addItem(category.getName());
+    for (ProductCategoryModel category : controller.productCategories) {
+      categoryComboBox.addItem(category.getProductCategory());
     }
-    categoryComboBox.setSelectedItem(product.getProductCategory());
+    categoryComboBox.setSelectedItem(product.getProductCategoryModel().getProductCategory());
     fieldsPanel.add(categoryComboBox);
 
     fieldsPanel.add(new JLabel("Precio unitario:"));
@@ -167,7 +168,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     for (SupplierModel supplier : controller.suppliers) {
       supplierComboBox.addItem(supplier.getName());
     }
-    supplierComboBox.setSelectedItem(product.getSupplierName());
+    supplierComboBox.setSelectedItem(product.getSupplierModel().getName());
     fieldsPanel.add(supplierComboBox);
 
     productDialog.add(fieldsPanel, BorderLayout.CENTER);
@@ -180,7 +181,8 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     editButton.addActionListener(e -> {
       UpdateProductDto updateProduct = (UpdateProductDto) new UpdateProductDto()
           .setProductName(productNameField.getText())
-          .setProductCategoryId(controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
+          .setProductCategoryId(
+              controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
           .setProductPrice(Integer.parseInt(priceField.getText()))
           .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
           .build();
@@ -221,6 +223,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     productDialog.setVisible(true);
   }
 
+  @SuppressWarnings("unused")
   public void addCreateButtonRow() {
     JButton createButton = new JButton("Añadir nuevo producto");
     createButton.addActionListener(e -> showCreateProductDialog());
@@ -230,6 +233,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.add(buttonPanel, BorderLayout.NORTH);
   }
 
+  @SuppressWarnings("unused")
   private void showCreateProductDialog() {
     JDialog createDialog = new JDialog();
     createDialog.setTitle("Crear nuevo producto");
@@ -247,8 +251,8 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
 
     fieldsPanel.add(new JLabel("Categoria:"));
     JComboBox<String> categoryComboBox = new JComboBox<>();
-    for (ProductCategoriesModel category : controller.productCategories) {
-      categoryComboBox.addItem(category.getName());
+    for (ProductCategoryModel category : controller.productCategories) {
+      categoryComboBox.addItem(category.getProductCategory());
     }
     fieldsPanel.add(categoryComboBox);
 
@@ -274,7 +278,8 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
       if (validateCreateProductFields(productNameField, priceField)) {
         CreateProductDto newProduct = new CreateProductDto()
             .setProductName(productNameField.getText())
-            .setProductCategoryId(controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
+            .setProductCategoryId(
+                controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
             .setProductPrice(Integer.parseInt(priceField.getText()))
             .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
             .build();

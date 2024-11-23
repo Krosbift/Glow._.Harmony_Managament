@@ -4,10 +4,10 @@ import java.util.List;
 import com.desktop.core.database.service.HttpClientService;
 import com.desktop.views.products.model.CreateProductDto;
 import com.desktop.views.products.model.GetProductDto;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.ProductModel;
-import com.desktop.views.products.model.SupplierModel;
 import com.desktop.views.products.model.UpdateProductDto;
+import com.desktop.views.shared.models.SupplierModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
+import com.desktop.views.shared.models.product.ProductModel;
 
 public class ProductService {
   private final HttpClientService httpClientService = new HttpClientService();
@@ -91,11 +91,11 @@ public class ProductService {
     }
   }
 
-  public List<ProductCategoriesModel> getAllProductCategories() {
+  public List<ProductCategoryModel> getAllProductCategories() {
     httpClientService.endpoint = "/index";
-    StringBuilder url = new StringBuilder("/find-productCategories");
+    StringBuilder url = new StringBuilder("/product-categories");
     try {
-      return (List<ProductCategoriesModel>) httpClientService.getList(url.toString(), ProductCategoriesModel.class);
+      return (List<ProductCategoryModel>) httpClientService.getList(url.toString(), ProductCategoryModel.class);
     } catch (Exception e) {
       e.printStackTrace();
       return null;

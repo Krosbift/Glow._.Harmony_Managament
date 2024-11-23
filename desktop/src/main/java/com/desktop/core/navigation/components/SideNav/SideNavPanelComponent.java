@@ -3,9 +3,7 @@ package com.desktop.core.navigation.components.SideNav;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
 import javax.swing.JPanel;
-
 import com.desktop.core.utils.interfaces.ComponentInterface;
 
 public class SideNavPanelComponent extends JPanel implements ComponentInterface {

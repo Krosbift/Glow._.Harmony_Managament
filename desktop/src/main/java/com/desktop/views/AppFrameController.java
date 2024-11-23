@@ -15,6 +15,7 @@ import com.desktop.views.components.TitleTopBarPanelComponent;
 import com.desktop.views.components.TopBarPanelComponent;
 import com.desktop.views.login.LoginPanelController;
 import com.desktop.views.service.AppService;
+import com.desktop.views.shared.models.user.UserModel;
 
 public class AppFrameController implements ControllerInterface {
   public AppFrameComponent appFrame;
@@ -56,16 +57,16 @@ public class AppFrameController implements ControllerInterface {
 
   /**
    * Switches the current component in the application frame based on the provided
-   * email.
-   * If the email is null, it switches to the login panel; otherwise, it switches
+   * user.
+   * If the user is null, it switches to the login panel; otherwise, it switches
    * to the navigation panel.
    *
-   * @param email      the email of the user; if null, the login panel is
+   * @param user      the user of the user; if null, the login panel is
    *                   displayed
    * @param controller the controller instance to manage the current panel
    */
-  public void switchComponent(String email, ControllerInterface controller) {
-    if (email == null) {
+  public void switchComponent(UserModel user, ControllerInterface controller) {
+    if (user == null) {
       removeAllComponents(((NavigationPanelController) controller).navigationPanelComponent);
       childComponents.clear();
       appFrame.revalidate();
@@ -76,7 +77,7 @@ public class AppFrameController implements ControllerInterface {
       childComponents.clear();
       appFrame.revalidate();
       appFrame.repaint();
-      childControllers.put("NavigationPanelController", new NavigationPanelController(this, email));
+      childControllers.put("NavigationPanelController", new NavigationPanelController(this, user));
     }
   }
 

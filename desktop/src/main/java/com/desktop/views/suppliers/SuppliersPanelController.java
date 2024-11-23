@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import com.desktop.core.navigation.components.Content.ContentPanelController;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
+import com.desktop.views.shared.models.ViewModel;
 import com.desktop.views.suppliers.components.BottomPanelComponent;
 import com.desktop.views.suppliers.components.TopPanelComponent;
 import com.desktop.views.suppliers.model.CreateSupplierDto;
@@ -16,14 +16,14 @@ import com.desktop.views.suppliers.model.UpdateSupplierDto;
 import com.desktop.views.suppliers.services.SuppliersService;
 
 public class SuppliersPanelController implements ControllerInterface {
-  public ViewsModel view;
+  public ViewModel view;
   public SuppliersService suppliersService = new SuppliersService();
   public ContentPanelController parentController;
   public SuppliersPanelComponent suppliersComponent;
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
 
-  public SuppliersPanelController(ContentPanelController controller, ViewsModel view) {
+  public SuppliersPanelController(ContentPanelController controller, ViewModel view) {
     this.parentController = controller;
     this.view = view;
     _initComponent();

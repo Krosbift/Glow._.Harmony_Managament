@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import com.desktop.core.navigation.components.Content.ContentPanelController;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.inventory.components.BottomPanelComponent;
@@ -14,9 +13,10 @@ import com.desktop.views.inventory.model.ProductStockModel;
 import com.desktop.views.inventory.services.InventoryService;
 import com.desktop.views.products.model.ProductCategoriesModel;
 import com.desktop.views.products.model.SupplierModel;
+import com.desktop.views.shared.models.ViewModel;
 
 public class InventoryPanelController implements ControllerInterface {
-  public ViewsModel view;
+  public ViewModel view;
   public InventoryService inventoryService = new InventoryService();
   public ContentPanelController parentController;
   public InventoryPanelComponent inventoryComponent;
@@ -26,7 +26,7 @@ public class InventoryPanelController implements ControllerInterface {
   public List<ProductCategoriesModel> productCategories;
   public List<SupplierModel> suppliers;
 
-  public InventoryPanelController(ContentPanelController controller, ViewsModel view) {
+  public InventoryPanelController(ContentPanelController controller, ViewModel view) {
     this.parentController = controller;
     this.view = view;
     products = inventoryService.getInventory(new GetInventoryDto());

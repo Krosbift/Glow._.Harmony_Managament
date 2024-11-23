@@ -4,31 +4,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import com.desktop.core.navigation.components.Content.ContentPanelController;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.products.components.BottomPanelComponent;
 import com.desktop.views.products.components.TopPanelComponent;
 import com.desktop.views.products.model.CreateProductDto;
 import com.desktop.views.products.model.GetProductDto;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.ProductModel;
-import com.desktop.views.products.model.SupplierModel;
 import com.desktop.views.products.model.UpdateProductDto;
 import com.desktop.views.products.services.ProductService;
+import com.desktop.views.shared.models.SupplierModel;
+import com.desktop.views.shared.models.ViewModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
+import com.desktop.views.shared.models.product.ProductModel;
 
 public class ProductsPanelController implements ControllerInterface {
-  public ViewsModel view;
+  public ViewModel view;
   public ProductService productService = new ProductService();
   public ContentPanelController parentController;
   public ProductsPanelComponent productsComponent;
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
   public List<ProductModel> products;
-  public List<ProductCategoriesModel> productCategories;
+  public List<ProductCategoryModel> productCategories;
   public List<SupplierModel> suppliers;
 
-  public ProductsPanelController(ContentPanelController controller, ViewsModel view) {
+  public ProductsPanelController(ContentPanelController controller, ViewModel view) {
     this.parentController = controller;
     this.view = view;
     this.products = productService.getProducts(new GetProductDto());
@@ -76,7 +76,7 @@ public class ProductsPanelController implements ControllerInterface {
     return productService.deleteProduct(productId);
   }
 
-  public List<ProductCategoriesModel> findCategories() {
+  public List<ProductCategoryModel> findCategories() {
     return productService.getAllProductCategories();
   }
 

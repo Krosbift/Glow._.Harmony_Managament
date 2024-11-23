@@ -71,6 +71,7 @@ public class LogOutButtonComponent extends JButton implements ComponentInterface
     });
   }
 
+  @SuppressWarnings("unused")
   private void _listenerAction() {
     this.addActionListener(e -> {
       controller.parentController.logOut();

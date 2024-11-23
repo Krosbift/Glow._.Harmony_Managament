@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.awt.Component;
 import java.awt.Container;
 import com.desktop.core.navigation.NavigationPanelController;
-import com.desktop.core.navigation.models.UserModel;
-import com.desktop.core.navigation.models.ViewsModel;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.IntsOuts.IntsOutsPanelController;
 import com.desktop.views.inventory.InventoryPanelController;
 import com.desktop.views.products.ProductsPanelController;
+import com.desktop.views.shared.models.ViewModel;
+import com.desktop.views.shared.models.user.UserModel;
 import com.desktop.views.suppliers.SuppliersPanelController;
 
 public class ContentPanelController implements ControllerInterface {
@@ -56,7 +56,7 @@ public class ContentPanelController implements ControllerInterface {
    *                   will be removed, and the container will be revalidated and
    *                   repainted.
    */
-  public void loadView(ViewsModel view) {
+  public void loadView(ViewModel view) {
     if ("1" == oldView) {
       ProductsPanelController controller = ((ProductsPanelController) childControllers.get(oldView));
       removeAllComponents(controller.productsComponent);

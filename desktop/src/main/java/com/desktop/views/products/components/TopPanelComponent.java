@@ -14,9 +14,9 @@ import java.awt.event.ComponentEvent;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.views.products.ProductsPanelController;
 import com.desktop.views.products.model.GetProductDto;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.ProductModel;
-import com.desktop.views.products.model.SupplierModel;
+import com.desktop.views.shared.models.SupplierModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
+import com.desktop.views.shared.models.product.ProductModel;
 
 public class TopPanelComponent extends JPanel implements ComponentInterface {
   public String title;
@@ -62,7 +62,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     buttonPanel.setBackground(controller.productsComponent.getBackground());
     button2 = new JButton("Vista de datos");
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1 = new JButton("Vista Completa");
       buttonPanel.add(button1);
     }
@@ -71,8 +71,9 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     this.add(buttonPanel, gbc);
   }
 
+  @SuppressWarnings("unused")
   private void addEventListeners() {
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1.addActionListener(e -> {
         System.out.println("Botón 1 presionado: Vista Completa");
       });
@@ -91,8 +92,8 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     }
     JComboBox<String> productCategoryComboBox = new JComboBox<>();
     productCategoryComboBox.addItem("");
-    for (ProductCategoriesModel category : controller.productCategories) {
-      productCategoryComboBox.addItem(category.getName());
+    for (ProductCategoryModel category : controller.productCategories) {
+      productCategoryComboBox.addItem(category.getProductCategory());
     }
     JComboBox<String> supplierComboBox = new JComboBox<>();
     supplierComboBox.addItem("");
@@ -129,7 +130,8 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
         JOptionPane.PLAIN_MESSAGE);
     if (result == JOptionPane.OK_OPTION) {
       GetProductDto dto = new GetProductDto()
-          .setProductId(products.getSelectedIndex() <= 0 ? null : controller.products.get(products.getSelectedIndex() - 1).getProductId())
+          .setProductId(products.getSelectedIndex() <= 0 ? null
+              : controller.products.get(products.getSelectedIndex() - 1).getProductId())
           .setProductCategoryId(productCategoryComboBox.getSelectedIndex() <= 0 ? null
               : controller.productCategories.get(productCategoryComboBox.getSelectedIndex() - 1).getProductCategoryId())
           .setSupplierId(supplierComboBox.getSelectedIndex() <= 0 ? null

@@ -24,7 +24,7 @@ public class UserNameTitleLabelComponent extends JLabel implements ComponentInte
     this.setVerticalAlignment(JLabel.CENTER);
     this.setBounds(10, 10, 400, controller.toolBarPanelComponent.getHeight() - 20);
     this.setFont(new Font("Arial", Font.PLAIN, 16));
-    
+
     controller.toolBarPanelComponent.add(this);
   }
 

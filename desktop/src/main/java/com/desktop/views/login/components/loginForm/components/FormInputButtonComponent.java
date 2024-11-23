@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.concurrent.ExecutionException;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
