@@ -9,10 +9,12 @@ import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
 import com.desktop.views.IntsOuts.IntsOutsPanelController;
 import com.desktop.views.inventory.InventoryPanelController;
+import com.desktop.views.minimals.MinimalPanelController;
 import com.desktop.views.products.ProductsPanelController;
 import com.desktop.views.shared.models.ViewModel;
 import com.desktop.views.shared.models.user.UserModel;
 import com.desktop.views.suppliers.SuppliersPanelController;
+import com.desktop.views.users.UsersPanelController;
 
 public class ContentPanelController implements ControllerInterface {
   public String oldView = "0";
@@ -73,6 +75,14 @@ public class ContentPanelController implements ControllerInterface {
       SuppliersPanelController controller = ((SuppliersPanelController) childControllers.get(oldView));
       removeAllComponents(controller.suppliersComponent);
     }
+    if ("6" == oldView) {
+      MinimalPanelController controller = ((MinimalPanelController) childControllers.get(oldView));
+      removeAllComponents(controller.minimalPanelComponent);
+    }
+    if ("7" == oldView) {
+      UsersPanelController controller = ((UsersPanelController) childControllers.get(oldView));
+      removeAllComponents(controller.usersPanelComponent);
+    }
     childControllers.remove(oldView);
     contentPanelComponent.removeAll();
 
@@ -95,6 +105,16 @@ public class ContentPanelController implements ControllerInterface {
     }
     if (4 == view.getViewId()) {
       childControllers.put(oldView, new SuppliersPanelController(this, view));
+      contentPanelComponent.revalidate();
+      contentPanelComponent.repaint();
+    }
+    if (6 == view.getViewId()) {
+      childControllers.put(oldView, new MinimalPanelController(this, view));
+      contentPanelComponent.revalidate();
+      contentPanelComponent.repaint();
+    }
+    if (7 == view.getViewId()) {
+      childControllers.put(oldView, new UsersPanelController(this, view));
       contentPanelComponent.revalidate();
       contentPanelComponent.repaint();
     }

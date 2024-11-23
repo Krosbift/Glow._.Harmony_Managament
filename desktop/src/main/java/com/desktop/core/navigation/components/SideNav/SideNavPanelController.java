@@ -42,7 +42,9 @@ public class SideNavPanelController implements ControllerInterface {
   public void findViews() {
     ViewModel[] views = parentController.navigationService.getViews();
     for (ViewModel view : views) {
-      childComponents.put(String.valueOf(view.getViewId()), new ButtonMenuComponent(this, view));
+      if (parentController.user.getRoleType().getRoleTypeId() == 1 || view.getViewId() != 7) {
+        childComponents.put(String.valueOf(view.getViewId()), new ButtonMenuComponent(this, view));
+      }
     }
   }
 
