@@ -104,11 +104,11 @@ public class InventoryService {
     }
   }
 
-
   public List<ProductStockModel> findInventory(GetInventoryDto getInventoryDto) {
     Binds binds = FindInventoryBuilder.buildFindInventory(getInventoryDto);
     try {
-      List<InventoryModel> result = jdbcTemplate.query(binds.getSql(), InventoryMapper.inventoryRowMapper, binds.getParams());
+      List<InventoryModel> result = jdbcTemplate.query(binds.getSql(), InventoryMapper.inventoryRowMapper,
+          binds.getParams());
       return InvetoryManagmentUseCase.calculateStock(result);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
@@ -118,7 +118,7 @@ public class InventoryService {
   public List<InventoryModel> findAllInventory() {
     try {
       return jdbcTemplate.query(InventorySql.FIND_ALL_INVENTORY.getQuery(),
-      InventoryMapper.inventoryRowMapper);
+          InventoryMapper.inventoryRowMapper);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
@@ -128,6 +128,19 @@ public class InventoryService {
     try {
       List<ProductStockModel> inventory = findInventory(getInventoryDto);
       return ProductMinimalStockUseCase.getMinimalProducts(inventory);
+    } catch (Exception error) {
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
+    }
+  }
+
+  public int orderProduct(int productId) {
+    try {
+      ProductMovementModel createMovement = createUpdateProduct(new CreateProductMovementDto()
+          .setProductId(productId)
+          .setReason("Compra proveedor")
+          .setUpdateAmount(100)
+          .setTransactionTypeId(1));
+      return createMovement != null ? 1 : 0;
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }

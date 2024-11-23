@@ -1,12 +1,17 @@
 package com.api.routes.inventory.model;
 
 public class ProductStockModel {
+  private Integer productId;
   private String productName;
   private String productCategory;
   private Integer stock;
   private Integer productPrice;
   private Integer totalPrice;
   private String supplierName;
+
+  public Integer getProductId() {
+    return productId;
+  }
 
   public String getProductName() {
     return productName;
@@ -30,6 +35,11 @@ public class ProductStockModel {
 
   public String getSupplierName() {
     return supplierName;
+  }
+
+  public ProductStockModel setProductId(Integer productId) {
+    this.productId = productId;
+    return this;
   }
 
   public ProductStockModel setProductName(String productName) {
