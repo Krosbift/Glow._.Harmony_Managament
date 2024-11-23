@@ -14,6 +14,7 @@ import com.api.routes.inventory.usecases.*;
 import com.api.routes.shared.mappers.inventory.*;
 import com.api.routes.shared.models.inventory.*;
 import com.api.routes.shared.utils.query.Binds;
+import com.api.routes.shared.utils.usecases.InvetoryManagmentUseCase;
 
 @Service
 public class InventoryService {

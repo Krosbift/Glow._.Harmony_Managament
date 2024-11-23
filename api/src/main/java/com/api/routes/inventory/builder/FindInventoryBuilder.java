@@ -2,7 +2,6 @@ package com.api.routes.inventory.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.api.routes.inventory.dto.GetInventoryDto;
 import com.api.routes.inventory.sql.InventorySql;
 import com.api.routes.shared.utils.query.Binds;
