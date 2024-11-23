@@ -1,4 +1,4 @@
-package com.api.routes.shared.utils.usecases;
+package com.api.routes.inventory.usecases;
 
 import java.util.HashMap;
 import java.util.List;

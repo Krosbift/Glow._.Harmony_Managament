@@ -3,15 +3,6 @@ package com.api.routes.inventory;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.api.routes.inventory.dto.CreateProductMovementDto;
-import com.api.routes.inventory.dto.GetInventoryDto;
-import com.api.routes.inventory.dto.GetProductMovementDto;
-import com.api.routes.inventory.dto.UpdateProductMovementDto;
-import com.api.routes.inventory.model.ProductStockModel;
-import com.api.routes.shared.models.inventory.InventoryModel;
-import com.api.routes.shared.models.inventory.ProductMovementModel;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import com.api.routes.inventory.dto.CreateProductMovementDto;
+import com.api.routes.inventory.dto.GetInventoryDto;
+import com.api.routes.inventory.dto.GetProductMovementDto;
+import com.api.routes.inventory.dto.UpdateProductMovementDto;
+import com.api.routes.inventory.model.ProductMinimalStockModel;
+import com.api.routes.inventory.model.ProductStockModel;
+import com.api.routes.shared.models.inventory.InventoryModel;
+import com.api.routes.shared.models.inventory.ProductMovementModel;
 
 @RestController
 @RequestMapping("inventory")
@@ -90,5 +89,19 @@ public class InventoryController {
   @Operation(summary = "Buscar todo el inventario")
   public List<InventoryModel> findAllInventory() {
     return inventoryService.findAllInventory();
+  }
+
+  @GetMapping("find-minimal-products")
+  @Operation(summary = "Buscar productos con stock por debajo del minimo")
+  public List<ProductMinimalStockModel> findProductsMinimals(
+      @RequestParam(required = false) Integer productId,
+      @RequestParam(required = false) Integer categoryId,
+      @RequestParam(required = false) Integer supplierId) {
+    GetInventoryDto getInventoryDto = new GetInventoryDto()
+        .setProductId(productId)
+        .setCategoryId(categoryId)
+        .setSupplierId(supplierId)
+        .build();
+    return inventoryService.findProductsMinimals(getInventoryDto);
   }
 }

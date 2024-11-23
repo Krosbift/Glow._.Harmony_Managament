@@ -8,13 +8,12 @@ import org.springframework.jdbc.support.*;
 import org.springframework.stereotype.Service;
 import com.api.routes.inventory.builder.*;
 import com.api.routes.inventory.dto.*;
-import com.api.routes.inventory.model.ProductStockModel;
-import com.api.routes.inventory.sql.InventorySql;
+import com.api.routes.inventory.model.*;
 import com.api.routes.inventory.usecases.*;
 import com.api.routes.shared.mappers.inventory.*;
 import com.api.routes.shared.models.inventory.*;
+import com.api.routes.inventory.sql.InventorySql;
 import com.api.routes.shared.utils.query.Binds;
-import com.api.routes.shared.utils.usecases.InvetoryManagmentUseCase;
 
 @Service
 public class InventoryService {
@@ -120,6 +119,15 @@ public class InventoryService {
     try {
       return jdbcTemplate.query(InventorySql.FIND_ALL_INVENTORY.getQuery(),
       InventoryMapper.inventoryRowMapper);
+    } catch (Exception error) {
+      throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
+    }
+  }
+
+  public List<ProductMinimalStockModel> findProductsMinimals(GetInventoryDto getInventoryDto) {
+    try {
+      List<ProductStockModel> inventory = findInventory(getInventoryDto);
+      return ProductMinimalStockUseCase.getMinimalProducts(inventory);
     } catch (Exception error) {
       throw new RuntimeException("An unexpected error occurred: " + error.getMessage());
     }
