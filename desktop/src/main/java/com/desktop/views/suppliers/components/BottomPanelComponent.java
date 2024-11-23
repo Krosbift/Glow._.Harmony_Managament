@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import com.desktop.core.utils.interfaces.ComponentInterface;
+import com.desktop.views.shared.models.SupplierModel;
 import com.desktop.views.suppliers.SuppliersPanelController;
 import com.desktop.views.suppliers.model.CreateSupplierDto;
-import com.desktop.views.suppliers.model.SupplierModel;
 import com.desktop.views.suppliers.model.UpdateSupplierDto;
 
 public class BottomPanelComponent extends JPanel implements ComponentInterface {
@@ -100,7 +100,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     table.getColumnModel().getColumn(0).setMaxWidth(0);
     table.getColumnModel().getColumn(0).setWidth(0);
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       table.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -120,7 +120,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
     this.add(scrollPane, BorderLayout.CENTER);
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       addCreateButtonRow();
     }
 
@@ -128,6 +128,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.repaint();
   }
 
+  @SuppressWarnings("unused")
   private void showSupplierDialog(SupplierModel supplier) {
     if (supplierDialog != null) {
       supplierDialog.dispose();
@@ -205,6 +206,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     supplierDialog.setVisible(true);
   }
 
+  @SuppressWarnings("unused")
   public void addCreateButtonRow() {
     JButton createButton = new JButton("Añadir nuevo proveedor");
     createButton.addActionListener(e -> showCreateSupplierDialog());
@@ -214,6 +216,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.add(buttonPanel, BorderLayout.NORTH);
   }
 
+  @SuppressWarnings("unused")
   private void showCreateSupplierDialog() {
     JDialog createDialog = new JDialog();
     createDialog.setTitle("Crear nuevo proveedor");

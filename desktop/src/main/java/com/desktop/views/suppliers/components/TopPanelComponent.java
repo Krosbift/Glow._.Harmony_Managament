@@ -59,7 +59,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     buttonPanel.setBackground(controller.suppliersComponent.getBackground());
     button2 = new JButton("Vista de datos");
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1 = new JButton("Vista Completa");
       buttonPanel.add(button1);
     }
@@ -85,8 +85,9 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     this.repaint();
   }
 
+  @SuppressWarnings("unused")
   private void addEventListeners() {
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1.addActionListener(e -> {
         System.out.println("Botón 1 presionado: Vista Completa");
       });

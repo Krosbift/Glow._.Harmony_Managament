@@ -11,9 +11,9 @@ import com.desktop.views.inventory.components.TopPanelComponent;
 import com.desktop.views.inventory.model.GetInventoryDto;
 import com.desktop.views.inventory.model.ProductStockModel;
 import com.desktop.views.inventory.services.InventoryService;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.SupplierModel;
+import com.desktop.views.shared.models.SupplierModel;
 import com.desktop.views.shared.models.ViewModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
 
 public class InventoryPanelController implements ControllerInterface {
   public ViewModel view;
@@ -23,7 +23,7 @@ public class InventoryPanelController implements ControllerInterface {
   public Map<String, ControllerInterface> childControllers;
   public Map<String, ComponentInterface> childComponents;
   public List<ProductStockModel> products;
-  public List<ProductCategoriesModel> productCategories;
+  public List<ProductCategoryModel> productCategories;
   public List<SupplierModel> suppliers;
 
   public InventoryPanelController(ContentPanelController controller, ViewModel view) {
@@ -62,7 +62,7 @@ public class InventoryPanelController implements ControllerInterface {
     }
   }
 
-  public List<ProductCategoriesModel> findCategories() {
+  public List<ProductCategoryModel> findCategories() {
     return inventoryService.getAllProductCategories();
   }
 

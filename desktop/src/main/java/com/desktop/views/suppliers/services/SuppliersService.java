@@ -2,9 +2,9 @@ package com.desktop.views.suppliers.services;
 
 import java.util.List;
 import com.desktop.core.database.service.HttpClientService;
+import com.desktop.views.shared.models.SupplierModel;
 import com.desktop.views.suppliers.model.CreateSupplierDto;
 import com.desktop.views.suppliers.model.GetSupplierDto;
-import com.desktop.views.suppliers.model.SupplierModel;
 import com.desktop.views.suppliers.model.UpdateSupplierDto;
 
 public class SuppliersService {

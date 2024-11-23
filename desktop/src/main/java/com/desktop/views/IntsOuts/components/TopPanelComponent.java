@@ -14,8 +14,8 @@ import java.awt.event.ComponentEvent;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.views.IntsOuts.IntsOutsPanelController;
 import com.desktop.views.IntsOuts.model.GetUpdateProductDto;
-import com.desktop.views.IntsOuts.model.TransactionTypesModel;
-import com.desktop.views.products.model.ProductModel;
+import com.desktop.views.shared.models.index.TransactionTypeModel;
+import com.desktop.views.shared.models.product.ProductModel;
 
 public class TopPanelComponent extends JPanel implements ComponentInterface {
   public String title;
@@ -44,15 +44,18 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
   /**
    * Adds child components to the panel with specific layout constraints.
    * 
-   * This method initializes and adds a title label and a button panel to the panel.
-   * The title label is displayed on the left side, and the button panel is displayed on the right side.
-   * If the user's role type ID is 1, an additional button is added to the button panel.
+   * This method initializes and adds a title label and a button panel to the
+   * panel.
+   * The title label is displayed on the left side, and the button panel is
+   * displayed on the right side.
+   * If the user's role type ID is 1, an additional button is added to the button
+   * panel.
    * 
    * Components added:
    * - JLabel: Displays the title in uppercase with a specific font size.
    * - JPanel: Contains buttons for different views.
-   *   - JButton: "Vista Completa" (added if the user's role type ID is 1).
-   *   - JButton: "Vista de datos".
+   * - JButton: "Vista Completa" (added if the user's role type ID is 1).
+   * - JButton: "Vista de datos".
    */
   private void addChildComponents() {
     GridBagConstraints gbc = new GridBagConstraints();
@@ -74,7 +77,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     buttonPanel.setBackground(controller.intsOutsComponent.getBackground());
     button2 = new JButton("Vista de datos");
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1 = new JButton("Vista Completa");
       buttonPanel.add(button1);
     }
@@ -86,14 +89,19 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
   /**
    * Adds event listeners to the buttons in the TopPanelComponent.
    * 
-   * <p>If the user's role type ID is 1, an action listener is added to button1
-   * that prints a message to the console when the button is pressed.</p>
+   * <p>
+   * If the user's role type ID is 1, an action listener is added to button1
+   * that prints a message to the console when the button is pressed.
+   * </p>
    * 
-   * <p>An action listener is always added to button2 that triggers the 
-   * showDialog() method when the button is pressed.</p>
+   * <p>
+   * An action listener is always added to button2 that triggers the
+   * showDialog() method when the button is pressed.
+   * </p>
    */
+  @SuppressWarnings("unused")
   private void addEventListeners() {
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1.addActionListener(e -> {
         System.out.println("Botón 1 presionado: Vista Completa");
       });
@@ -105,20 +113,26 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
   }
 
   /**
-   * Displays a dialog for entering product details, including product name and transaction type.
-   * The dialog contains two combo boxes for selecting a product name and a transaction type.
-   * If the user confirms the dialog, a GetUpdateProductDto object is created with the selected
-   * product ID and transaction type ID, and the data table is updated with this DTO.
+   * Displays a dialog for entering product details, including product name and
+   * transaction type.
+   * The dialog contains two combo boxes for selecting a product name and a
+   * transaction type.
+   * If the user confirms the dialog, a GetUpdateProductDto object is created with
+   * the selected
+   * product ID and transaction type ID, and the data table is updated with this
+   * DTO.
    * 
    * The dialog includes:
    * - A combo box for selecting a product name from the list of product names.
-   * - A combo box for selecting a transaction type from the list of transaction types.
+   * - A combo box for selecting a transaction type from the list of transaction
+   * types.
    * 
    * The method performs the following steps:
    * 1. Initializes the combo boxes with product names and transaction types.
    * 2. Creates a panel with labels and combo boxes arranged using GridBagLayout.
    * 3. Displays a confirmation dialog with the panel.
-   * 4. If the user confirms, creates a GetUpdateProductDto with the selected values and updates the data table.
+   * 4. If the user confirms, creates a GetUpdateProductDto with the selected
+   * values and updates the data table.
    */
   private void showDialog() {
     JComboBox<String> productNameComboBox = new JComboBox<>();
@@ -128,7 +142,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     }
     JComboBox<String> transactionTypeComboBox = new JComboBox<>();
     transactionTypeComboBox.addItem("");
-    for (TransactionTypesModel transaction : controller.transactionTypes) {
+    for (TransactionTypeModel transaction : controller.transactionTypes) {
       transactionTypeComboBox.addItem(transaction.getTransactionType());
     }
 
@@ -167,9 +181,12 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
   }
 
   /**
-   * Adds a component listener to the content panel component of the parent controller.
-   * The listener triggers the resizeComponents method whenever the component is resized.
-   * Also calls resizeComponents initially to ensure components are sized correctly.
+   * Adds a component listener to the content panel component of the parent
+   * controller.
+   * The listener triggers the resizeComponents method whenever the component is
+   * resized.
+   * Also calls resizeComponents initially to ensure components are sized
+   * correctly.
    */
   private void _listernerSizing() {
     controller.parentController.contentPanelComponent.addComponentListener(new ComponentAdapter() {

@@ -15,8 +15,8 @@ import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.views.inventory.InventoryPanelController;
 import com.desktop.views.inventory.model.GetInventoryDto;
 import com.desktop.views.inventory.model.ProductStockModel;
-import com.desktop.views.products.model.ProductCategoriesModel;
-import com.desktop.views.products.model.SupplierModel;
+import com.desktop.views.shared.models.SupplierModel;
+import com.desktop.views.shared.models.index.ProductCategoryModel;
 
 public class TopPanelComponent extends JPanel implements ComponentInterface {
   public String title;
@@ -62,7 +62,7 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     buttonPanel.setBackground(controller.inventoryComponent.getBackground());
     button2 = new JButton("Vista de datos");
 
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1 = new JButton("Vista Completa");
       buttonPanel.add(button1);
     }
@@ -71,8 +71,9 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     this.add(buttonPanel, gbc);
   }
 
+  @SuppressWarnings("unused")
   private void addEventListeners() {
-    if (controller.parentController.user.getRoleTypeId() == 1) {
+    if (controller.parentController.user.getRoleType().getRoleTypeId() == 1) {
       button1.addActionListener(e -> {
         System.out.println("Botón 1 presionado: Vista Completa");
       });
@@ -91,8 +92,8 @@ public class TopPanelComponent extends JPanel implements ComponentInterface {
     }
     JComboBox<String> inventoryCategoryComboBox = new JComboBox<>();
     inventoryCategoryComboBox.addItem("");
-    for (ProductCategoriesModel category : controller.productCategories) {
-      inventoryCategoryComboBox.addItem(category.getName());
+    for (ProductCategoryModel category : controller.productCategories) {
+      inventoryCategoryComboBox.addItem(category.getProductCategory());
     }
     JComboBox<String> supplierComboBox = new JComboBox<>();
     supplierComboBox.addItem("");

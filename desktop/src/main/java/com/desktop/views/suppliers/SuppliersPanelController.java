@@ -6,12 +6,12 @@ import java.util.HashMap;
 import com.desktop.core.navigation.components.Content.ContentPanelController;
 import com.desktop.core.utils.interfaces.ComponentInterface;
 import com.desktop.core.utils.interfaces.ControllerInterface;
+import com.desktop.views.shared.models.SupplierModel;
 import com.desktop.views.shared.models.ViewModel;
 import com.desktop.views.suppliers.components.BottomPanelComponent;
 import com.desktop.views.suppliers.components.TopPanelComponent;
 import com.desktop.views.suppliers.model.CreateSupplierDto;
 import com.desktop.views.suppliers.model.GetSupplierDto;
-import com.desktop.views.suppliers.model.SupplierModel;
 import com.desktop.views.suppliers.model.UpdateSupplierDto;
 import com.desktop.views.suppliers.services.SuppliersService;
 
