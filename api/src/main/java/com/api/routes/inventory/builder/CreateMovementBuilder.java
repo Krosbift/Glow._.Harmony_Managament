@@ -36,6 +36,11 @@ public class CreateMovementBuilder {
       values.append("?, ");
       params.add(createProductMovementDto.getUpdateAmount());
     }
+    if (createProductMovementDto.getUpdateAmount() != null) {
+      columns.append("PRICE, ");
+      values.append("?, ");
+      params.add(createProductMovementDto.getProductPrice());
+    }
     if (columns.charAt(columns.length() - 2) == ',') {
       columns.setLength(columns.length() - 2);
       values.setLength(values.length() - 2);

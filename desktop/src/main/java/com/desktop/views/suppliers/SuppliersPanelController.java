@@ -49,8 +49,8 @@ public class SuppliersPanelController implements ControllerInterface {
 
   public void setDataTable(GetSupplierDto getSupplierDto) {
     try {
-      List<SupplierModel> products = suppliersService.getSuppliers(getSupplierDto);
-      ((BottomPanelComponent) childComponents.get("BottomPanelComponent")).createTable(products);
+      List<SupplierModel> suppliers = suppliersService.getSuppliers(getSupplierDto);
+      ((BottomPanelComponent) childComponents.get("BottomPanelComponent")).createTable(suppliers);
     } catch (Exception e) {
       e.printStackTrace();
     }

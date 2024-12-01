@@ -21,7 +21,6 @@ public class InventoryMapper {
           .setProductCategoryModel()
           .setProductCategoryId(rs, HasColumns.verify(rs, "CATEGORYID"))
           .setProductCategory(rs, HasColumns.verify(rs, "CATEGORYNAME"))
-          .setUnitPrice(rs, HasColumns.verify(rs, "UNITPRICE"))
           .setSupplierModel()
           .setSupplierId(rs, HasColumns.verify(rs, "SUPPLIERID"))
           .setSupplierName(rs, HasColumns.verify(rs, "SUPPLIERNAME"))
@@ -29,6 +28,7 @@ public class InventoryMapper {
           .setTransactionTypeId(rs, HasColumns.verify(rs, "TRANSACTIONTYPEID"))
           .setTransactionType(rs, HasColumns.verify(rs, "TRANSACTIONTYPE"))
           .setUpdateAmount(rs, HasColumns.verify(rs, "UPDATEAMOUNT"))
+          .setProductPrice(rs, HasColumns.verify(rs, "PRICE"))
           .setActive(rs, HasColumns.verify(rs, "ACTIVE"))
           .build();
       return inventory;

@@ -2,7 +2,6 @@ package com.api.routes.inventory.usecases;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.api.routes.inventory.model.ProductMinimalStockModel;
 import com.api.routes.inventory.model.ProductStockModel;
 
@@ -24,8 +23,7 @@ public class ProductMinimalStockUseCase {
         .map(product -> new ProductMinimalStockModel()
             .setProductName(product.getProductName())
             .setProductCategory(product.getProductCategory())
-            .setStock(product.getStock())
-            .setProductPrice(product.getProductPrice()))
+            .setStock(product.getStock()))
         .collect(Collectors.toList());
   }
 }

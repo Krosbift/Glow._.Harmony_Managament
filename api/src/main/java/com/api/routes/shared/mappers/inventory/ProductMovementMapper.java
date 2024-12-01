@@ -21,6 +21,7 @@ public class ProductMovementMapper {
           .setTransactionTypeId(rs, HasColumns.verify(rs, "TRANSACTIONTYPEID"))
           .setTransactionType(rs, HasColumns.verify(rs, "TRANSACTIONTYPE"))
           .setUpdateAmount(rs, HasColumns.verify(rs, "UPDATEAMOUNT"))
+          .setProductPrice(rs, HasColumns.verify(rs, "PRICE"))
           .setExpirationDate(rs, HasColumns.verify(rs, "EXPIRATIONDATE"))
           .setActive(rs, HasColumns.verify(rs, "ACTIVE"))
           .build();

@@ -5,7 +5,6 @@ public class GetProductDto {
   private String productName;
   private Integer productCategoryId;
   private String productCategory;
-  private Integer productPrice;
   private Integer supplierId;
   private String supplierName;
 
@@ -42,15 +41,6 @@ public class GetProductDto {
 
   public GetProductDto setProductCategory(String productCategory) {
     this.productCategory = productCategory;
-    return this;
-  }
-
-  public Integer getProductPrice() {
-    return productPrice;
-  }
-
-  public GetProductDto setProductPrice(Integer productPrice) {
-    this.productPrice = productPrice;
     return this;
   }
 

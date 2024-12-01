@@ -11,6 +11,7 @@ public enum InventorySql {
       "IIT.TRANSACTIONTYPEID, " +
       "ITT.TRANSACTIONTYPE, " +
       "IIT.UPDATEAMOUNT, " +
+      "IIT.PRICE, " +
       "IIT.EXPIRATIONDATE, " +
       "IIT.ACTIVE " +
     "FROM TB_IMS_UPDATEPRODUCTS IIT " +
@@ -28,6 +29,7 @@ public enum InventorySql {
       "IIT.TRANSACTIONTYPEID, " +
       "ITT.TRANSACTIONTYPE, " +
       "IIT.UPDATEAMOUNT, " +
+      "IIT.PRICE, " +
       "IIT.EXPIRATIONDATE, " +
       "IIT.ACTIVE " +
     "FROM TB_IMS_UPDATEPRODUCTS IIT " +
@@ -45,6 +47,7 @@ public enum InventorySql {
       "IIT.TRANSACTIONTYPEID, " +
       "ITT.TRANSACTIONTYPE, " +
       "IIT.UPDATEAMOUNT, " +
+      "IIT.PRICE, " +
       "IIT.EXPIRATIONDATE, " +
       "IIT.ACTIVE " +
     "FROM TB_IMS_UPDATEPRODUCTS IIT " +
@@ -70,12 +73,12 @@ public enum InventorySql {
       "IPT.PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
-      "IPT.UNITPRICE, " +
       "IPT.SUPPLIERID, " +
       "ISP.NAME AS SUPPLIERNAME, " +
       "IPT.TRANSACTIONTYPEID, " +
       "IPT.TRANSACTIONTYPE, " +
       "IPT.UPDATEAMOUNT, " +
+      "IPT.PRICE, " +
       "IPT.ACTIVE " +
     "FROM ( " +
       "SELECT " +
@@ -85,11 +88,11 @@ public enum InventorySql {
         "IUP.PRODUCTID, " +
         "IPD.NAME AS PRODUCTNAME, " +
         "IPD.CATEGORYID, " +
-        "IPD.UNITPRICE, " +
         "IPD.SUPPLIERID, " +
         "IUP.TRANSACTIONTYPEID, " +
         "ITT.TRANSACTIONTYPE, " +
         "IUP.UPDATEAMOUNT, " +
+        "IUP.PRICE, " +
         "IUP.ACTIVE " +
       "FROM TB_IMS_UPDATEPRODUCTS IUP " +
         "JOIN TB_IMS_PRODUCTS IPD ON (IUP.PRODUCTID = IPD.PRODUCTID) " +
@@ -109,12 +112,12 @@ public enum InventorySql {
       "IPT.PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
-      "IPT.UNITPRICE, " +
       "IPT.SUPPLIERID, " +
       "ISP.NAME AS SUPPLIERNAME, " +
       "IPT.TRANSACTIONTYPEID, " +
       "IPT.TRANSACTIONTYPE, " +
       "IPT.UPDATEAMOUNT, " +
+      "IUP.PRICE, " +
       "IPT.ACTIVE " +
     "FROM ( " +
       "SELECT " +
@@ -124,11 +127,11 @@ public enum InventorySql {
         "IUP.PRODUCTID, " +
         "IPD.NAME AS PRODUCTNAME, " +
         "IPD.CATEGORYID, " +
-        "IPD.UNITPRICE, " +
         "IPD.SUPPLIERID, " +
         "IUP.TRANSACTIONTYPEID, " +
         "ITT.TRANSACTIONTYPE, " +
         "IUP.UPDATEAMOUNT, " +
+        "IUP.PRICE, " +
         "IUP.ACTIVE " +
       "FROM TB_IMS_UPDATEPRODUCTS IUP " +
         "JOIN TB_IMS_PRODUCTS IPD ON (IUP.PRODUCTID = IPD.PRODUCTID) " +

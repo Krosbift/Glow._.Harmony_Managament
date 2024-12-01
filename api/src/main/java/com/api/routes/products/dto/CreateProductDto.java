@@ -3,7 +3,6 @@ package com.api.routes.products.dto;
 public class CreateProductDto {
   private String productName;
   private Integer productCategoryId;
-  private Integer productPrice;
   private Integer supplierId;
 
   public String getProductName() {
@@ -21,15 +20,6 @@ public class CreateProductDto {
 
   public CreateProductDto setProductCategoryId(Integer productCategoryId) {
     this.productCategoryId = productCategoryId;
-    return this;
-  }
-
-  public Integer getProductPrice() {
-    return productPrice;
-  }
-
-  public CreateProductDto setProductPrice(Integer productPrice) {
-    this.productPrice = productPrice;
     return this;
   }
 

@@ -16,7 +16,6 @@ public class ProductMapper {
           .setProductCategoryModel()
           .setProductCategoryId(rs, HasColumns.verify(rs, "CATEGORYID"))
           .setProductCategory(rs, HasColumns.verify(rs, "CATEGORYNAME"))
-          .setProductPrice(rs, HasColumns.verify(rs, "UNITPRICE"))
           .setSupplierModel()
           .setSupplierId(rs, HasColumns.verify(rs, "SUPPLIERID"))
           .setSupplierName(rs, HasColumns.verify(rs, "SUPPLIERNAME"))

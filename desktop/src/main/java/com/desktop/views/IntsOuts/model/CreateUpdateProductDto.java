@@ -7,6 +7,7 @@ public class CreateUpdateProductDto {
   private Integer productId;
   private Integer transactionTypeId;
   private Integer updateAmount;
+  private Integer productPrice;
   private Date expirationDate;
 
   public String getReason() {
@@ -42,6 +43,15 @@ public class CreateUpdateProductDto {
 
   public CreateUpdateProductDto setUpdateAmount(Integer updateAmount) {
     this.updateAmount = updateAmount;
+    return this;
+  }
+
+  public Integer getProductPrice() {
+    return productPrice;
+  }
+
+  public CreateUpdateProductDto setProductPrice(Integer productPrice) {
+    this.productPrice = productPrice;
     return this;
   }
 

@@ -7,7 +7,6 @@ public enum ProducSql {
       "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
-      "IPT.UNITPRICE, " +
       "IPT.SUPPLIERID, " +
       "ISL.NAME AS SUPPLIERNAME, " +
       "IPT.ACTIVE " +
@@ -22,7 +21,6 @@ public enum ProducSql {
       "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
-      "IPT.UNITPRICE, " +
       "IPT.SUPPLIERID, " +
       "ISL.NAME AS SUPPLIERNAME, " +
       "IPT.ACTIVE " +
@@ -37,7 +35,6 @@ public enum ProducSql {
       "IPT.NAME AS PRODUCTNAME, " +
       "IPT.CATEGORYID, " +
       "IPC.NAME AS CATEGORYNAME, " +
-      "IPT.UNITPRICE, " +
       "IPT.SUPPLIERID, " +
       "ISL.NAME AS SUPPLIERNAME, " +
       "IPT.ACTIVE " +

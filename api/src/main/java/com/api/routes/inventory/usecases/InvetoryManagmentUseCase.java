@@ -27,7 +27,7 @@ public class InvetoryManagmentUseCase {
     for (InventoryModel update : updates) {
       processUpdate(update, productMap);
     }
-    calculateTotalPrices(productMap);
+    calculateTotalCost(productMap);
     return productMap.values().stream().collect(Collectors.toList());
   }
 
@@ -43,11 +43,11 @@ public class InvetoryManagmentUseCase {
     int productId = update.getProductModel().getProductId();
     int transactionTypeId = update.getTransactionTypeModel().getTransactionTypeId();
     int updateAmount = update.getProductMovementModel().getUpdateAmount();
-    int productPrice = update.getProductModel().getProductPrice();
+    Double productPrice = update.getProductMovementModel().getProductPrice();
     if (!productMap.containsKey(productId)) {
-      initializeProductDetails(update, productMap, productId, productPrice);
+      initializeProductDetails(update, productMap, productId);
     }
-    updateProductStock(productMap.get(productId), transactionTypeId, updateAmount);
+    updateStockAndAverageCost(productMap.get(productId), transactionTypeId, updateAmount, productPrice);
   }
 
   /**
@@ -61,15 +61,15 @@ public class InvetoryManagmentUseCase {
    * @param productPrice The price of the product to be set.
    */
   private static void initializeProductDetails(InventoryModel update, Map<Integer, ProductStockModel> productMap,
-      int productId, int productPrice) {
+      int productId) {
     ProductStockModel productDetails = new ProductStockModel()
         .setProductId(update.getProductModel().getProductId())
         .setProductName(update.getProductModel().getProductName())
         .setProductCategory(update.getProductCategoryModel().getProductCategory())
         .setSupplierName(update.getSupplierModel().getName())
         .setStock(0)
-        .setProductPrice(productPrice)
-        .setTotalPrice(0);
+        .setProductPrice(0.0)
+        .setTotalPrice(0.0);
     productMap.put(productId, productDetails);
   }
 
@@ -85,12 +85,18 @@ public class InvetoryManagmentUseCase {
    *                          3 - Set stock to a specific amount
    * @param updateAmount      The amount by which the stock should be updated.
    */
-  private static void updateProductStock(ProductStockModel productDetails, int transactionTypeId, int updateAmount) {
+  private static void updateStockAndAverageCost(ProductStockModel productDetails, int transactionTypeId, int updateAmount, Double productPrice) {
     int currentStock = productDetails.getStock();
+    Double currentTotalStock = productDetails.getTotalPrice();
+    Double currentProductPrice = productDetails.getProductPrice();
     if (transactionTypeId == 3) {
       productDetails.setStock(updateAmount);
+      productDetails.setTotalPrice(currentTotalStock);
+      productDetails.setProductPrice(productPrice * updateAmount);
     } else if (transactionTypeId == 1) {
       productDetails.setStock(currentStock + updateAmount);
+      productDetails.setTotalPrice(currentTotalStock + updateAmount);
+      productDetails.setProductPrice(currentProductPrice + (productPrice * updateAmount));
     } else if (transactionTypeId == 2) {
       productDetails.setStock(currentStock - updateAmount);
     }
@@ -107,11 +113,14 @@ public class InvetoryManagmentUseCase {
    *                   containing details about the product, including its price
    *                   and stock.
    */
-  private static void calculateTotalPrices(Map<Integer, ProductStockModel> productMap) {
+  private static void calculateTotalCost(Map<Integer, ProductStockModel> productMap) {
     for (ProductStockModel productDetails : productMap.values()) {
-      int productPrice = productDetails.getProductPrice();
+      Double stockFullInts = productDetails.getTotalPrice();
+      Double productPrice = productDetails.getProductPrice();
+      productDetails.setProductPrice(productPrice / stockFullInts);
       int stock = productDetails.getStock();
-      productDetails.setTotalPrice(stock * productPrice);
+      Double averagePrice = productDetails.getProductPrice();
+      productDetails.setTotalPrice(averagePrice * stock);
     }
   }
 }

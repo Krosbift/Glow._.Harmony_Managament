@@ -145,18 +145,6 @@ public class InventoryModel {
     return this;
   }
 
-  public InventoryModel setUnitPrice(Integer unitPrice) {
-    this.productMovementModel.setProductPrice(unitPrice);
-    return this;
-  }
-
-  public InventoryModel setUnitPrice(ResultSet rs, boolean setValue) throws SQLException {
-    if (setValue) {
-      this.productMovementModel.setProductPrice(rs.getInt("UNITPRICE"));
-    }
-    return this;
-  }
-
   public InventoryModel setSupplierId(Integer supplierId) {
     this.productMovementModel.getProductModel().setSupplierId(supplierId);
     return this;
@@ -213,6 +201,18 @@ public class InventoryModel {
   public InventoryModel setUpdateAmount(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.productMovementModel.setUpdateAmount(rs.getInt("UPDATEAMOUNT"));
+    }
+    return this;
+  }
+
+  public InventoryModel setProductPrice(Double productPrice) {
+    this.productMovementModel.setProductPrice(productPrice);
+    return this;
+  }
+
+  public InventoryModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productMovementModel.setProductPrice(rs.getDouble("PRICE"));
     }
     return this;
   }

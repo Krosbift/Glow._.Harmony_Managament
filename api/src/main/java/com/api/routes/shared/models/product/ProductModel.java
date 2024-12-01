@@ -9,7 +9,6 @@ public class ProductModel {
   private Integer productId;
   private String productName;
   private ProductCategoryModel productCategoryModel;
-  private Integer productPrice;
   private SupplierModel supplierModel;
   private boolean active;
 
@@ -23,10 +22,6 @@ public class ProductModel {
 
   public ProductCategoryModel getProductCategoryModel() {
     return productCategoryModel;
-  }
-
-  public Integer getProductPrice() {
-    return productPrice;
   }
 
   public SupplierModel getSupplierModel() {
@@ -91,18 +86,6 @@ public class ProductModel {
   public ProductModel setProductCategory(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.productCategoryModel.setProductCategory(rs.getString("CATEGORYNAME"));
-    }
-    return this;
-  }
-
-  public ProductModel setProductPrice(Integer productPrice) {
-    this.productPrice = productPrice;
-    return this;
-  }
-
-  public ProductModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
-    if (setValue) {
-      this.productPrice = rs.getInt("UNITPRICE");
     }
     return this;
   }

@@ -9,6 +9,7 @@ public class CreateProductMovementDto {
   private Integer productId;
   private Integer transactionTypeId;
   private Integer updateAmount;
+  private Integer productPrice;
   private Date expirationDate;
 
   public String getReason() {
@@ -25,6 +26,10 @@ public class CreateProductMovementDto {
 
   public Integer getUpdateAmount() {
     return updateAmount;
+  }
+
+  public Integer getProductPrice() {
+    return productPrice;
   }
 
   public Date getExpirationDate() {
@@ -80,6 +85,19 @@ public class CreateProductMovementDto {
       return this;
     }
     this.updateAmount = rs.getInt("UPDATEAMOUNT");
+    return this;
+  }
+
+  public CreateProductMovementDto setProductPrice(Integer productPrice) {
+    this.productPrice = productPrice;
+    return this;
+  }
+
+  public CreateProductMovementDto setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
+    if (!setValue) {
+      return this;
+    }
+    this.productPrice = rs.getInt("PRICE");
     return this;
   }
 

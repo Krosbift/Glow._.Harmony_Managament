@@ -5,8 +5,8 @@ public class ProductStockModel {
   private String productName;
   private String productCategory;
   private Integer stock;
-  private Integer productPrice;
-  private Integer totalPrice;
+  private Double productPrice;
+  private Double totalPrice;
   private String supplierName;
 
   public Integer getProductId() {
@@ -25,11 +25,11 @@ public class ProductStockModel {
     return stock;
   }
 
-  public Integer getProductPrice() {
+  public Double getProductPrice() {
     return productPrice;
   }
 
-  public Integer getTotalPrice() {
+  public Double getTotalPrice() {
     return totalPrice;
   }
 
@@ -57,12 +57,12 @@ public class ProductStockModel {
     return this;
   }
 
-  public ProductStockModel setProductPrice(Integer productPrice) {
+  public ProductStockModel setProductPrice(Double productPrice) {
     this.productPrice = productPrice;
     return this;
   }
 
-  public ProductStockModel setTotalPrice(Integer totalPrice) {
+  public ProductStockModel setTotalPrice(Double totalPrice) {
     this.totalPrice = totalPrice;
     return this;
   }

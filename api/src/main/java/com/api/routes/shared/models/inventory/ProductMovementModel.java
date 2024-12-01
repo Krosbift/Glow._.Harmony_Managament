@@ -13,6 +13,7 @@ public class ProductMovementModel {
   private ProductModel productModel;
   private TransactionTypeModel transactionTypeModel;
   private Integer updateAmount;
+  private Double productPrice;
   private Date expirationDate;
   private boolean active;
 
@@ -38,6 +39,10 @@ public class ProductMovementModel {
 
   public Integer getUpdateAmount() {
     return updateAmount;
+  }
+
+  public Double getProductPrice() {
+    return productPrice;
   }
 
   public Date getExpirationDate() {
@@ -118,18 +123,6 @@ public class ProductMovementModel {
     return this;
   }
 
-  public ProductMovementModel setProductPrice(Integer productPrice) {
-    this.productModel.setProductPrice(productPrice);
-    return this;
-  }
-
-  public ProductMovementModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
-    if (setValue) {
-      this.productModel.setProductPrice(rs.getInt("PRODUCTPRICE"));
-    }
-    return this;
-  }
-
   public ProductMovementModel setTransactionTypeId(Integer productCategory) {
     this.transactionTypeModel.setTransactionTypeId(productCategory);
     return this;
@@ -162,6 +155,18 @@ public class ProductMovementModel {
   public ProductMovementModel setUpdateAmount(ResultSet rs, boolean setValue) throws SQLException {
     if (setValue) {
       this.updateAmount = rs.getInt("UPDATEAMOUNT");
+    }
+    return this;
+  }
+
+  public ProductMovementModel setProductPrice(Double productPrice) {
+    this.productPrice = productPrice;
+    return this;
+  }
+
+  public ProductMovementModel setProductPrice(ResultSet rs, boolean setValue) throws SQLException {
+    if (setValue) {
+      this.productPrice = rs.getDouble("PRICE");
     }
     return this;
   }

@@ -52,12 +52,10 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
           String productName = (String) model.getValueAt(row, 0);
           String productCategory = (String) model.getValueAt(row, 1);
           int stock = (int) model.getValueAt(row, 2);
-          int productPrice = (int) model.getValueAt(row, 3);
           ProductMinimalStockModel selectedProduct = new ProductMinimalStockModel()
               .setProductName(productName)
               .setProductCategory(productCategory)
-              .setStock(stock)
-              .setProductPrice(productPrice);
+              .setStock(stock);
           showOrderDialog(selectedProduct, row);
         }
       }
@@ -111,14 +109,7 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
   public void createTable(List<ProductMinimalStockModel> minimals) {
     this.removeAll();
 
-    if (minimals == null || minimals.isEmpty()) {
-      JLabel noDataLabel = new JLabel("No hay existencias de productos");
-      noDataLabel.setHorizontalAlignment(JLabel.CENTER);
-      this.add(noDataLabel, BorderLayout.CENTER);
-      return;
-    }
-
-    String[] columnNames = { "Nombre Producto", "Categoria", "Stock", "Precio Unitario" };
+    String[] columnNames = { "Nombre Producto", "Categoria", "Stock" };
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
       public boolean isCellEditable(int row, int column) {
@@ -131,7 +122,6 @@ public class MinimalTableComponent extends JPanel implements ComponentInterface 
           product.getProductName(),
           product.getProductCategory(),
           product.getStock(),
-          product.getProductPrice()
       };
       tableModel.addRow(rowData);
     }

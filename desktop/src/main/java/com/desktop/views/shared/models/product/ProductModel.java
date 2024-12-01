@@ -7,7 +7,6 @@ public class ProductModel {
   private Integer productId;
   private String productName;
   private ProductCategoryModel productCategoryModel;
-  private Integer productPrice;
   private SupplierModel supplierModel;
   private boolean active;
 
@@ -21,10 +20,6 @@ public class ProductModel {
 
   public ProductCategoryModel getProductCategoryModel() {
     return productCategoryModel;
-  }
-
-  public Integer getProductPrice() {
-    return productPrice;
   }
 
   public SupplierModel getSupplierModel() {
@@ -62,11 +57,6 @@ public class ProductModel {
 
   public ProductModel setProductCategory(String productCategory) {
     this.productCategoryModel.setProductCategory(productCategory);
-    return this;
-  }
-
-  public ProductModel setProductPrice(Integer productPrice) {
-    this.productPrice = productPrice;
     return this;
   }
 

@@ -11,6 +11,7 @@ public class ProductMovementModel {
   private ProductModel productModel;
   private TransactionTypeModel transactionTypeModel;
   private Integer updateAmount;
+  private Integer productPrice;
   private Date expirationDate;
   private boolean active;
 
@@ -36,6 +37,10 @@ public class ProductMovementModel {
 
   public Integer getUpdateAmount() {
     return updateAmount;
+  }
+
+  public Integer getProductPrice() {
+    return productPrice;
   }
 
   public Date getExpirationDate() {
@@ -81,11 +86,6 @@ public class ProductMovementModel {
     return this;
   }
 
-  public ProductMovementModel setProductPrice(Integer productPrice) {
-    this.productModel.setProductPrice(productPrice);
-    return this;
-  }
-
   public ProductMovementModel setTransactionTypeId(Integer productCategory) {
     this.transactionTypeModel.setTransactionTypeId(productCategory);
     return this;
@@ -98,6 +98,11 @@ public class ProductMovementModel {
 
   public ProductMovementModel setUpdateAmount(Integer updateAmount) {
     this.updateAmount = updateAmount;
+    return this;
+  }
+
+  public ProductMovementModel setProductPrice(Integer productPrice) {
+    this.productPrice = productPrice;
     return this;
   }
 

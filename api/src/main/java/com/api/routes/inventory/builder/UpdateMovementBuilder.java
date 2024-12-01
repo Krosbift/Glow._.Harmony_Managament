@@ -29,6 +29,10 @@ public class UpdateMovementBuilder {
       sql.append("UPDATEAMOUNT = ?, ");
       params.add(updateProductMovementDto.getUpdateAmount());
     }
+    if (updateProductMovementDto.getUpdateAmount() != null) {
+      sql.append("PRICE = ?, ");
+      params.add(updateProductMovementDto.getProductPrice());
+    }
     if (sql.charAt(sql.length() - 2) == ',') {
       sql.setLength(sql.length() - 2);
     }

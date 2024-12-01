@@ -4,7 +4,6 @@ public class ProductMinimalStockModel {
   private String productName;
   private String productCategory;
   private Integer stock;
-  private Integer productPrice;
 
   public String getProductName() {
     return productName;
@@ -16,10 +15,6 @@ public class ProductMinimalStockModel {
 
   public Integer getStock() {
     return stock;
-  }
-
-  public Integer getProductPrice() {
-    return productPrice;
   }
 
   public ProductMinimalStockModel setProductName(String productName) {
@@ -34,11 +29,6 @@ public class ProductMinimalStockModel {
 
   public ProductMinimalStockModel setStock(Integer stock) {
     this.stock = stock;
-    return this;
-  }
-
-  public ProductMinimalStockModel setProductPrice(Integer productPrice) {
-    this.productPrice = productPrice;
     return this;
   }
 }

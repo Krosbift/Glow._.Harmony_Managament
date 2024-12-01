@@ -47,11 +47,6 @@ public class InventoryService {
 
   public ProductMovementModel createUpdateProduct(CreateProductMovementDto updateProductMovementDto) {
     try {
-      if (ValidateModifyUseCase.validateStockInCreate(
-          findInventory(new GetInventoryDto().setProductId(updateProductMovementDto.getProductId())).get(0).getStock(),
-          updateProductMovementDto.getUpdateAmount(), updateProductMovementDto.getTransactionTypeId() == 2)) {
-        throw new RuntimeException("The product stock is insufficient for the sale.");
-      }
       Binds binds = CreateMovementBuilder.buildCreateUpdateProduct(updateProductMovementDto);
       KeyHolder keyHolder = new GeneratedKeyHolder();
       jdbcTemplate.update(connection -> {

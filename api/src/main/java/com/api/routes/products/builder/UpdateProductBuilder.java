@@ -17,10 +17,6 @@ public class UpdateProductBuilder {
       sql.append("CATEGORYID = ?, ");
       params.add(product.getProductCategoryId());
     }
-    if (product.getProductPrice() != null) {
-      sql.append("UNITPRICE = ?, ");
-      params.add(product.getProductPrice());
-    }
     if (product.getSupplierId() != null) {
       sql.append("SUPPLIERID = ?, ");
       params.add(product.getSupplierId());

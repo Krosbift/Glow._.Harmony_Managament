@@ -68,14 +68,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.removeAll();
     this.originalProducts = products;
 
-    if (products == null || products.isEmpty()) {
-      JLabel noDataLabel = new JLabel("No hay existencias de productos");
-      noDataLabel.setHorizontalAlignment(JLabel.CENTER);
-      this.add(noDataLabel, BorderLayout.CENTER);
-      return;
-    }
-
-    String[] columnNames = { "ID", "Nombre Producto", "Categoria", "Precio Unitario", "Proveedor" };
+    String[] columnNames = { "ID", "Nombre Producto", "Categoria", "Proveedor" };
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
       public boolean isCellEditable(int row, int column) {
@@ -88,7 +81,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
           product.getProductId(),
           product.getProductName(),
           product.getProductCategoryModel().getProductCategory(),
-          product.getProductPrice(),
           product.getSupplierModel().getName()
       };
       tableModel.addRow(rowData);
@@ -157,10 +149,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     categoryComboBox.setSelectedItem(product.getProductCategoryModel().getProductCategory());
     fieldsPanel.add(categoryComboBox);
 
-    fieldsPanel.add(new JLabel("Precio unitario:"));
-    JTextField priceField = new JTextField(String.valueOf(product.getProductPrice()));
-    fieldsPanel.add(priceField);
-
     fieldsPanel.add(new JLabel("proveedor:"));
     JComboBox<String> supplierComboBox = new JComboBox<>();
     for (SupplierModel supplier : controller.suppliers) {
@@ -181,7 +169,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
           .setProductName(productNameField.getText())
           .setProductCategoryId(
               controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
-          .setProductPrice(Integer.parseInt(priceField.getText()))
           .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
           .build();
 
@@ -254,10 +241,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     }
     fieldsPanel.add(categoryComboBox);
 
-    fieldsPanel.add(new JLabel("Precio unitario:"));
-    JTextField priceField = new JTextField();
-    fieldsPanel.add(priceField);
-
     fieldsPanel.add(new JLabel("Proveedor:"));
     JComboBox<String> supplierComboBox = new JComboBox<>();
     for (SupplierModel supplier : controller.suppliers) {
@@ -273,12 +256,11 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     JButton cancelButton = new JButton("Cancel");
 
     saveButton.addActionListener(e -> {
-      if (validateCreateProductFields(productNameField, priceField)) {
+      if (validateCreateProductFields(productNameField)) {
         CreateProductDto newProduct = new CreateProductDto()
             .setProductName(productNameField.getText())
             .setProductCategoryId(
                 controller.productCategories.get(categoryComboBox.getSelectedIndex()).getProductCategoryId())
-            .setProductPrice(Integer.parseInt(priceField.getText()))
             .setSupplierId(controller.suppliers.get(supplierComboBox.getSelectedIndex()).getSupplierId())
             .build();
 
@@ -299,20 +281,9 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     createDialog.setVisible(true);
   }
 
-  private boolean validateCreateProductFields(JTextField productNameField, JTextField priceField) {
+  private boolean validateCreateProductFields(JTextField productNameField) {
     if (productNameField.getText().trim().isEmpty()) {
       JOptionPane.showMessageDialog(this, "Nombre del producto no debe estar vacio", "Error",
-          JOptionPane.ERROR_MESSAGE);
-      return false;
-    }
-    if (priceField.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(this, "El producto debe de tener precio", "Error", JOptionPane.ERROR_MESSAGE);
-      return false;
-    }
-    try {
-      Integer.parseInt(priceField.getText().trim());
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(this, "El precio del producto debe ser un número entero", "Error",
           JOptionPane.ERROR_MESSAGE);
       return false;
     }

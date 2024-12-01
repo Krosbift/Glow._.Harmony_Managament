@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -60,14 +59,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   public void createTable(List<ProductStockModel> products) {
     this.removeAll();
 
-    if (products == null || products.isEmpty()) {
-      JLabel noDataLabel = new JLabel("No hay existencias de productos");
-      noDataLabel.setHorizontalAlignment(JLabel.CENTER);
-      this.add(noDataLabel, BorderLayout.CENTER);
-      return;
-    }
-
-    String[] columnNames = { "ID", "Nombre Producto", "Categoria", "Stock", "Precio Unitario", "Precio Total",
+    String[] columnNames = { "ID", "Nombre Producto", "Categoria", "Stock", "Costo Promedio", "Precio Total",
         "Proveedor" };
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
@@ -124,7 +116,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   private void exportTableToCSV() {
     JFileChooser fileChooser = new JFileChooser();
     if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-      try (FileWriter writer = new FileWriter(fileChooser.getSelectedFile() + ".csv")) {
+      try (FileWriter writer = new FileWriter(fileChooser.getSelectedFile() + ".csv", java.nio.charset.StandardCharsets.UTF_8)) {
         writer.write("Nombre Producto,Categoria,Stock,Precio Unitario,Costo Total,Proveedor\n");
         for (int i = 0; i < table.getRowCount(); i++) {
           for (int j = 1; j < table.getColumnCount(); j++) {
@@ -154,7 +146,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   private void exportSingleRowToCSV(int row) {
     JFileChooser fileChooser = new JFileChooser();
     if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-      try (FileWriter writer = new FileWriter(fileChooser.getSelectedFile() + ".csv")) {
+      try (FileWriter writer = new FileWriter(fileChooser.getSelectedFile() + ".csv", java.nio.charset.StandardCharsets.UTF_8)) {
         writer.write("Nombre Producto,Categoria,Stock,Precio Unitario,Costo Total,Proveedor\n");
         for (int j = 1; j < table.getColumnCount(); j++) {
           writer.write(table.getValueAt(row, j).toString() + ",");

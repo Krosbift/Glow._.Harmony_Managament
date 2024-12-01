@@ -21,11 +21,6 @@ public class CreateProductBuilder {
       values.append("?, ");
       params.add(product.getProductCategoryId());
     }
-    if (product.getProductPrice() != null) {
-      columns.append("UNITPRICE, ");
-      values.append("?, ");
-      params.add(product.getProductPrice());
-    }
     if (product.getSupplierId() != null) {
       columns.append("SUPPLIERID, ");
       values.append("?, ");

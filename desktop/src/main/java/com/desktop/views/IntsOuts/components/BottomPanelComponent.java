@@ -54,13 +54,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     controller.intsOutsComponent.add(this);
   }
 
-  /**
-   * Adds a component listener to the content panel component of the parent
-   * controller.
-   * The listener triggers the resizeComponents method whenever the component is
-   * resized.
-   * Additionally, it calls resizeComponents initially to ensure proper sizing.
-   */
   private void _listenerSizing() {
     controller.parentController.contentPanelComponent.addComponentListener(new ComponentAdapter() {
       @Override
@@ -71,18 +64,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     resizeComponents();
   }
 
-  /**
-   * Resizes the components of the BottomPanelComponent.
-   * 
-   * This method sets the bounds of the BottomPanelComponent based on the
-   * dimensions
-   * of the intsOutsComponent from the controller. It positions the
-   * BottomPanelComponent
-   * at the bottom 90% of the intsOutsComponent, starting from 10% of its height.
-   * After setting the bounds, it revalidates and repaints the component to
-   * reflect
-   * the changes.
-   */
   private void resizeComponents() {
     this.setBounds(0, (int) (controller.intsOutsComponent.getHeight() * 0.1), controller.intsOutsComponent.getWidth(),
         (int) (controller.intsOutsComponent.getHeight() * 0.9));
@@ -90,44 +71,11 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.repaint();
   }
 
-  /**
-   * Creates and displays a table with the provided list of ProductMovementModel
-   * objects.
-   * If the list is null or empty, a label indicating no data is displayed.
-   * 
-   * @param movements the list of ProductMovementModel objects to be displayed in
-   *                  the table
-   * 
-   * 
-   *                  The table rows are not editable. The table's background
-   *                  color is set to match
-   *                  the background color of the intsOutsComponent. The first
-   *                  column (ID) is hidden.
-   * 
-   *                  If the user has a role type ID of 1, a mouse listener is
-   *                  added to the table
-   *                  to handle row clicks, which will show a dialog with details
-   *                  of the selected
-   *                  ProductMovementModel object. Additionally, a create button
-   *                  row is added.
-   * 
-   *                  The table is wrapped in a JScrollPane with custom dimensions
-   *                  and no border.
-   *                  The panel is revalidated and repainted after adding the
-   *                  table.
-   */
   public void createTable(List<ProductMovementModel> movements) {
     this.removeAll();
     this.originalIntsOuts = movements;
 
-    if (movements == null || movements.isEmpty()) {
-      JLabel noDataLabel = new JLabel("No hay existencias de entradas/salidas");
-      noDataLabel.setHorizontalAlignment(JLabel.CENTER);
-      this.add(noDataLabel, BorderLayout.CENTER);
-      return;
-    }
-
-    String[] columnNames = { "ID", "Producto", "Razón", "Fecha", "Cantidad", "Tipo de Transacción",
+    String[] columnNames = { "ID", "Producto", "Razón", "Fecha", "Cantidad", "Costo", "Tipo de Transacción",
         "Fecha de expiración" };
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
@@ -139,7 +87,9 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     for (ProductMovementModel movement : movements) {
-      String formattedUpdateDate = dateFormat.format(movement.getUpdateDate());
+      String formattedUpdateDate = movement.getUpdateDate() != null
+          ? dateFormat.format(movement.getUpdateDate())
+          : "";
       String formattedExpirationDate = movement.getExpirationDate() != null
           ? dateFormat.format(movement.getExpirationDate())
           : "";
@@ -150,6 +100,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
           movement.getReason(),
           formattedUpdateDate,
           movement.getUpdateAmount(),
+          movement.getProductPrice(),
           movement.getTransactionTypeModel().getTransactionType(),
           formattedExpirationDate
       };
@@ -193,35 +144,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     this.repaint();
   }
 
-  /**
-   * Displays a dialog for viewing and editing the details of an
-   * ProductMovementModel.
-   * 
-   * @param movements The ProductMovementModel object containing the details to be
-   *                  displayed and edited.
-   * 
-   *                  This method creates a JDialog with fields for editing the
-   *                  product name, reason, amount,
-   *                  transaction type, and expiration date. It also provides
-   *                  buttons for editing and deleting
-   *                  the ProductMovementModel. The dialog is disposed of when
-   *                  closed.
-   * 
-   *                  The dialog includes:
-   *                  - A JComboBox for selecting the product name.
-   *                  - A JTextField for entering the reason.
-   *                  - A JTextField for entering the amount.
-   *                  - A JComboBox for selecting the transaction type.
-   *                  - A JDatePickerImpl for selecting the expiration date.
-   * 
-   *                  The edit button updates the ProductMovementModel with the
-   *                  new values and refreshes the table.
-   *                  The delete button confirms the deletion and removes the
-   *                  ProductMovementModel from the list and table.
-   * 
-   *                  The dialog is centered relative to the parent component and
-   *                  is disposed of when closed.
-   */
   @SuppressWarnings("unused")
   private void showIntsOutsDialog(ProductMovementModel movements) {
     if (intsOutsDialog != null) {
@@ -234,7 +156,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     intsOutsDialog.setSize(400, 300);
     intsOutsDialog.setLocationRelativeTo(this);
 
-    JPanel fieldsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+    JPanel fieldsPanel = new JPanel(new GridLayout(6, 2, 10, 10));
     fieldsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     fieldsPanel.setBackground(controller.intsOutsComponent.getBackground());
 
@@ -253,6 +175,10 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     fieldsPanel.add(new JLabel("Cantidad:"));
     JTextField amountField = new JTextField(String.valueOf(movements.getUpdateAmount()));
     fieldsPanel.add(amountField);
+
+    fieldsPanel.add(new JLabel("Costo:"));
+    JTextField costField = new JTextField(String.valueOf(movements.getProductPrice()));
+    fieldsPanel.add(costField);
 
     fieldsPanel.add(new JLabel("Tipo de Transacción:"));
     JComboBox<String> transactionTypeComboBox = new JComboBox<>();
@@ -306,6 +232,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
           .setProductId(controller.productNames.get(productNameComboBox.getSelectedIndex()).getProductId())
           .setReason(reasonField.getText())
           .setUpdateAmount(Integer.parseInt(amountField.getText()))
+          .setProductPrice(Integer.parseInt(costField.getText()))
           .setTransactionTypeId(
               controller.transactionTypes.get(transactionTypeComboBox.getSelectedIndex()).getTransactionTypeId())
           .setExpirationDate(newExpirationDate)
@@ -347,27 +274,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     intsOutsDialog.setVisible(true);
   }
 
-  /**
-   * Displays a dialog for creating a new "entrada/salida" (input/output) record.
-   * The dialog contains fields for selecting a product, specifying a reason,
-   * entering an amount, choosing a transaction type, and picking an expiration
-   * date.
-   * 
-   * The dialog includes "Guardar" (Guardar) and "Cancelar" (Cancel) buttons.
-   * When the "Guardar" button is clicked, the input fields are validated,
-   * and if valid, a new record is created and added to the table.
-   * 
-   * Fields:
-   * - Producto: A JComboBox for selecting a product from the list of products.
-   * - Razón: A JTextField for entering the reason for the transaction.
-   * - Cantidad: A JTextField for entering the amount of the transaction.
-   * - Tipo de Transacción: A JComboBox for selecting the type of transaction.
-   * - Fecha de Expiración: A JDatePickerImpl for selecting the expiration date.
-   * 
-   * Buttons:
-   * - Guardar: Validates the input fields and creates a new record if valid.
-   * - Cancelar: Closes the dialog without saving.
-   */
   @SuppressWarnings("unused")
   private void showCreateIntsOutsDialog() {
     JDialog createDialog = new JDialog();
@@ -376,7 +282,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     createDialog.setSize(400, 300);
     createDialog.setLocationRelativeTo(this);
 
-    JPanel fieldsPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+    JPanel fieldsPanel = new JPanel(new GridLayout(6, 2, 10, 10));
     fieldsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     fieldsPanel.setBackground(controller.intsOutsComponent.getBackground());
 
@@ -394,6 +300,10 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     fieldsPanel.add(new JLabel("Cantidad:"));
     JTextField amountField = new JTextField();
     fieldsPanel.add(amountField);
+
+    fieldsPanel.add(new JLabel("Costo:"));
+    JTextField costField = new JTextField();
+    fieldsPanel.add(costField);
 
     fieldsPanel.add(new JLabel("Tipo de Transacción:"));
     JComboBox<String> transactionTypeComboBox = new JComboBox<>();
@@ -429,7 +339,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     JButton cancelButton = new JButton("Cancelar");
 
     saveButton.addActionListener(e -> {
-      if (validateCreateIntsOutsFields(reasonField, amountField)) {
+      if (validateCreateIntsOutsFields(reasonField, amountField, costField)) {
         Calendar calendar = Calendar.getInstance();
         Date expirationDate = (Date) expirationDatePicker.getModel().getValue();
         if (expirationDate != null) {
@@ -441,6 +351,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
             .setProductId(controller.productNames.get(productNameComboBox.getSelectedIndex()).getProductId())
             .setReason(reasonField.getText())
             .setUpdateAmount(Integer.parseInt(amountField.getText()))
+            .setProductPrice(Integer.parseInt(costField.getText()))
             .setTransactionTypeId(
                 controller.transactionTypes.get(transactionTypeComboBox.getSelectedIndex()).getTransactionTypeId())
             .setExpirationDate(newExpirationDate)
@@ -463,37 +374,7 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     createDialog.setVisible(true);
   }
 
-  /**
-   * Adds a row containing a "Create" button to the panel.
-   * The button is labeled "Añadir nueva entrada/salida" and, when clicked,
-   * it triggers the showCreateIntsOutsDialog() method.
-   */
-  @SuppressWarnings("unused")
-  public void addCreateButtonRow() {
-    JButton createButton = new JButton("Añadir nueva entrada/salida");
-    createButton.addActionListener(e -> showCreateIntsOutsDialog());
-
-    JPanel buttonPanel = new JPanel(new BorderLayout());
-    buttonPanel.add(createButton, BorderLayout.CENTER);
-    this.add(buttonPanel, BorderLayout.NORTH);
-  }
-
-  /**
-   * Validates the input fields for creating IntsOuts.
-   *
-   * @param reasonField the JTextField containing the reason for the IntsOuts
-   * @param amountField the JTextField containing the amount for the IntsOuts
-   * @return true if both fields are valid, false otherwise
-   * 
-   *         The method performs the following validations:
-   *         - Checks if the reason field is not empty. If it is empty, shows an
-   *         error message dialog.
-   *         - Checks if the amount field is not empty. If it is empty, shows an
-   *         error message dialog.
-   *         - Checks if the amount field contains a valid integer. If it does
-   *         not, shows an error message dialog.
-   */
-  private boolean validateCreateIntsOutsFields(JTextField reasonField, JTextField amountField) {
+  private boolean validateCreateIntsOutsFields(JTextField reasonField, JTextField amountField, JTextField costField) {
     if (reasonField.getText().trim().isEmpty()) {
       JOptionPane.showMessageDialog(this, "La razón no debe estar vacía", "Error",
           JOptionPane.ERROR_MESSAGE);
@@ -510,22 +391,34 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
           JOptionPane.ERROR_MESSAGE);
       return false;
     }
+    if (costField.getText().trim().isEmpty()) {
+      JOptionPane.showMessageDialog(this, "El costo debe ser especificado", "Error", JOptionPane.ERROR_MESSAGE);
+      return false;
+    }
+    try {
+      Double.parseDouble(costField.getText().trim());
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this, "El costo debe ser un número válido", "Error",
+          JOptionPane.ERROR_MESSAGE);
+      return false;
+    }
     return true;
   }
 
-  /**
-   * Updates the table with a new ProductMovementModel entry.
-   * If the provided ProductMovementModel is not null, it adds it to the original
-   * list
-   * and then recreates the table with the updated list.
-   *
-   * @param newIntsOut the new ProductMovementModel to be added to the table. If
-   *                   null, the table is not updated.
-   */
   public void updateTable(ProductMovementModel newIntsOut) {
     if (newIntsOut != null) {
       originalIntsOuts.add(newIntsOut);
     }
     createTable(originalIntsOuts);
+  }
+
+  @SuppressWarnings("unused")
+  public void addCreateButtonRow() {
+    JButton createButton = new JButton("Añadir nueva entrada/salida");
+    createButton.addActionListener(e -> showCreateIntsOutsDialog());
+
+    JPanel buttonPanel = new JPanel(new BorderLayout());
+    buttonPanel.add(createButton, BorderLayout.CENTER);
+    this.add(buttonPanel, BorderLayout.NORTH);
   }
 }

@@ -65,13 +65,8 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
   public void createTable(List<SupplierModel> suppliers) {
     this.removeAll();
     this.suppliers = suppliers;
-
-    if (suppliers == null || suppliers.isEmpty()) {
-      JLabel noDataLabel = new JLabel("No hay proveedores disponibles");
-      noDataLabel.setHorizontalAlignment(JLabel.CENTER);
-      this.add(noDataLabel, BorderLayout.CENTER);
-      return;
-    }
+    
+    addCreateButtonRow();
 
     String[] columnNames = { "ID", "Nombre", "Dirección", "Teléfono" };
     DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
@@ -119,8 +114,6 @@ public class BottomPanelComponent extends JPanel implements ComponentInterface {
     scrollPane.setPreferredSize(new Dimension(this.getWidth() - 40, this.getHeight() - 80));
     scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
     this.add(scrollPane, BorderLayout.CENTER);
-
-    addCreateButtonRow();
 
     this.revalidate();
     this.repaint();
